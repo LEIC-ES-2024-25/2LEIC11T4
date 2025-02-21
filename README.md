@@ -1,4 +1,12 @@
-# 2LEIC11T4
+# BookTrader Development Report
+## Table of Contents
+1. [Problem](#problem)
+2. [Features](#features)
+3. [Useful Links](#useful-links)
+4. [Authors](#authors)
+   
+---
+
 ## Problem
 
 Many students buy books each Semester for their classes and at the end of said Semester, those books become useless. 
@@ -25,3 +33,8 @@ Some features we hope to implement:
 
 ## Useful links
 - [FlutterFlow](https://app.flutterflow.io/project/e-s-o-f-projeto-2-l-e-i-c11-t4-lttgxp)
+
+---
+ ## Authors
+ Project developed by Belém Bilhoto, Guilherme Linhares, João Marques, José Reis and Sofia Cruz
+  
