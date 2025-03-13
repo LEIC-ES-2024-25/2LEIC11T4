@@ -1,9 +1,10 @@
-# BookTrader Development Report
+# BookDonation Development Report
 ## Table of Contents
 1. [Problem](#problem)
 2. [Features](#features)
-3. [Useful Links](#useful-links)
-4. [Authors](#authors)
+3. [User Stories and acceptance tests](#user-stories-and-acceptance-tests)
+4. [Useful Links](#useful-links)
+5. [Authors](#authors)
    
 ---
 
@@ -30,6 +31,19 @@ Some features we hope to implement:
   - Contributions
 - Chat for Users discussions and arranging donation
 - Dynamic database of degrees and faculties, allowing Users to add their degrees if not yet on the app
+
+##  User stories and acceptance tests
+   |Value|User Story|Effort|Acceptance test|
+   | ------------- | ------------- |--------|--------|
+   |1|As a contributor, I want to be able to manage a donation of a book with photos and information about the book | 5||
+   |2|As a contributor, I want to be able to have a chat with whoever wants the book I’m donating so that I can exchange information and details|4||
+   |3|As a user, I want to be able to search for books, so that I can find what I’m looking for|7||
+   |4|As a user, I want to be able to filter the search results books by the Area of Studies so that I can find books of what I want to study|6||
+   |5|As a user I want to manage the information at any time in my profile, so I can make accurate donations|3||
+   |6|As an unregistered user I want to be able to sign up, so that I can participate in the community|1||
+   |7|As a forgetful user, I want to be able to request a password, so that when I forget it I can recover my account|1||
+   |8|As a registered user I want to be able to access the app without having to log in every time, so that it makes easier to open the app|2||
+   
 
 ## Useful links
 - [FlutterFlow](https://app.flutterflow.io/project/e-s-o-f-projeto-2-l-e-i-c11-t4-lttgxp)
