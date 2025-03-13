@@ -21,7 +21,6 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 Some features we hope to implement:
 - Filter feature:
   - Filter the faculty and degree so that the students can easily find the books for their degree;
-  - Filter by the curricular year and semester where the book is used as well the Curricular Unit;
   - Filter by the type, either real book or a printed version or a syllabus;
   - Filter if the book as annotations or not;
 - User profile:
@@ -37,12 +36,13 @@ Some features we hope to implement:
    | ------------- | ------------- |--------|--------|
    |1|As a contributor, I want to be able to manage a donation of a book with photos and information about the book | 5||
    |2|As a contributor, I want to be able to have a chat with whoever wants the book I’m donating so that I can exchange information and details|4||
-   |3|As a user, I want to be able to search for books, so that I can find what I’m looking for|7||
-   |4|As a user, I want to be able to filter the search results books by the Area of Studies so that I can find books of what I want to study|6||
-   |5|As a user I want to manage the information at any time in my profile, so I can make accurate donations|3||
-   |6|As an unregistered user I want to be able to sign up, so that I can participate in the community|1||
-   |7|As a forgetful user, I want to be able to request a password, so that when I forget it I can recover my account|1||
-   |8|As a registered user I want to be able to access the app without having to log in every time, so that it makes easier to open the app|2||
+   |3|As a user, I want to be able to view the profile of the person I am receiving the book from, so I can know either or not it will be of my interest|6||
+   |4|As a user, I want to be able to search for books, so that I can find what I’m looking for|7||
+   |5|As a user, I want to be able to filter the search results books by the Area of Studies so that I can find books of what I want to study|6||
+   |6|As a user I want to manage the information at any time in my profile, so I can make accurate donations|3||
+   |7|As an unregistered user I want to be able to sign up, so that I can participate in the community|1||
+   |8|As a forgetful user, I want to be able to request a password, so that when I forget it I can recover my account|1||
+   |9|As a registered user I want to be able to access the app without having to log in every time, so that it makes easier to open the app|2||
    
 
 ## Useful links
