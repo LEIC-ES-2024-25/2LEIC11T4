@@ -8,6 +8,7 @@
      
 2.[Requirements](#requirements)
    * [User Stories and acceptance tests](#user-stories-and-acceptance-tests)
+   * [Mockup](#mockup)
    * [Domain model](#domain-model)
 
 3.[Architecture and Design](#architecture-and-design)
@@ -70,7 +71,10 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
    |7|As an unregistered user I want to be able to sign up, so that I can participate in the community|1|Given: A unregistered user; <br> When: the user clicks the  "sign up", is redirected to the "create account page" where after inputting the required  details the user will be redirected to the profile page to complete setting up the account;<br> Then: an account will be created successfully|
    |8|As a forgetful user, I want to be able to request a password, so that when I forget it I can recover my account|1|Given: A forgetful registered user;<br>When:clicking the "forgot my password" button;<br>Then: an email will be sent to the user's registered email address with instructions to reset the password|
    |9|As a registered user I want to be able to access the app without having to log in every time, so that it makes it easier to open the app|2|Given:A registered user who does not want to input the login information every time;<br>When: the user clicks the "remember me" button;<br>Then:the user will remained logged in|
-
+---
+### Mockup
+  <sub><a href="https://www.figma.com/design/EUMLSq9YuJ0Qritrlqfrv1/Untitled?node-id=0-1&t=Qm7Pd6iXrawCXlXV-1"> Design</a></sub>
+---
 ### Domain model
 ---
 
