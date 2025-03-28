@@ -3,11 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'contribution.freezed.dart';
 part 'contribution.g.dart';
 
-enum Condition {
-  newCondition,
-  usedCondition,
-  damagedCondition,
-}
+enum Condition { newCondition, usedCondition, damagedCondition }
 
 @freezed
 class Contribution with _$Contribution {

@@ -6,9 +6,6 @@ class LandingPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.tertiary,
-    );
+    return Scaffold(backgroundColor: Theme.of(context).colorScheme.tertiary);
   }
-
 }

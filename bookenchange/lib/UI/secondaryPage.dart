@@ -10,13 +10,19 @@ class secondaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return title != null
         ? Scaffold(
-            appBar: AppBar(
-                title: Text(title!,
-                    style: Theme.of(context).textTheme.titleLarge),
-                actions:[IconButton(onPressed:func(), icon: Icon(Icons.arrow_back,color: Theme.of(context).colorScheme.secondary,))]
-            ),
-
-            )
+          appBar: AppBar(
+            title: Text(title!, style: Theme.of(context).textTheme.titleLarge),
+            actions: [
+              IconButton(
+                onPressed: func(),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+            ],
+          ),
+        )
         : const Scaffold();
   }
 }
