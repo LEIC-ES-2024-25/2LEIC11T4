@@ -75,8 +75,8 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 ### Mockup
   <sub><a href="https://www.figma.com/design/EUMLSq9YuJ0Qritrlqfrv1/Untitled?node-id=0-1&t=Qm7Pd6iXrawCXlXV-1"> Design</a></sub>
 ---
-### Domain model
-![ClassDiagram drawio](https://github.com/user-attachments/assets/5e8b25f9-2609-49d4-bf70-e447aa0073d2)
+### Domain mode
+![Screenshot from 2025-03-28 14-30-10](https://github.com/user-attachments/assets/576a90f5-9044-4411-b26c-4a7e238af27e)
 
 ---
 
