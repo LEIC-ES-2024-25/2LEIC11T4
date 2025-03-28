@@ -6,7 +6,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -50,7 +49,7 @@ class SettingsPage extends StatelessWidget {
                       child: Icon(
                         Icons.person,
                         size: 50,
-                        color:Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     Positioned(
