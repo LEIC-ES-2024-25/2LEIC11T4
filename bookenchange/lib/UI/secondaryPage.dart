@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class secondaryPage extends StatelessWidget {
   final String? title;
+  final Function func;
 
-  const secondaryPage({super.key, this.title});
+  const secondaryPage({super.key, this.title, required this.func});
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +12,11 @@ class secondaryPage extends StatelessWidget {
         ? Scaffold(
             appBar: AppBar(
                 title: Text(title!,
-                    style: Theme.of(context).textTheme.titleLarge)),
-            body: const Center(
-              child: Text('Hello World'),
-            ))
-        : const Scaffold(
-            body: const Center(
-            child: Text('Hello World'),
-          ));
+                    style: Theme.of(context).textTheme.titleLarge),
+                actions:[IconButton(onPressed:func(), icon: Icon(Icons.arrow_back,color: Theme.of(context).colorScheme.secondary,))]
+            ),
+
+            )
+        : const Scaffold();
   }
 }

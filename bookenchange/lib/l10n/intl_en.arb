@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "appName": "BookDonation",
+
+  "chat": "Chat",
+  "@chat": {},
+  "new_contribution": "New Contribution",
+  "@new_contribution": {},
+  "settings": "Settings",
+  "@settings": {}
+}

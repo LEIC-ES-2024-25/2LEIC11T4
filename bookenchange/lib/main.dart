@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'Data/theme.dart';
+import 'Domain/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +23,16 @@ class MyApp extends StatelessWidget {
       title: 'Book Donation',
       theme: ligthTheme,
       home: const MyHomePage(),
+      /* localizationsDelegates: const [
+        AppLocalizations.delegate, // Add this line
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+         Locale('en'), // English
+         Locale('pt'), // Spanish
+      ],*/
     );
   }
 }
@@ -53,7 +65,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: Center(),
+      body: Center(
+        child: Column(
+          children: [SizedBox(
+            width: 200,
+            height: 200,
+            child: Image.network("https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387741681i/108986.jpg"),
+          )],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         showSelectedLabels: true,
@@ -64,10 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.message,
+              Icons.chat_bubble,
               color: Theme.of(context).colorScheme.secondary,
             ),
-            label: 'Chat',
+            label:"Chat",
           ),
           BottomNavigationBarItem(
             icon: Icon(
