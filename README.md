@@ -76,14 +76,22 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
   <sub><a href="https://www.figma.com/design/EUMLSq9YuJ0Qritrlqfrv1/Untitled?node-id=0-1&t=Qm7Pd6iXrawCXlXV-1"> Design</a></sub>
 ---
 ### Domain model
-![Class Diagram](https://i.imgur.com/B5Jiint.png)
+![Screenshot from 2025-03-28 02-58-02](https://github.com/user-attachments/assets/ae15d559-e45d-428b-b125-7072f8e38482)
+
 ---
 
 ## Architecture and Design
 
 ### Logical architecture
+![Copy of BookDonation-Package Diagram drawio(1)](https://github.com/user-attachments/assets/4b04801f-7615-4bec-98dc-3235372ec77b)
 ---
 ### Physical architecture
+* Deployment Diagram
+![Copy of BookDonation-Deployment Diagram drawio](https://github.com/user-attachments/assets/fe50f7a8-2f4a-4a51-a8d2-fdb8c5bded0d)
+
+* Components Diagram
+  ![Copy of BookDonation-Components Diagram drawio](https://github.com/user-attachments/assets/b29a57b8-12c0-48f1-83a6-618572725966)
+
 ---
 ### Vertical prototype
 ---
