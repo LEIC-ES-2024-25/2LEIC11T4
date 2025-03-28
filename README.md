@@ -76,21 +76,23 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
   <sub><a href="https://www.figma.com/design/EUMLSq9YuJ0Qritrlqfrv1/Untitled?node-id=0-1&t=Qm7Pd6iXrawCXlXV-1"> Design</a></sub>
 ---
 ### Domain model
-![Screenshot from 2025-03-28 02-58-02](https://github.com/user-attachments/assets/ae15d559-e45d-428b-b125-7072f8e38482)
+![BookDonation-Classes Diagram](https://github.com/user-attachments/assets/50a258f5-b8b7-4613-ac4a-879d1e54fb9f)
+
 
 ---
 
 ## Architecture and Design
 
 ### Logical architecture
-![Copy of BookDonation-Package Diagram drawio(1)](https://github.com/user-attachments/assets/4b04801f-7615-4bec-98dc-3235372ec77b)
+![Package Diagram drawio](https://github.com/user-attachments/assets/468b8489-af0a-4b86-800e-03230f3f79b3)
+
 ---
 ### Physical architecture
 * Deployment Diagram
-![Copy of BookDonation-Deployment Diagram drawio](https://github.com/user-attachments/assets/fe50f7a8-2f4a-4a51-a8d2-fdb8c5bded0d)
+![Deployment DIagram drawio](https://github.com/user-attachments/assets/4bb42bd0-8d40-444e-a240-a82c86461f23)
 
 * Components Diagram
-  ![Copy of BookDonation-Components Diagram drawio](https://github.com/user-attachments/assets/b29a57b8-12c0-48f1-83a6-618572725966)
+![Components Diagram drawio](https://github.com/user-attachments/assets/fcf6a2bd-7e46-45e3-aa57-f4fe82e1cf63)
 
 ---
 ### Vertical prototype
