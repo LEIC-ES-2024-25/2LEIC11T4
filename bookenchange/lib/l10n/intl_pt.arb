@@ -1,0 +1,11 @@
+{
+  "@@locale": "pt",
+  "appName": "BookDonation",
+
+  "chat": "Mensagens",
+  "@chat": {},
+  "new_contribution": "Nova Contribuição",
+  "@new_contribution": {},
+  "settings": "Definições",
+  "@settings": {}
+}
