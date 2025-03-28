@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'Data/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'UI/settingsPage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> widgetOptions = const [
     Text('Chat'),
-    Text('Settings'),
+    SettingsPage(),
     Text('New Contribution')
   ];
 
@@ -53,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: Center(),
+      body: widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         showSelectedLabels: true,
