@@ -76,6 +76,7 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
   <sub><a href="https://www.figma.com/design/EUMLSq9YuJ0Qritrlqfrv1/Untitled?node-id=0-1&t=Qm7Pd6iXrawCXlXV-1"> Design</a></sub>
 ---
 ### Domain model
+![Class Diagram](https://i.imgur.com/B5Jiint.png)
 ---
 
 ## Architecture and Design
