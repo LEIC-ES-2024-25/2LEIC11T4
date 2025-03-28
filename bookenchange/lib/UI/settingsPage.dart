@@ -5,34 +5,32 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Fetch the theme
+
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Settings',
-              style: TextStyle(color: Color(0xff000000)),
-            ),
-          ],
+        title: Text(
+          'Settings',
+          style: theme.textTheme.displaySmall, // Using theme text styles
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: theme.colorScheme.primary,
+        elevation: 0, // Cleaner look
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xffffffff)),
+          icon: Icon(Icons.arrow_back, color: theme.colorScheme.onPrimary),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context); // Goes back to HomePage
           },
         ),
-        centerTitle: true, // Ensures better centering
+        centerTitle: true,
       ),
       body: Column(
         children: [
+          // Profile Section
           Container(
-            height: 150,
+            height: 180,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
-              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(20)),
+              color: theme.colorScheme.secondary,
+              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -41,24 +39,24 @@ class SettingsPage extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 40,
+                      radius: 50,
                       backgroundColor: Colors.transparent,
                       child: Icon(
                         Icons.person,
-                        size: 40,
-                        color: Theme.of(context).colorScheme.primary,
+                        size: 50,
+                        color: theme.colorScheme.primary,
                       ),
                     ),
                     Positioned(
-                      bottom: 0,
-                      right: 0,
+                      bottom: 5,
+                      right: 5,
                       child: CircleAvatar(
-                        radius: 12,
-                        backgroundColor: Theme.of(context).colorScheme.surface,
+                        radius: 14,
+                        backgroundColor: theme.colorScheme.surface,
                         child: Icon(
                           Icons.edit,
                           size: 16,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: theme.colorScheme.primary,
                         ),
                       ),
                     ),
@@ -68,9 +66,11 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          _buildSettingsOption(Icons.chat, "Previous contributions", context),
-          _buildSettingsOption(Icons.lock, "Change Password", context),
-          _buildSettingsOption(Icons.help, "Help", context),
+
+          // Settings Options
+          _buildSettingsOption(Icons.chat_bubble_outline, "Previous contributions", context),
+          _buildSettingsOption(Icons.lock_outline, "Change Password", context),
+          _buildSettingsOption(Icons.help_outline, "Help", context),
           _buildSettingsOption(Icons.logout, "Log out", context),
         ],
       ),
@@ -78,27 +78,31 @@ class SettingsPage extends StatelessWidget {
   }
 
   Widget _buildSettingsOption(IconData icon, String title, BuildContext context) {
+    final theme = Theme.of(context); // Fetch the theme
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(10),
+          color: theme.colorScheme.surface,
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).shadowColor.withOpacity(0.2),
+              color: theme.shadowColor.withOpacity(0.2),
               spreadRadius: 1,
               blurRadius: 5,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
         child: ListTile(
-          leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
-          title: Text(title, style: Theme.of(context).textTheme.bodyMedium),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Color(0xff809bce)),
+          leading: Icon(icon, color: theme.colorScheme.primary),
+          title: Text(title, style: theme.textTheme.bodyMedium),
+          trailing: Icon(Icons.arrow_forward_ios, size: 16, color: theme.colorScheme.primary),
           onTap: () {},
         ),
       ),
     );
   }
 }
+

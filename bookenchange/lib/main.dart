@@ -38,14 +38,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> widgetOptions = const [
     Text('Chat'),
-    SettingsPage(),
+    Text('Placeholder'),
     Text('New Contribution')
   ];
 
   void _onItemTapped(int index) {
+    if (index == 1) { // When Settings is clicked
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SettingsPage()),
+    );
+  } else {
     setState(() {
       _selectedIndex = index;
     });
+  }
   }
 
   @override
