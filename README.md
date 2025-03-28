@@ -76,8 +76,7 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
   <sub><a href="https://www.figma.com/design/EUMLSq9YuJ0Qritrlqfrv1/Untitled?node-id=0-1&t=Qm7Pd6iXrawCXlXV-1"> Design</a></sub>
 ---
 ### Domain model
-![BookDonation-Classes Diagram](https://github.com/user-attachments/assets/50a258f5-b8b7-4613-ac4a-879d1e54fb9f)
-
+![ClassDiagram drawio](https://github.com/user-attachments/assets/5e8b25f9-2609-49d4-bf70-e447aa0073d2)
 
 ---
 
