@@ -3,6 +3,8 @@ import 'Data/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'UI/settingsPage.dart';
+import 'Logic/book-list.dart';
+import 'Logic/top-bar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> widgetOptions = const [
-    Text('Chat'),
+    BookListPage(),
     SettingsPage(),
     Text('New Contribution')
   ];
@@ -51,9 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
+      appBar: TopBar(),
       body: widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
