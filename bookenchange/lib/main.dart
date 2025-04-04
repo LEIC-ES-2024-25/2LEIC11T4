@@ -1,12 +1,9 @@
-import 'package:bookenchange/UI/Chat.dart';
-import 'package:bookenchange/UI/NewContribution.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Domain/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'UI/Homepage/homePage.dart';
 import 'firebase_options.dart';
-import 'UI/settingsPage.dart';
 import 'generated/l10n.dart';
 
 Future<void> main() async {
@@ -33,12 +30,6 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
       home: const MyHomePage(),
-      initialRoute: '/',
-      routes: {
-        '/settings': (context) => const SettingsPage(),
-        '/chat': (context) => const chatPage(),
-        '/new_contribution': (context) => const Newcontribution(),
-      },
     );
   }
 }

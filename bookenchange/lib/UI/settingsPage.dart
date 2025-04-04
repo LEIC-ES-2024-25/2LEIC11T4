@@ -1,6 +1,5 @@
 import 'package:bookenchange/generated/l10n.dart';
-import 'package:flu'
-    'tter/material.dart';
+import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

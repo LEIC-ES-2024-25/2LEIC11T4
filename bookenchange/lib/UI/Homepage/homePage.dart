@@ -1,3 +1,5 @@
+import 'package:bookenchange/Logic/Navigation/navigation.dart';
+import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
 
@@ -11,13 +13,13 @@ State<MyHomePage> createState() => _MyHomePageState();
 class _MyHomePageState extends State<MyHomePage> {
 int _selectedIndex = 0;
 
-final List<String> options = ['/chat', '/settings', '/new_contribution'];
+final List<Navigation> options = [Navigation.chat, Navigation.settings, Navigation.newContribution];
 void _onItemTapped(int index) {
 setState(() {
-_selectedIndex = index;
+  _selectedIndex = index;
 });
 
-Navigator.pushNamed(context, options[index]);
+Navigator.push(context,CustomPageRoute(destination:options[index]));
 }
 
 @override
