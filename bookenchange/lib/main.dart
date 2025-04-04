@@ -1,5 +1,6 @@
 import 'package:bookenchange/UI/Chat.dart';
 import 'package:bookenchange/UI/NewContribution.dart';
+import 'package:bookenchange/UI/areaofStudiesPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Domain/theme.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: const MyHomePage(),
+      home: const AreaOfStudiesPage(),
       initialRoute: '/',
       routes: {
         '/settings': (context) => const SettingsPage(),
