@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: const AreaOfStudiesPage(),
+      home: const MyHomePage(),
       initialRoute: '/',
       routes: {
         '/settings': (context) => const SettingsPage(),
