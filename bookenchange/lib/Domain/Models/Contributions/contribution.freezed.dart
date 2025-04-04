@@ -16,10 +16,10 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Contribution {
   int get id;
+  int get iduser;
+  int get idBook;
   List<String> get images;
-  String get name;
   Condition get condition;
-  String get institution;
 
   /// Create a copy of Contribution
   /// with the given fields replaced by the non-null parameter values.
@@ -38,27 +38,21 @@ mixin _$Contribution {
         (other.runtimeType == runtimeType &&
             other is Contribution &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.iduser, iduser) || other.iduser == iduser) &&
+            (identical(other.idBook, idBook) || other.idBook == idBook) &&
             const DeepCollectionEquality().equals(other.images, images) &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.condition, condition) ||
-                other.condition == condition) &&
-            (identical(other.institution, institution) ||
-                other.institution == institution));
+                other.condition == condition));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      const DeepCollectionEquality().hash(images),
-      name,
-      condition,
-      institution);
+  int get hashCode => Object.hash(runtimeType, id, iduser, idBook,
+      const DeepCollectionEquality().hash(images), condition);
 
   @override
   String toString() {
-    return 'Contribution(id: $id, images: $images, name: $name, condition: $condition, institution: $institution)';
+    return 'Contribution(id: $id, iduser: $iduser, idBook: $idBook, images: $images, condition: $condition)';
   }
 }
 
@@ -70,10 +64,10 @@ abstract mixin class $ContributionCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      int iduser,
+      int idBook,
       List<String> images,
-      String name,
-      Condition condition,
-      String institution});
+      Condition condition});
 }
 
 /// @nodoc
@@ -89,32 +83,32 @@ class _$ContributionCopyWithImpl<$Res> implements $ContributionCopyWith<$Res> {
   @override
   $Res call({
     Object? id = null,
+    Object? iduser = null,
+    Object? idBook = null,
     Object? images = null,
-    Object? name = null,
     Object? condition = null,
-    Object? institution = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      iduser: null == iduser
+          ? _self.iduser
+          : iduser // ignore: cast_nullable_to_non_nullable
+              as int,
+      idBook: null == idBook
+          ? _self.idBook
+          : idBook // ignore: cast_nullable_to_non_nullable
+              as int,
       images: null == images
           ? _self.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       condition: null == condition
           ? _self.condition
           : condition // ignore: cast_nullable_to_non_nullable
               as Condition,
-      institution: null == institution
-          ? _self.institution
-          : institution // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -124,16 +118,20 @@ class _$ContributionCopyWithImpl<$Res> implements $ContributionCopyWith<$Res> {
 class _Contribution implements Contribution {
   const _Contribution(
       {required this.id,
+      required this.iduser,
+      required this.idBook,
       required final List<String> images,
-      required this.name,
-      required this.condition,
-      required this.institution})
+      required this.condition})
       : _images = images;
   factory _Contribution.fromJson(Map<String, dynamic> json) =>
       _$ContributionFromJson(json);
 
   @override
   final int id;
+  @override
+  final int iduser;
+  @override
+  final int idBook;
   final List<String> _images;
   @override
   List<String> get images {
@@ -143,11 +141,7 @@ class _Contribution implements Contribution {
   }
 
   @override
-  final String name;
-  @override
   final Condition condition;
-  @override
-  final String institution;
 
   /// Create a copy of Contribution
   /// with the given fields replaced by the non-null parameter values.
@@ -170,27 +164,21 @@ class _Contribution implements Contribution {
         (other.runtimeType == runtimeType &&
             other is _Contribution &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.iduser, iduser) || other.iduser == iduser) &&
+            (identical(other.idBook, idBook) || other.idBook == idBook) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.condition, condition) ||
-                other.condition == condition) &&
-            (identical(other.institution, institution) ||
-                other.institution == institution));
+                other.condition == condition));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      const DeepCollectionEquality().hash(_images),
-      name,
-      condition,
-      institution);
+  int get hashCode => Object.hash(runtimeType, id, iduser, idBook,
+      const DeepCollectionEquality().hash(_images), condition);
 
   @override
   String toString() {
-    return 'Contribution(id: $id, images: $images, name: $name, condition: $condition, institution: $institution)';
+    return 'Contribution(id: $id, iduser: $iduser, idBook: $idBook, images: $images, condition: $condition)';
   }
 }
 
@@ -204,10 +192,10 @@ abstract mixin class _$ContributionCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
+      int iduser,
+      int idBook,
       List<String> images,
-      String name,
-      Condition condition,
-      String institution});
+      Condition condition});
 }
 
 /// @nodoc
@@ -224,32 +212,32 @@ class __$ContributionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
+    Object? iduser = null,
+    Object? idBook = null,
     Object? images = null,
-    Object? name = null,
     Object? condition = null,
-    Object? institution = null,
   }) {
     return _then(_Contribution(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      iduser: null == iduser
+          ? _self.iduser
+          : iduser // ignore: cast_nullable_to_non_nullable
+              as int,
+      idBook: null == idBook
+          ? _self.idBook
+          : idBook // ignore: cast_nullable_to_non_nullable
+              as int,
       images: null == images
           ? _self._images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      name: null == name
-          ? _self.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       condition: null == condition
           ? _self.condition
           : condition // ignore: cast_nullable_to_non_nullable
               as Condition,
-      institution: null == institution
-          ? _self.institution
-          : institution // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }

@@ -7,5 +7,7 @@
   "new_contribution": "Nova Contribuição",
   "@new_contribution": {},
   "settings": "Definições",
-  "@settings": {}
+  "@settings": {},
+  "previous_contributions": "Contribuições Anteriores",
+  "@previous_contributions": {}
 }

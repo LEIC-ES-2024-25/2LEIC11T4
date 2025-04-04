@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class Contribution extends StatelessWidget {
@@ -10,7 +8,7 @@ class Contribution extends StatelessWidget {
     required this.condition,
     required this.institution,
   });
-  final List<Url> images;
+  final List<String> images;
   final String name;
   final Enum condition;
   final String institution;

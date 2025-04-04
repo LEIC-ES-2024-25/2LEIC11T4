@@ -9,20 +9,20 @@ part of 'contribution.dart';
 _Contribution _$ContributionFromJson(Map<String, dynamic> json) =>
     _Contribution(
       id: (json['id'] as num).toInt(),
+      iduser: (json['iduser'] as num).toInt(),
+      idBook: (json['idBook'] as num).toInt(),
       images:
           (json['images'] as List<dynamic>).map((e) => e as String).toList(),
-      name: json['name'] as String,
       condition: $enumDecode(_$ConditionEnumMap, json['condition']),
-      institution: json['institution'] as String,
     );
 
 Map<String, dynamic> _$ContributionToJson(_Contribution instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'iduser': instance.iduser,
+      'idBook': instance.idBook,
       'images': instance.images,
-      'name': instance.name,
       'condition': _$ConditionEnumMap[instance.condition]!,
-      'institution': instance.institution,
     };
 
 const _$ConditionEnumMap = {

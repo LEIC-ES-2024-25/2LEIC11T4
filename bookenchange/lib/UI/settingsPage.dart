@@ -1,5 +1,6 @@
 import 'package:bookenchange/generated/l10n.dart';
-import 'package:flutter/material.dart';
+import 'package:flu'
+    'tter/material.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -75,7 +76,7 @@ class SettingsPage extends StatelessWidget {
           // Settings Options
           _buildSettingsOption(
             Icons.chat_bubble_outline,
-            "Previous contributions",
+            "previous",
             context,
           ),
           _buildSettingsOption(Icons.lock_outline, "Change Password", context),

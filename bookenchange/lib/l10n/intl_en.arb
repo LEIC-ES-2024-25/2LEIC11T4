@@ -7,5 +7,7 @@
   "new_contribution": "New Contribution",
   "@new_contribution": {},
   "settings": "Settings",
-  "@settings": {}
+  "@settings": {},
+  "previous_contributions": "Previous Contributions",
+  "@previous_contributions": {}
 }
