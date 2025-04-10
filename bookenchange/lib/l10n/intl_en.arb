@@ -21,6 +21,7 @@
   "@sign_up": {},
   "remember": "Remember me",
   "@remember": {},
+  "profile": "Profile",
   "sign_in_successful": "Sign in successfully",
   "@sign_in_successful": {},
   "sign_in_unsuccesful": "Sign in failed",

@@ -11,12 +11,10 @@ class users with _$users {
     required String institution,
   }) = _users;
 
-  factory users.fromJson(Map<String, Object?> json) =>
-      _$usersFromJson(json);
+  factory users.fromJson(Map<String, Object?> json) => _$usersFromJson(json);
 
   factory users.fromFirestore(doc) {
     final data = doc.data() as Map<String, dynamic>;
     return users.fromJson(data);
   }
-
 }

@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "previous_contributions": MessageLookupByLibrary.simpleMessage(
       "Contribuições Anteriores",
     ),
+    "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "remember": MessageLookupByLibrary.simpleMessage("Mantenha sessão aberta"),
     "settings": MessageLookupByLibrary.simpleMessage("Definições"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),

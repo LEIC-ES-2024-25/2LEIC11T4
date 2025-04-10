@@ -130,6 +130,11 @@ class S {
     return Intl.message('Remember me', name: 'remember', desc: '', args: []);
   }
 
+  /// `Profile`
+  String get profile {
+    return Intl.message('Profile', name: 'profile', desc: '', args: []);
+  }
+
   /// `Sign in successfully`
   String get sign_in_successful {
     return Intl.message(

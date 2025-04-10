@@ -1,5 +1,1 @@
-class Firebase{
-
-
-
-}
+class Firebase {}

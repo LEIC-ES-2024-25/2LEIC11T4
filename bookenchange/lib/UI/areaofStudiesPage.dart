@@ -22,7 +22,7 @@ class _AreaOfStudiesPageState extends State<AreaOfStudiesPage> {
 
   @override
   Widget build(BuildContext context) {
-  final theme = Theme.of(context); 
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +32,7 @@ class _AreaOfStudiesPageState extends State<AreaOfStudiesPage> {
           icon: Icon(
             Icons.arrow_back,
             color: Theme.of(context).colorScheme.onPrimary,
-            ), // Back button
+          ), // Back button
           onPressed: () {
             Navigator.pushReplacement(
               context,
@@ -42,7 +42,7 @@ class _AreaOfStudiesPageState extends State<AreaOfStudiesPage> {
         ),
       ),
       body: ListView.builder(
-        padding: const EdgeInsets.only(top:20),
+        padding: const EdgeInsets.only(top: 20),
         itemCount: studyAreas.length,
         itemBuilder: (context, index) {
           return Container(
@@ -75,4 +75,3 @@ class _AreaOfStudiesPageState extends State<AreaOfStudiesPage> {
     );
   }
 }
-

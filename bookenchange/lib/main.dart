@@ -13,10 +13,10 @@ import 'package:bookenchange/Logic/Authentication.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  final prefs=await SharedPreferences.getInstance();
+  final prefs = await SharedPreferences.getInstance();
 
-  final bool rememberMe=prefs.getBool('remember_me') ??false;
-  if(!rememberMe){
+  final bool rememberMe = prefs.getBool('remember_me') ?? false;
+  if (!rememberMe) {
     await FirebaseAuth.instance.signOut();
   }
   runApp(const MyApp());
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final Auth auth=Auth();
+    final Auth auth = Auth();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Book Donation',
@@ -40,10 +40,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: auth.currentUser!=null?
-       MyHomePage():Login(),
+      home: auth.currentUser != null ? MyHomePage() : Login(),
     );
   }
 }
-
-

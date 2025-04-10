@@ -6,82 +6,89 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          S.of(context).settings,
-          style:
-              Theme.of(
-                context,
-              ).textTheme.titleMedium, // Using theme text styles
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).colorScheme.onPrimary,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            S.of(context).settings,
+            style:
+                Theme.of(
+                  context,
+                ).textTheme.titleMedium, // Using theme text styles
           ),
-          onPressed: () {
-            Navigator.pop(context); // Goes back to HomePage
-          },
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          // Profile Section
-          Container(
-            margin: const EdgeInsets.all(10.0),
-            height: 200,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
-              shape: BoxShape.circle,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.transparent,
-                      child: Icon(
-                        Icons.person,
-                        size: 50,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 5,
-                      right: 5,
-                      child: CircleAvatar(
-                        radius: 14,
-                        backgroundColor: Theme.of(context).colorScheme.surface,
+            onPressed: () {
+              Navigator.pop(context); // Goes back to HomePage
+            },
+          ),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: [
+            // Profile Section
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              height: 200,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                shape: BoxShape.circle,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Colors.transparent,
                         child: Icon(
-                          Icons.edit,
-                          size: 16,
+                          Icons.person,
+                          size: 50,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      Positioned(
+                        bottom: 5,
+                        right: 5,
+                        child: CircleAvatar(
+                          radius: 14,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.surface,
+                          child: Icon(
+                            Icons.edit,
+                            size: 16,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-          // Settings Options
-          _buildSettingsOption(
-            Icons.chat_bubble_outline,
-            "previous",
-            context,
-          ),
-          _buildSettingsOption(Icons.lock_outline, "Change Password", context),
-          _buildSettingsOption(Icons.help_outline, "Help", context),
-          _buildSettingsOption(Icons.logout, "Log out", context),
-        ],
+            // Settings Options
+            _buildSettingsOption(
+              Icons.chat_bubble_outline,
+              "previous",
+              context,
+            ),
+            _buildSettingsOption(
+              Icons.lock_outline,
+              "Change Password",
+              context,
+            ),
+            _buildSettingsOption(Icons.help_outline, "Help", context),
+            _buildSettingsOption(Icons.logout, "Log out", context),
+          ],
+        ),
       ),
     );
   }
