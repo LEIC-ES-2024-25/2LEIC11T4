@@ -54,7 +54,7 @@ class _NewContributionState extends State<Newcontribution> {
                     const SizedBox(height: 8),
                     ElevatedButton.icon(
                       onPressed: () {
-                        // Add photo logic here
+                        // Pressing logic - adding photos
                       },
                       icon: const Icon(Icons.photo_camera),
                       label: const Text("Add Photos"),
@@ -63,10 +63,11 @@ class _NewContributionState extends State<Newcontribution> {
                   ],
                 ),
               ),
-              _buildTextField(nameController, "Name of the book", "e.g. Fluent Python"),
+              _buildTextField(nameController, "Name of the book", "e.g. Fluent Python, Introduction to Algorithms, ..."),
               _buildTextField(descController, "Description", "Optional description..."),
               _buildDropdown("Area of Study", areas, selectedArea, (val) {
                 setState(() => selectedArea = val);
+                // redirects to another page
               }),
               _buildTextField(isbnController, "ISBN", "e.g. 9781633436336"),
               _buildDropdown("Condition", conditions, selectedCondition, (val) {
