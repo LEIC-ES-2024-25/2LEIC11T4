@@ -10,7 +10,6 @@ class book with _$book {
     required String name,
     required String author,
     required String Publisher,
-    required int idAreaOfStudy,
   }) = _book;
 
   factory book.fromJson(Map<String, Object?> json) => _$bookFromJson(json);
@@ -19,4 +18,5 @@ class book with _$book {
     final data = doc.data() as Map<String, dynamic>;
     return book.fromJson(data);
   }
+
 }

@@ -194,6 +194,41 @@ class S {
       args: [],
     );
   }
+
+  /// `Add up to 3 photos`
+  String get add_photo {
+    return Intl.message(
+      'Add up to 3 photos',
+      name: 'add_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add photos`
+  String get photo {
+    return Intl.message('Add photos', name: 'photo', desc: '', args: []);
+  }
+
+  /// `Field can't be null`
+  String get not_null {
+    return Intl.message(
+      'Field can\'t be null',
+      name: 'not_null',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book Tittle`
+  String get book_tittle {
+    return Intl.message('Book Tittle', name: 'book_tittle', desc: '', args: []);
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message('Description', name: 'description', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -7,7 +7,7 @@ import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
-  Login({super.key});
+  const Login({super.key});
   @override
   State<Login> createState() => _LoginState();
 }
@@ -29,13 +29,14 @@ class _LoginState extends State<Login> {
         password: password.text.trim(),
       );
       prefs.setBool('remember_me', value);
-      if (mounted)
+      if (mounted) {
         Navigator.pushReplacement(
           context,
           CustomPageRoute(destination: Navigation.home),
         );
+      }
     } on FirebaseAuthException catch (e) {
-      if (mounted)
+      if (mounted) {
         SnackBar(
           content: Text(
             S.of(context).sign_in_unsuccesful,
@@ -44,6 +45,7 @@ class _LoginState extends State<Login> {
             ).textTheme.bodyMedium?.copyWith(color: Colors.white),
           ),
         );
+      }
     }
   }
 
@@ -55,14 +57,15 @@ class _LoginState extends State<Login> {
         password: password.text.trim(),
       );
       prefs.setBool('remember_me', value);
-      if (mounted)
+      if (mounted) {
         Navigator.pushReplacement(
           context,
           CustomPageRoute(destination: Navigation.home),
         );
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        if (mounted)
+        if (mounted) {
           SnackBar(
             content: Text(
               S.of(context).already_in_use,
@@ -71,6 +74,7 @@ class _LoginState extends State<Login> {
               ).textTheme.bodyMedium?.copyWith(color: Colors.white),
             ),
           );
+        }
       }
     }
   }
@@ -132,30 +136,30 @@ class _LoginState extends State<Login> {
                       children: [
                         FilledButton(
                           onPressed: signup,
+                          style: FilledButton.styleFrom(
+                            minimumSize: Size(100, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            backgroundColor: Theme.of(context).indicatorColor,
+                          ),
                           child: Text(
                             S.of(context).sign_up,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          style: FilledButton.styleFrom(
-                            minimumSize: Size(100, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            backgroundColor: Theme.of(context).indicatorColor,
-                          ),
                         ),
                         FilledButton(
                           onPressed: signin,
-                          child: Text(
-                            S.of(context).sign_in,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
                           style: FilledButton.styleFrom(
                             minimumSize: Size(100, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             backgroundColor: Theme.of(context).indicatorColor,
+                          ),
+                          child: Text(
+                            S.of(context).sign_in,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
                       ],

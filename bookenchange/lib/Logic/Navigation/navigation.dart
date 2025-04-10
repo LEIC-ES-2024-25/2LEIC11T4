@@ -1,13 +1,13 @@
 import 'package:bookenchange/UI/Chat.dart';
 import 'package:bookenchange/UI/Homepage/homePage.dart';
-import 'package:bookenchange/UI/NewContribution.dart';
-import 'package:bookenchange/UI/settingsPage.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bookenchange/UI/NewContribution/newContribution.dart';
+import 'package:bookenchange/UI/Settings/settingsPage.dart';
+import 'package:flutter/material.dart';
 
 enum Navigation {
   home(MyHomePage()),
   settings(SettingsPage()),
-  newContribution(Newcontribution()),
+  nContribution(newContribution()),
   chat(chatPage());
 
   const Navigation(this.builder);

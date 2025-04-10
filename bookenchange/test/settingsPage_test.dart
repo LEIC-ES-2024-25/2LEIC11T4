@@ -1,4 +1,4 @@
-import 'package:bookenchange/UI/settingsPage.dart';
+import 'package:bookenchange/UI/Settings/settingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bookenchange/generated/l10n.dart';

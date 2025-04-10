@@ -31,7 +31,11 @@
   "sign_up_unsuccesful": "Sign in failed",
   "@sign_up_unsuccesful": {},
   "weak_password": "Weak password",
-  "already_in_use": "Email in use already"
-
+  "already_in_use": "Email in use already",
+  "add_photo": "Add up to 3 photos",
+  "photo": "Add photos",
+  "not_null": "Field can't be null",
+  "book_tittle": "Book Tittle",
+  "description": "Description"
 
 }

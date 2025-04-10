@@ -16,7 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Navigation> options = [
     Navigation.chat,
     Navigation.settings,
-    Navigation.newContribution,
+    Navigation.nContribution,
   ];
   void _onItemTapped(int index) {
     setState(() {

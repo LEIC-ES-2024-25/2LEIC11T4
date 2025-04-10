@@ -22,11 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "add_photo": MessageLookupByLibrary.simpleMessage("Add up to 3 photos"),
     "already_in_use": MessageLookupByLibrary.simpleMessage(
       "Email in use already",
     ),
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
+    "book_tittle": MessageLookupByLibrary.simpleMessage("Book Tittle"),
     "chat": MessageLookupByLibrary.simpleMessage("Chat"),
+    "description": MessageLookupByLibrary.simpleMessage("Description"),
     "email_hint": MessageLookupByLibrary.simpleMessage(""),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "Forgot Password ?",
@@ -35,7 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_contribution": MessageLookupByLibrary.simpleMessage(
       "New Contribution",
     ),
+    "not_null": MessageLookupByLibrary.simpleMessage("Field can\'t be null"),
     "password_hint": MessageLookupByLibrary.simpleMessage(""),
+    "photo": MessageLookupByLibrary.simpleMessage("Add photos"),
     "previous_contributions": MessageLookupByLibrary.simpleMessage(
       "Previous Contributions",
     ),
