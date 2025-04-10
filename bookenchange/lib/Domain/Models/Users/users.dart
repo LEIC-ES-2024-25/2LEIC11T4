@@ -12,5 +12,11 @@ class users with _$users {
   }) = _users;
 
   factory users.fromJson(Map<String, Object?> json) =>
-      _$ContributionFromJson(json);
+      _$usersFromJson(json);
+
+  factory users.fromFirestore(doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return users.fromJson(data);
+  }
+
 }

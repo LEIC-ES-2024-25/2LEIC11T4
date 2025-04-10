@@ -1,7 +1,6 @@
 {
   "@@locale": "pt",
   "appName": "BookDonation",
-
   "chat": "Mensagens",
   "@chat": {},
   "new_contribution": "Nova Contribuição",
@@ -9,5 +8,11 @@
   "settings": "Definições",
   "@settings": {},
   "previous_contributions": "Contribuições Anteriores",
-  "@previous_contributions": {}
+  "@previous_contributions": {},
+  "login": "Login",
+  "@login": {},
+  "email_hint": "Email",
+  "@email_hint": {},
+  "password_hint": "Palavra-passe",
+  "@password_hint": {}
 }

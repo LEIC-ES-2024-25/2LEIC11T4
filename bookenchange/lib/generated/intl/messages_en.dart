@@ -24,8 +24,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
     "chat": MessageLookupByLibrary.simpleMessage("Chat"),
+    "login": MessageLookupByLibrary.simpleMessage("Login"),
     "new_contribution": MessageLookupByLibrary.simpleMessage(
       "New Contribution",
+    ),
+    "previous_contributions": MessageLookupByLibrary.simpleMessage(
+      "Previous Contributions",
     ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
   };

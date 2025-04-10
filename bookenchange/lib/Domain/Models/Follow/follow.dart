@@ -14,4 +14,11 @@ class follow with _$follow {
 
   factory follow.fromJson(Map<String, Object?> json) =>
       _$followFromJson(json);
+
+
+  factory follow.fromFirestore(doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return follow.fromJson(data);
+  }
+
 }
