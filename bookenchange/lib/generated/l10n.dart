@@ -94,6 +94,101 @@ class S {
   String get login {
     return Intl.message('Login', name: 'login', desc: '', args: []);
   }
+
+  /// ``
+  String get email_hint {
+    return Intl.message('', name: 'email_hint', desc: '', args: []);
+  }
+
+  /// ``
+  String get password_hint {
+    return Intl.message('', name: 'password_hint', desc: '', args: []);
+  }
+
+  /// `Forgot Password ?`
+  String get forgot_password {
+    return Intl.message(
+      'Forgot Password ?',
+      name: 'forgot_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
+  String get sign_in {
+    return Intl.message('Sign in', name: 'sign_in', desc: '', args: []);
+  }
+
+  /// `Sign up`
+  String get sign_up {
+    return Intl.message('Sign up', name: 'sign_up', desc: '', args: []);
+  }
+
+  /// `Remember me`
+  String get remember {
+    return Intl.message('Remember me', name: 'remember', desc: '', args: []);
+  }
+
+  /// `Sign in successfully`
+  String get sign_in_successful {
+    return Intl.message(
+      'Sign in successfully',
+      name: 'sign_in_successful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in failed`
+  String get sign_in_unsuccesful {
+    return Intl.message(
+      'Sign in failed',
+      name: 'sign_in_unsuccesful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in successfully`
+  String get sign_up_successful {
+    return Intl.message(
+      'Sign in successfully',
+      name: 'sign_up_successful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in failed`
+  String get sign_up_unsuccesful {
+    return Intl.message(
+      'Sign in failed',
+      name: 'sign_up_unsuccesful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weak password`
+  String get weak_password {
+    return Intl.message(
+      'Weak password',
+      name: 'weak_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email in use already`
+  String get already_in_use {
+    return Intl.message(
+      'Email in use already',
+      name: 'already_in_use',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

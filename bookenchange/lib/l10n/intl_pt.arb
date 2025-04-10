@@ -14,5 +14,24 @@
   "email_hint": "Email",
   "@email_hint": {},
   "password_hint": "Palavra-passe",
-  "@password_hint": {}
+  "@password_hint": {},
+  "forgot_password": "Esqueci-me da palavra-passe?",
+  "@forgot_password": {},
+  "sign_in": "Sign in",
+  "@sign_in": {},
+  "sign_up": "Sign up",
+  "@sign_up": {},
+  "remember": "Mantenha sessão aberta",
+  "@remember": {},
+  "sign_in_successful": "Sign in successfully",
+  "@sign_in_successful": {},
+  "sign_in_unsuccesful": "Sign in failed",
+  "@sign_in_unsuccesful": {},
+  "sign_up_successful": "Sign in successfully",
+  "@sign_up_successful": {},
+  "sign_up_unsuccesful": "Sign in failed",
+  "@sign_up_unsuccesful": {},
+  "weak_password": "Palavra-passe fraca",
+  "already_in_use": "Já existe um usuário com esse email"
+
 }

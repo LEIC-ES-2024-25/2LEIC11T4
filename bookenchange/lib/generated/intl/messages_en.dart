@@ -22,15 +22,39 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "already_in_use": MessageLookupByLibrary.simpleMessage(
+      "Email in use already",
+    ),
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
     "chat": MessageLookupByLibrary.simpleMessage("Chat"),
+    "email_hint": MessageLookupByLibrary.simpleMessage(""),
+    "forgot_password": MessageLookupByLibrary.simpleMessage(
+      "Forgot Password ?",
+    ),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "new_contribution": MessageLookupByLibrary.simpleMessage(
       "New Contribution",
     ),
+    "password_hint": MessageLookupByLibrary.simpleMessage(""),
     "previous_contributions": MessageLookupByLibrary.simpleMessage(
       "Previous Contributions",
     ),
+    "remember": MessageLookupByLibrary.simpleMessage("Remember me"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
+    "sign_in_successful": MessageLookupByLibrary.simpleMessage(
+      "Sign in successfully",
+    ),
+    "sign_in_unsuccesful": MessageLookupByLibrary.simpleMessage(
+      "Sign in failed",
+    ),
+    "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
+    "sign_up_successful": MessageLookupByLibrary.simpleMessage(
+      "Sign in successfully",
+    ),
+    "sign_up_unsuccesful": MessageLookupByLibrary.simpleMessage(
+      "Sign in failed",
+    ),
+    "weak_password": MessageLookupByLibrary.simpleMessage("Weak password"),
   };
 }

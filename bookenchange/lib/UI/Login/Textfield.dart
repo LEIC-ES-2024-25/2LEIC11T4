@@ -7,7 +7,7 @@ class loginTextFields extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(padding: const EdgeInsets.all(10), child:TextField(
+    return Container(padding: const EdgeInsets.all(10), child:TextFormField(
       controller: controller,
 
       decoration: InputDecoration(
@@ -19,6 +19,7 @@ class loginTextFields extends StatelessWidget{
         hintText: hintText,
       ),
       obscureText: obscureText,
+      autovalidateMode: AutovalidateMode.always,
     ),
     );
   }
