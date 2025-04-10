@@ -1,123 +1,133 @@
-import 'package:bookenchange/generated/l10n.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
-class Newcontribution extends StatelessWidget {
+class Newcontribution extends StatefulWidget {
   const Newcontribution({super.key});
 
   @override
+  State<Newcontribution> createState() => _NewContributionState();
+}
+
+class _NewContributionState extends State<Newcontribution> {
+  final _formKey = GlobalKey<FormState>();
+
+  String? selectedCondition;
+  String? selectedArea;
+  String? selectedUniversity;
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController descController = TextEditingController();
+  final TextEditingController isbnController = TextEditingController();
+
+  final List<String> conditions = ['New', 'Used - Good', 'Used - Acceptable'];
+  final List<String> areas = ['Computer Science', 'Mathematics', 'Law', 'History'];
+  final List<String> universities = ['FEUP', 'FEP', 'FLUP', 'ICBAS'];
+
+  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // Fetch the theme
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          S.of(context).settings,
-          style: theme.textTheme.displaySmall, // Using theme text styles
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-          onPressed: () {
-            Navigator.pop(context, '/'); // Goes back to HomePage
-          },
+        title: const Text(
+          'New Contribution',
+          style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        backgroundColor: theme.colorScheme.primary,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: theme.colorScheme.onPrimary),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
-      body: Column(
-        children: [
-          // Profile Section
-          Container(
-            height: 180,
-            decoration: BoxDecoration(
-              color: theme.colorScheme.secondary,
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(30),
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Stack(
-                  alignment: Alignment.center,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Column(
                   children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.transparent,
-                      child: Icon(
-                        Icons.person,
-                        size: 50,
-                        color: theme.colorScheme.primary,
-                      ),
+                    const Text("You can add up to 20 photos"),
+                    const SizedBox(height: 8),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        // Add photo logic here
+                      },
+                      icon: const Icon(Icons.photo_camera),
+                      label: const Text("Add Photos"),
                     ),
-                    Positioned(
-                      bottom: 5,
-                      right: 5,
-                      child: CircleAvatar(
-                        radius: 14,
-                        backgroundColor: theme.colorScheme.surface,
-                        child: Icon(
-                          Icons.edit,
-                          size: 16,
-                          color: theme.colorScheme.primary,
-                        ),
-                      ),
-                    ),
+                    const SizedBox(height: 20),
                   ],
                 ),
-              ],
-            ),
+              ),
+              _buildTextField(nameController, "Name of the book", "e.g. Fluent Python"),
+              _buildTextField(descController, "Description", "Optional description..."),
+              _buildDropdown("Area of Study", areas, selectedArea, (val) {
+                setState(() => selectedArea = val);
+              }),
+              _buildTextField(isbnController, "ISBN", "e.g. 9781633436336"),
+              _buildDropdown("Condition", conditions, selectedCondition, (val) {
+                setState(() => selectedCondition = val);
+              }),
+              _buildDropdown("University/College", universities, selectedUniversity, (val) {
+                setState(() => selectedUniversity = val);
+              }),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // Save contribution logic
+                  }
+                },
+                child: const Text("Submit Contribution"),
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-
-          // Settings Options
-          _buildSettingsOption(
-            Icons.chat_bubble_outline,
-            "Previous contributions",
-            context,
-          ),
-          _buildSettingsOption(Icons.lock_outline, "Change Password", context),
-          _buildSettingsOption(Icons.help_outline, "Help", context),
-          _buildSettingsOption(Icons.logout, "Log out", context),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildSettingsOption(
-    IconData icon,
-    String title,
-    BuildContext context,
-  ) {
-    final theme = Theme.of(context); // Fetch the theme
-
+  Widget _buildTextField(TextEditingController controller, String label, String hint) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      child: Container(
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: theme.shadowColor.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 2),
-            ),
-          ],
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          hintText: hint,
+          border: const OutlineInputBorder(),
         ),
-        child: ListTile(
-          leading: Icon(icon, color: theme.colorScheme.primary),
-          title: Text(title, style: theme.textTheme.bodyMedium),
-          trailing: Icon(
-            Icons.arrow_forward_ios,
-            size: 16,
-            color: theme.colorScheme.primary,
-          ),
-          onTap: () {},
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'This field cannot be empty';
+          }
+          return null;
+        },
+      ),
+    );
+  }
+
+  Widget _buildDropdown(String label, List<String> items, String? selectedValue, Function(String?) onChanged) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: DropdownButtonFormField<String>(
+        value: selectedValue,
+        decoration: InputDecoration(
+          labelText: label,
+          border: const OutlineInputBorder(),
         ),
+        items: items.map((item) {
+          return DropdownMenuItem<String>(
+            value: item,
+            child: Text(item),
+          );
+        }).toList(),
+        onChanged: onChanged,
+        validator: (value) => value == null ? 'Please select $label' : null,
       ),
     );
   }
