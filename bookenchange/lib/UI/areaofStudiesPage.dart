@@ -17,8 +17,26 @@ class _AreaOfStudiesPageState extends State<AreaOfStudiesPage> {
     "Medicine",
     "Website Design",
     "Philosophy",
-    // to change accordingly
-  ]; // Initial categories
+    // Add more areas if needed
+  ];
+
+  final Map<String, IconData> areaIcons = {
+    "Computer Science": Icons.computer,
+    "Mathematics": Icons.calculate,
+    "Physics": Icons.science,
+    "Engineering": Icons.engineering,
+    "Medicine": Icons.health_and_safety,
+    "Website Design": Icons.web,
+    "Philosophy": Icons.psychology,
+  };
+
+  List<String> filteredAreas = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredAreas = List.from(studyAreas);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,51 +44,111 @@ class _AreaOfStudiesPageState extends State<AreaOfStudiesPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Area of Studies"),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: const Text("Select Area of Study"),
+        backgroundColor: theme.colorScheme.primary,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ), // Back button
+            color: theme.colorScheme.onPrimary,
+          ),
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const Newcontribution()),
+              MaterialPageRoute(
+                builder: (context) => const Newcontribution(),
+              ),
+              // ⚠️ Alternative option: If your app already has NewContribution in the stack,
+              // you could also use Navigator.pop(context); instead.
             );
           },
         ),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.only(top: 20),
-        itemCount: studyAreas.length,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).shadowColor,
-                  spreadRadius: 1,
-                  blurRadius: 3,
-                  offset: const Offset(0, 2),
+      body: Column(
+        children: [
+          // ✅ Add padding between AppBar and Search Bar
+          const SizedBox(height: 16),
+
+          // 🔍 Search Bar
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  filteredAreas = studyAreas
+                      .where((area) =>
+                          area.toLowerCase().contains(value.toLowerCase()))
+                      .toList();
+                });
+              },
+              decoration: InputDecoration(
+                hintText: 'Search area...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ],
-            ),
-            child: ListTile(
-              title: Text(
-                studyAreas[index],
-                style: Theme.of(context).textTheme.bodyMedium,
               ),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {
-                // You can navigate to a detailed page if needed
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          // 📜 List of Study Areas
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.only(top: 20),
+              itemCount: filteredAreas.length,
+              itemBuilder: (context, index) {
+                final area = filteredAreas[index];
+
+                return Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        theme.colorScheme.primary,
+                        theme.colorScheme.secondary
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: theme.shadowColor,
+                        spreadRadius: 1,
+                        blurRadius: 3,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      areaIcons[area],
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                    title: Text(
+                      area,
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      // When ready to send data back:
+                      // Navigator.pop(context, area);
+
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Newcontribution(),
+                        ),
+                      );
+                    },
+                  ),
+                );
               },
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
