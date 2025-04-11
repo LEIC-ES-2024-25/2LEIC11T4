@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
+import 'areaofStudiesPage.dart';
 
 class Newcontribution extends StatefulWidget {
   const Newcontribution({super.key});
@@ -15,6 +15,7 @@ class _NewContributionState extends State<Newcontribution> {
   String? selectedArea;
   String? selectedUniversity;
 
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
@@ -23,6 +24,38 @@ class _NewContributionState extends State<Newcontribution> {
   final List<String> areas = ['Computer Science', 'Mathematics', 'Law', 'History'];
   final List<String> universities = ['FEUP', 'FEP', 'FLUP', 'ICBAS'];
 
+  Widget _buildAreaSelector() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: InkWell(
+        onTap: () async {
+          final selected = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AreaOfStudiesPage(),
+            ),
+          );
+          if (selected != null && selected is String) {
+            setState(() {
+              selectedArea = selected;
+            });
+          }
+        },
+        child: InputDecorator(
+          decoration: const InputDecoration(
+            labelText: "Area of Study",
+            border: OutlineInputBorder(),
+          ),
+          child: Text(
+            selectedArea ?? 'Tap to select Area',
+            style: TextStyle(
+              color: selectedArea == null ? Colors.grey : Colors.black,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -65,10 +98,7 @@ class _NewContributionState extends State<Newcontribution> {
               ),
               _buildTextField(nameController, "Name of the book", "e.g. Fluent Python, Introduction to Algorithms, ..."),
               _buildTextField(descController, "Description", "Optional description..."),
-              _buildDropdown("Area of Study", areas, selectedArea, (val) {
-                setState(() => selectedArea = val);
-                // redirects to another page
-              }),
+              _buildAreaSelector(),
               _buildTextField(isbnController, "ISBN", "e.g. 9781633436336"),
               _buildDropdown("Condition", conditions, selectedCondition, (val) {
                 setState(() => selectedCondition = val);
