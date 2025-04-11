@@ -110,14 +110,8 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 #### Sprint retrospective<br>
 - During the planning of the spring we didn't took into consideration the dependencies between the implementation of UI and logic, which in retrospective made many of the tasks impractical and didn't increase user value. <br>
 #### Sprint planning <br>
-- We assigned tasks to end the implementation of the logic of the New Contribution and the use of the API, as well as the user story Sign Up, Log In and Chat.
-### Sprint 2
-#### Sprint review
--  
-#### Sprint retrospective
-
-#### Sprint planning
-![image](https://github.com/user-attachments/assets/3c92ba39-7f66-4165-9dad-4396bec38638)
+- We assigned tasks to finish the implementation of the logic of the New Contribution and the use of the API, as well as the user story Sign Up, Log In and Chat.
+![github com_orgs_LEIC-ES-2024-25_projects_75_views_1](https://github.com/user-attachments/assets/c82eedfd-9123-4758-9ee5-617486f8876d)
 
 ---
  ## Authors
