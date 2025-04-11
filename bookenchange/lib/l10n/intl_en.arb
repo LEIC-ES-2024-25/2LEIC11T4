@@ -1,7 +1,6 @@
 {
   "@@locale": "en",
   "appName": "BookDonation",
-
   "chat": "Chat",
   "@chat": {},
   "new_contribution": "New Contribution",
@@ -9,5 +8,34 @@
   "settings": "Settings",
   "@settings": {},
   "previous_contributions": "Previous Contributions",
-  "@previous_contributions": {}
+  "login": "Login",
+  "email_hint": "",
+  "@email_hint": {},
+  "password_hint": "",
+  "@password_hint": {},
+  "forgot_password": "Forgot Password ?",
+  "@forgot_password": {},
+  "sign_in": "Sign in",
+  "@sign_in": {},
+  "sign_up": "Sign up",
+  "@sign_up": {},
+  "remember": "Remember me",
+  "@remember": {},
+  "profile": "Profile",
+  "sign_in_successful": "Sign in successfully",
+  "@sign_in_successful": {},
+  "sign_in_unsuccesful": "Sign in failed",
+  "@sign_in_unsuccesful": {},
+  "sign_up_successful": "Sign in successfully",
+  "@sign_up_successful": {},
+  "sign_up_unsuccesful": "Sign in failed",
+  "@sign_up_unsuccesful": {},
+  "weak_password": "Weak password",
+  "already_in_use": "Email in use already",
+  "add_photo": "Add up to 3 photos",
+  "photo": "Add photos",
+  "not_null": "Field can't be null",
+  "book_tittle": "Book Tittle",
+  "description": "Description"
+
 }

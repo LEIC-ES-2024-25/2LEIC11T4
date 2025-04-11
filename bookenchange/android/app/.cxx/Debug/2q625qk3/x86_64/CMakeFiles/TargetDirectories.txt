@@ -1,0 +1,2 @@
+/home/buttercup/Documents/B/feup/2ano/ESOF/2LEIC11T4/bookenchange/android/app/.cxx/Debug/2q625qk3/x86_64/CMakeFiles/edit_cache.dir
+/home/buttercup/Documents/B/feup/2ano/ESOF/2LEIC11T4/bookenchange/android/app/.cxx/Debug/2q625qk3/x86_64/CMakeFiles/rebuild_cache.dir
