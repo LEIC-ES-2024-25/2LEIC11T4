@@ -1,0 +1,20 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'users.freezed.dart';
+part 'users.g.dart';
+
+@freezed
+class users with _$users {
+  const factory users({
+    required int id,
+    required String name,
+    required String institution,
+  }) = _users;
+
+  factory users.fromJson(Map<String, Object?> json) => _$usersFromJson(json);
+
+  factory users.fromFirestore(doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return users.fromJson(data);
+  }
+}

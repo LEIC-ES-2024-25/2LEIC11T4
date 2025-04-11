@@ -9,12 +9,17 @@ enum Condition { newCondition, usedCondition, damagedCondition }
 class Contribution with _$Contribution {
   const factory Contribution({
     required int id,
+    required int iduser,
+    required int idBook,
     required List<String> images,
-    required String name,
     required Condition condition,
-    required String institution,
   }) = _Contribution;
 
   factory Contribution.fromJson(Map<String, Object?> json) =>
       _$ContributionFromJson(json);
+
+  factory Contribution.fromFirestore(doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Contribution.fromJson(data);
+  }
 }
