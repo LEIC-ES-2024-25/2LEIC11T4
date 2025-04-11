@@ -75,7 +75,7 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 ### Mockup
   <sub><a href="https://www.figma.com/design/EUMLSq9YuJ0Qritrlqfrv1/Untitled?node-id=0-1&t=Qm7Pd6iXrawCXlXV-1"> Design</a></sub>
 ---
-### Domain mode
+### Domain model
 ![Screenshot from 2025-03-28 14-30-10](https://github.com/user-attachments/assets/576a90f5-9044-4411-b26c-4a7e238af27e)
 
 ---
@@ -99,6 +99,26 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 ## Project management
 
 ### Sprint 0
+#### Sprint planning
+- We divided the user story New Contribution into multiple tasks and sub-tasks, where each takes into account the options implemented in the related page as well as the implementation of the DB that will store the data. On the 1st sprint we will focus on this feature.
+![github com_orgs_LEIC-ES-2024-25_projects_75_views_1 (1)](https://github.com/user-attachments/assets/16f2d2ae-25fb-489c-b2cd-f60136b7447b) 
+
+### Sprint 1
+![github com_orgs_LEIC-ES-2024-25_projects_75_views_1 (2)](https://github.com/user-attachments/assets/a453afde-187a-4866-bf78-9572a06d50cf)
+#### Sprint review<br>
+-  We developed many of the tasks we had planned, but as they were all related to a single parent feature/user story (the implementation of the New Contribution) and had UI-logic dependencies as well as a need for the use of the Data Base we couldn't consider them as done. We worked mainly individually, sharing the stage of our individual tasks in group. <br>
+#### Sprint retrospective<br>
+- During the planning of the spring we didn't took into consideration the dependencies between the implementation of UI and logic, which in retrospective made many of the tasks impractical and didn't increase user value. <br>
+#### Sprint planning <br>
+- We assigned tasks to end the implementation of the logic of the New Contribution and the use of the API, as well as the user story Sign Up, Log In and Chat.
+### Sprint 2
+#### Sprint review
+-  
+#### Sprint retrospective
+
+#### Sprint planning
+![image](https://github.com/user-attachments/assets/3c92ba39-7f66-4165-9dad-4396bec38638)
+
 ---
  ## Authors
  Project developed by Belém Bilhoto, Guilherme Linhares, João Marques, José Reis and Sofia Cruz
