@@ -4,7 +4,6 @@
    * [Product Vision](#product-vision)
    * [Features](#features)
    * [Dependencies](#dependencies)
-   * [Elevator Pitch](#elevator-pitch)
      
 2.[Requirements](#requirements)
    * [User Stories and acceptance tests](#user-stories-and-acceptance-tests)
@@ -18,6 +17,11 @@
 
 4.[Project management](#project-management)
   * [Sprint 0](#sprint-0)
+    * [Sprint 1 planning](#sprint-1-planning)
+  * [Sprint 1](#sprint-1)
+    * [Sprint review](#sprint-review)
+    * [Sprint retrospective](#sprint-retrospective)
+    * [Sprint 2 planning](#sprint-2-planning)
 
 5.[Authors](#authors)
    
@@ -53,10 +57,6 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
    -Open Library api
    
 ---
-### Elevator Pitch
-   
-   
----
 ## Requirements
 
 ### User stories and acceptance tests
@@ -83,34 +83,41 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 ## Architecture and Design
 
 ### Logical architecture
-![Package Diagram drawio](https://github.com/user-attachments/assets/468b8489-af0a-4b86-800e-03230f3f79b3)
+![Copy of BookDonation-Package Diagram drawio(4)](https://github.com/user-attachments/assets/7159070e-53cb-4b33-8a1a-bda45e192a4d)
+
 
 ---
 ### Physical architecture
 * Deployment Diagram
-![Deployment DIagram drawio](https://github.com/user-attachments/assets/4bb42bd0-8d40-444e-a240-a82c86461f23)
+![BookDonation-Deployment Diagram drawio](https://github.com/user-attachments/assets/614cf684-c69c-4494-93c8-83accf77994c)
 
 * Components Diagram
-![Components Diagram drawio](https://github.com/user-attachments/assets/fcf6a2bd-7e46-45e3-aa57-f4fe82e1cf63)
+![Copy of BookDonation-Components Diagram drawio(1)](https://github.com/user-attachments/assets/c9403abe-5a5e-48eb-8eba-e0c5f8af287f)
+
 
 ---
 ### Vertical prototype
+
 ---
 ## Project management
 
 ### Sprint 0
-#### Sprint planning
-- We divided the user story New Contribution into multiple tasks and sub-tasks, where each takes into account the options implemented in the related page as well as the implementation of the DB that will store the data. On the 1st sprint we will focus on this feature.
+
+#### Sprint 1 planning
+
+- We divided the user story New Contribution into multiple tasks,where each on was separated in terms of logic and ui.
 ![github com_orgs_LEIC-ES-2024-25_projects_75_views_1 (1)](https://github.com/user-attachments/assets/16f2d2ae-25fb-489c-b2cd-f60136b7447b) 
 
 ### Sprint 1
 ![github com_orgs_LEIC-ES-2024-25_projects_75_views_1 (2)](https://github.com/user-attachments/assets/a453afde-187a-4866-bf78-9572a06d50cf)
-#### Sprint review<br>
--  We developed many of the tasks we had planned, but as they were all related to a single parent feature/user story (the implementation of the New Contribution) and had UI-logic dependencies as well as a need for the use of the Data Base we couldn't consider them as done. We worked mainly individually, sharing the stage of our individual tasks in group. <br>
-#### Sprint retrospective<br>
-- During the planning of the spring we didn't took into consideration the dependencies between the implementation of UI and logic, which in retrospective made many of the tasks impractical and didn't increase user value. <br>
-#### Sprint planning <br>
-- We assigned tasks to finish the implementation of the logic of the New Contribution and the use of the API, as well as the user story Sign Up, Log In and Chat.
+
+#### Sprint review
+- During this sprint, we successfully developed several of the planned tasks. Notably, we completed the UI for the New Contribution page. However, since the logic was not yet implemented and the feature could not be used meaningfully by the user, we could not consider the user story as fully delivered. As a result, there was no tangible value added to the application during this sprint.
+#### Sprint retrospective
+- One of the main challenges we encountered was a lack of consideration for dependencies between UI and logic tasks during sprint planning. This oversight led to the development of several tasks that were not immediately useful on their own and could not be tested end-to-end. In hindsight, a better understanding and mapping of these dependencies would have allowed us to prioritize tasks more effectively and deliver user value incrementally.
+
+#### Sprint 2 planning 
+- For this sprint, we’ve focused on addressing the gaps from Sprint 1. We assigned tasks aimed at completing the logic for the New Contribution feature and integrating it with the OpenLibrary API to ensure it becomes fully functional. Additionally, we planned work on new user stories such as Sign Up, Log In, Profile Editing and Chat, in order to expand the core functionality of the application. These tasks were prioritized to ensure end-to-end value delivery and to enable meaningful user interaction within the app.
 ![github com_orgs_LEIC-ES-2024-25_projects_75_views_1](https://github.com/user-attachments/assets/c82eedfd-9123-4758-9ee5-617486f8876d)
 
 ---
