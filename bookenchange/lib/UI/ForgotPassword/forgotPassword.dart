@@ -14,7 +14,7 @@ class forgotPassword extends StatelessWidget{
     body: Center(
     child: SizedBox(
     width: 320,
-    height: 200,
+    height: 150,
     child: DecoratedBox(
     decoration: BoxDecoration(
     color: Theme.of(context).colorScheme.secondary,

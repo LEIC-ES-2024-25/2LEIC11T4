@@ -19,13 +19,14 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.tertiary,
         body: Center(
           child: SizedBox(
             width: 320,
-            height: 400,
+            height: 420,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,

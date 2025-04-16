@@ -44,7 +44,7 @@ class loginTextFields extends StatelessWidget {
           }
           return null;
         },
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.onUnfocus,
       ),
     );
   }

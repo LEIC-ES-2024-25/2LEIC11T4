@@ -14,7 +14,7 @@ class Auth {
   Future<void> signin(BuildContext context, username, password, value) async {
     final prefs = await SharedPreferences.getInstance();
     try {
-      _firebaseAuth.signInWithEmailAndPassword(
+     await  _firebaseAuth.signInWithEmailAndPassword(
         email: username.text.trim(),
         password: password.text.trim(),
       );
@@ -49,7 +49,7 @@ class Auth {
   Future<void> signup(BuildContext context, username, password, value) async {
     final prefs = await SharedPreferences.getInstance();
     try {
-      _firebaseAuth.createUserWithEmailAndPassword(
+      await _firebaseAuth.createUserWithEmailAndPassword(
         email: username.text.trim(),
         password: password.text.trim(),
       );
@@ -85,7 +85,7 @@ class Auth {
 
   Future<void> recover(BuildContext context, username) async {
     try{
-      _firebaseAuth.sendPasswordResetEmail(email: username.text.trim());
+      await _firebaseAuth.sendPasswordResetEmail(email: username.text.trim());
     }
     catch(e){
       if(e=='user-not-found' && context.mounted){
