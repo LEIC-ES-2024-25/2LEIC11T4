@@ -36,6 +36,7 @@
   "photo": "Add photos",
   "not_null": "Field can't be null",
   "book_tittle": "Book Tittle",
-  "description": "Description"
+  "description": "Description",
+
 
 }

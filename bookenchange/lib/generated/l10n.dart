@@ -229,6 +229,16 @@ class S {
   String get description {
     return Intl.message('Description', name: 'description', desc: '', args: []);
   }
+
+  /// `This field is required`
+  String get required {
+    return Intl.message(
+      'This field is required',
+      name: 'required',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -36,8 +36,9 @@
   "already_in_use": "Já existe um usuário com esse email",
   "add_photo": "Adicione até 3 fotos",
   "photo": "Adicionar fotos",
-  "not_null": "O campo tem de estar preenchido",
+  "not_null": "Este campo é obrigatório",
   "book_tittle": "Título do livro",
-  "description": "Descrição"
+  "description": "Descrição",
+
 
 }

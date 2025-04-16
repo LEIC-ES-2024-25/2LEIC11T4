@@ -1,48 +1,40 @@
+import 'package:bookenchange/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
-class simple extends StatelessWidget {
-  final String field;
+class normalField extends StatelessWidget {
   final controller;
-  final String hintText;
-  const simple({
+  final String hint;
+  final String label;
+  const normalField({
     super.key,
-    required this.field,
-    required this.controller,
-    required this.hintText,
+    this.controller,
+    required this.hint,
+    required this.label,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Text(
-            field,
-            style:
-                Theme.of(
-                  context,
-                ).textTheme.bodyMedium, // Using theme text styles
-          ),
-          TextFormField(
-            controller: controller,
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              fillColor: Theme.of(context).colorScheme.onPrimary,
-              filled: true,
-              hintText: hintText,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          hintText: hint,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.onTertiary,
             ),
-            autovalidateMode: AutovalidateMode.always,
+            borderRadius: BorderRadius.zero,
           ),
-        ],
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return S.of(context).not_null;
+          }
+          return null;
+        },
+        autovalidateMode: AutovalidateMode.always,
       ),
     );
   }

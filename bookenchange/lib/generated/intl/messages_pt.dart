@@ -48,6 +48,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "remember": MessageLookupByLibrary.simpleMessage("Mantenha sessão aberta"),
+    "required": MessageLookupByLibrary.simpleMessage(
+      "Este campo é obrigatório",
+    ),
     "settings": MessageLookupByLibrary.simpleMessage("Definições"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
     "sign_in_successful": MessageLookupByLibrary.simpleMessage(

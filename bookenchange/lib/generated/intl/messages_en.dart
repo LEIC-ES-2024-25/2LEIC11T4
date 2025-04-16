@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "remember": MessageLookupByLibrary.simpleMessage("Remember me"),
+    "required": MessageLookupByLibrary.simpleMessage("This field is required"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
     "sign_in_successful": MessageLookupByLibrary.simpleMessage(

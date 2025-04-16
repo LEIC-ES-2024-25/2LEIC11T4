@@ -1,3 +1,4 @@
+import 'package:bookenchange/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class loginTextFields extends StatelessWidget {
@@ -37,6 +38,12 @@ class loginTextFields extends StatelessWidget {
           hintText: hint != null ? hint : "",
         ),
         obscureText: obscureText,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return S.of(context).not_null;
+          }
+          return null;
+        },
         autovalidateMode: AutovalidateMode.always,
       ),
     );
