@@ -13,7 +13,9 @@ void main() {
     expect(find.byType(AppBar), findsOneWidget);
   });
 
-  testWidgets('App starts with a BottomNavigationBar', (WidgetTester tester) async {
+  testWidgets('App starts with a BottomNavigationBar', (
+    WidgetTester tester,
+  ) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
@@ -21,17 +23,21 @@ void main() {
     expect(find.byType(BottomNavigationBar), findsOneWidget);
   });
 
-  testWidgets('App starts with localized bottom navigation labels', (WidgetTester tester) async {
+  testWidgets('App starts with localized bottom navigation labels', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       MaterialApp(
-        localizationsDelegates: const [ // Keep const here for the list itself
+        localizationsDelegates: const [
+          // Keep const here for the list itself
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        home: const MyApp(), // You can likely keep const here if MyApp is stateless
+        home:
+            const MyApp(), // You can likely keep const here if MyApp is stateless
       ),
     );
     expect(find.text('Chat'), findsOneWidget);

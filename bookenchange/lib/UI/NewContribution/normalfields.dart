@@ -21,7 +21,12 @@ class normalField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: label,
           hintText: hint,
-          border:OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.onTertiary),borderRadius: BorderRadius.zero),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.onTertiary,
+            ),
+            borderRadius: BorderRadius.zero,
+          ),
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -31,6 +36,5 @@ class normalField extends StatelessWidget {
         },
       ),
     );
-
   }
 }

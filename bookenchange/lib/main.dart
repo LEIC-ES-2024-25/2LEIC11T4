@@ -15,7 +15,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final prefs = await SharedPreferences.getInstance();
   final bool rememberMe = prefs.getBool('remember_me') ?? false;
-  if (!rememberMe ) {
+  if (!rememberMe) {
     await FirebaseAuth.instance.signOut();
   }
   runApp(const MyApp());

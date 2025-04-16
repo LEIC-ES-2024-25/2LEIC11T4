@@ -22,7 +22,9 @@ void main() {
       );
     }
 
-    testWidgets('SettingsPage shows the correct title', (WidgetTester tester) async {
+    testWidgets('SettingsPage shows the correct title', (
+      WidgetTester tester,
+    ) async {
       await pumpSettingsPage(tester);
 
       // Find the title text on the app bar
@@ -36,16 +38,23 @@ void main() {
       expect(find.byIcon(Icons.arrow_back), findsOneWidget);
     });
 
-    testWidgets('SettingsPage shows profile section', (WidgetTester tester) async {
+    testWidgets('SettingsPage shows profile section', (
+      WidgetTester tester,
+    ) async {
       await pumpSettingsPage(tester);
 
       // Find the profile circle avatar
-      expect(find.byType(CircleAvatar), findsNWidgets(2)); // One for the main profile, one for the edit icon
+      expect(
+        find.byType(CircleAvatar),
+        findsNWidgets(2),
+      ); // One for the main profile, one for the edit icon
       expect(find.byIcon(Icons.person), findsOneWidget);
       expect(find.byIcon(Icons.edit), findsOneWidget);
     });
 
-    testWidgets('SettingsPage shows settings options', (WidgetTester tester) async {
+    testWidgets('SettingsPage shows settings options', (
+      WidgetTester tester,
+    ) async {
       await pumpSettingsPage(tester);
 
       // Check if the settings option text is present
@@ -59,10 +68,15 @@ void main() {
       expect(find.byIcon(Icons.lock_outline), findsOneWidget);
       expect(find.byIcon(Icons.help_outline), findsOneWidget);
       expect(find.byIcon(Icons.logout), findsOneWidget);
-      expect(find.byIcon(Icons.arrow_forward_ios), findsNWidgets(4)); // Trailing icons
+      expect(
+        find.byIcon(Icons.arrow_forward_ios),
+        findsNWidgets(4),
+      ); // Trailing icons
     });
 
-    testWidgets('Tapping back button navigates back', (WidgetTester tester) async {
+    testWidgets('Tapping back button navigates back', (
+      WidgetTester tester,
+    ) async {
       await pumpSettingsPage(tester);
 
       // Tap the back button

@@ -1,10 +1,9 @@
+import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:bookenchange/UI/Login/Textfield.dart';
 import 'package:bookenchange/generated/l10n.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bookenchange/Logic/Authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
-import 'package:bookenchange/Logic/Navigation/transitions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,70 +16,9 @@ class _LoginState extends State<Login> {
   final password = TextEditingController();
   bool value = false;
 
-  Future<void> recover() async {
-    throw UnimplementedError();
-  }
-
-  Future<void> signin() async {
-    final prefs = await SharedPreferences.getInstance();
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: username.text.trim(),
-        password: password.text.trim(),
-      );
-      prefs.setBool('remember_me', value);
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          CustomPageRoute(destination: Navigation.home),
-        );
-      }
-    } on FirebaseAuthException catch (e) {
-      if (mounted) {
-        SnackBar(
-          content: Text(
-            S.of(context).sign_in_unsuccesful,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: Colors.white),
-          ),
-        );
-      }
-    }
-  }
-
-  Future<void> signup() async {
-    final prefs = await SharedPreferences.getInstance();
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: username.text.trim(),
-        password: password.text.trim(),
-      );
-      prefs.setBool('remember_me', value);
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          CustomPageRoute(destination: Navigation.home),
-        );
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        if (mounted) {
-          SnackBar(
-            content: Text(
-              S.of(context).already_in_use,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.white),
-            ),
-          );
-        }
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final Auth auth = Auth();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.tertiary,
@@ -106,13 +44,14 @@ class _LoginState extends State<Login> {
                   Padding(padding: EdgeInsets.all(5)),
                   loginTextFields(
                     controller: username,
-                    hintText: S.of(context).email_hint,
+                    label: S.of(context).email_hint,
                     obscureText: false,
+                    hint: "johndoe@gmaiil.com",
                   ),
                   Padding(padding: EdgeInsets.all(5)),
                   loginTextFields(
                     controller: password,
-                    hintText: S.of(context).password_hint,
+                    label: S.of(context).password_hint,
                     obscureText: true,
                   ),
                   RadioListTile(
@@ -135,7 +74,13 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         FilledButton(
-                          onPressed: signup,
+                          onPressed:
+                              () => auth.signup(
+                                context,
+                                username,
+                                password,
+                                value,
+                              ),
                           style: FilledButton.styleFrom(
                             minimumSize: Size(100, 50),
                             shape: RoundedRectangleBorder(
@@ -149,7 +94,13 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         FilledButton(
-                          onPressed: signin,
+                          onPressed:
+                              () => auth.signin(
+                                context,
+                                username,
+                                password,
+                                value,
+                              ),
                           style: FilledButton.styleFrom(
                             minimumSize: Size(100, 50),
                             shape: RoundedRectangleBorder(
@@ -166,9 +117,13 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   Align(
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.centerLeft,
                     child: TextButton(
-                      onPressed: recover,
+                      onPressed:
+                          () => Navigator.push(
+                            context,
+                            CustomPageRoute(destination: Navigation.home),
+                          ),
                       child: Text(
                         S.of(context).forgot_password,
                         style: Theme.of(context).textTheme.bodyMedium,

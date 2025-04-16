@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 class loginTextFields extends StatelessWidget {
   final controller;
-  final String hintText;
+  final String label;
   final bool obscureText;
+  final String? hint;
   const loginTextFields({
     super.key,
-    this.controller,
-    required this.hintText,
+    required this.controller,
+    required this.label,
     required this.obscureText,
+    this.hint,
   });
 
   @override
@@ -19,6 +21,7 @@ class loginTextFields extends StatelessWidget {
         controller: controller,
 
         decoration: InputDecoration(
+          labelText: label,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.primary,
@@ -31,7 +34,7 @@ class loginTextFields extends StatelessWidget {
           ),
           fillColor: Theme.of(context).colorScheme.onPrimary,
           filled: true,
-          hintText: hintText,
+          hintText: hint != null ? hint : "",
         ),
         obscureText: obscureText,
         autovalidateMode: AutovalidateMode.always,

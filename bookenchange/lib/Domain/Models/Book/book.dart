@@ -18,5 +18,4 @@ class book with _$book {
     final data = doc.data() as Map<String, dynamic>;
     return book.fromJson(data);
   }
-
 }

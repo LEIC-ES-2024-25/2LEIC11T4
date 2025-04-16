@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'areaofStudiesPage.dart';
+import 'NewContribution/areaofStudiesPage.dart';
 
 class Newcontribution extends StatefulWidget {
   const Newcontribution({super.key});
@@ -15,13 +15,17 @@ class _NewContributionState extends State<Newcontribution> {
   String? selectedArea;
   String? selectedUniversity;
 
-
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
 
   final List<String> conditions = ['New', 'Used - Good', 'Used - Acceptable'];
-  final List<String> areas = ['Computer Science', 'Mathematics', 'Law', 'History'];
+  final List<String> areas = [
+    'Computer Science',
+    'Mathematics',
+    'Law',
+    'History',
+  ];
   final List<String> universities = ['FEUP', 'FEP', 'FLUP', 'ICBAS'];
 
   Widget _buildAreaSelector() {
@@ -31,9 +35,7 @@ class _NewContributionState extends State<Newcontribution> {
         onTap: () async {
           final selected = await Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => const AreaOfStudiesPage(),
-            ),
+            MaterialPageRoute(builder: (context) => const AreaOfStudiesPage()),
           );
           if (selected != null && selected is String) {
             setState(() {
@@ -56,6 +58,7 @@ class _NewContributionState extends State<Newcontribution> {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -64,7 +67,11 @@ class _NewContributionState extends State<Newcontribution> {
       appBar: AppBar(
         title: const Text(
           'New Contribution',
-          style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
         backgroundColor: theme.colorScheme.primary,
@@ -96,16 +103,29 @@ class _NewContributionState extends State<Newcontribution> {
                   ],
                 ),
               ),
-              _buildTextField(nameController, "Name of the book", "e.g. Fluent Python, Introduction to Algorithms, ..."),
-              _buildTextField(descController, "Description", "Optional description..."),
+              _buildTextField(
+                nameController,
+                "Name of the book",
+                "e.g. Fluent Python, Introduction to Algorithms, ...",
+              ),
+              _buildTextField(
+                descController,
+                "Description",
+                "Optional description...",
+              ),
               _buildAreaSelector(),
               _buildTextField(isbnController, "ISBN", "e.g. 9781633436336"),
               _buildDropdown("Condition", conditions, selectedCondition, (val) {
                 setState(() => selectedCondition = val);
               }),
-              _buildDropdown("University/College", universities, selectedUniversity, (val) {
-                setState(() => selectedUniversity = val);
-              }),
+              _buildDropdown(
+                "University/College",
+                universities,
+                selectedUniversity,
+                (val) {
+                  setState(() => selectedUniversity = val);
+                },
+              ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
@@ -122,7 +142,11 @@ class _NewContributionState extends State<Newcontribution> {
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String label, String hint) {
+  Widget _buildTextField(
+    TextEditingController controller,
+    String label,
+    String hint,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
@@ -142,7 +166,12 @@ class _NewContributionState extends State<Newcontribution> {
     );
   }
 
-  Widget _buildDropdown(String label, List<String> items, String? selectedValue, Function(String?) onChanged) {
+  Widget _buildDropdown(
+    String label,
+    List<String> items,
+    String? selectedValue,
+    Function(String?) onChanged,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: DropdownButtonFormField<String>(
@@ -151,12 +180,10 @@ class _NewContributionState extends State<Newcontribution> {
           labelText: label,
           border: const OutlineInputBorder(),
         ),
-        items: items.map((item) {
-          return DropdownMenuItem<String>(
-            value: item,
-            child: Text(item),
-          );
-        }).toList(),
+        items:
+            items.map((item) {
+              return DropdownMenuItem<String>(value: item, child: Text(item));
+            }).toList(),
         onChanged: onChanged,
         validator: (value) => value == null ? 'Please select $label' : null,
       ),
