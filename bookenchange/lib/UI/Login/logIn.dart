@@ -15,10 +15,10 @@ class _LoginState extends State<Login> {
   final username = TextEditingController();
   final password = TextEditingController();
   bool value = false;
+  final Auth auth = Auth();
 
   @override
   Widget build(BuildContext context) {
-    final Auth auth = Auth();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.tertiary,
@@ -122,7 +122,7 @@ class _LoginState extends State<Login> {
                       onPressed:
                           () => Navigator.push(
                             context,
-                            CustomPageRoute(destination: Navigation.home),
+                            CustomPageRoute(destination: Navigation.forgotPass),
                           ),
                       child: Text(
                         S.of(context).forgot_password,

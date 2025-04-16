@@ -1,4 +1,6 @@
 import 'package:bookenchange/UI/Chat.dart';
+import 'package:bookenchange/UI/Edit%20Profile/editProfile.dart';
+import 'package:bookenchange/UI/ForgotPassword/forgotPassword.dart';
 import 'package:bookenchange/UI/Homepage/homePage.dart';
 import 'package:bookenchange/UI/NewContribution/newContribution.dart';
 import 'package:bookenchange/UI/Settings/settingsPage.dart';
@@ -9,7 +11,9 @@ enum Navigation {
   home(MyHomePage()),
   settings(SettingsPage()),
   nContribution(Newcontribution()),
-  chat(chatPage());
+  chat(chatPage()),
+  edProfile(editProfile()),
+  forgotPass(forgotPassword());
 
   const Navigation(this.builder);
   final Widget builder;

@@ -230,11 +230,61 @@ class S {
     return Intl.message('Description', name: 'description', desc: '', args: []);
   }
 
-  /// `This field is required`
-  String get required {
+  /// `First name`
+  String get first_name {
+    return Intl.message('First name', name: 'first_name', desc: '', args: []);
+  }
+
+  /// `Last name`
+  String get last_name {
+    return Intl.message('Last name', name: 'last_name', desc: '', args: []);
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message('Username', name: 'username', desc: '', args: []);
+  }
+
+  /// `University/College`
+  String get university_college {
     return Intl.message(
-      'This field is required',
-      name: 'required',
+      'University/College',
+      name: 'university_college',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Degree`
+  String get degree {
+    return Intl.message('Degree', name: 'degree', desc: '', args: []);
+  }
+
+  /// `Current year of studies`
+  String get current_year {
+    return Intl.message(
+      'Current year of studies',
+      name: 'current_year',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send recovery email`
+  String get send {
+    return Intl.message(
+      'Send recovery email',
+      name: 'send',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User not found`
+  String get not_found {
+    return Intl.message(
+      'User not found',
+      name: 'not_found',
       desc: '',
       args: [],
     );

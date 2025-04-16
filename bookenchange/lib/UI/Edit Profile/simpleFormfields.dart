@@ -2,25 +2,26 @@ import 'package:bookenchange/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class normalField extends StatelessWidget {
+
   final controller;
-  final String hint;
-  final String label;
+  final String name;
   const normalField({
     super.key,
-    this.controller,
-    required this.hint,
-    required this.label,
+    required this.controller,
+    required this.name,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: TextFormField(
+      child: Column(children: [Text(name,style:
+      Theme.of(
+        context,
+      ).textTheme.bodySmall),
+        TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          labelText: label,
-          hintText: hint,
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.onTertiary,
@@ -35,6 +36,7 @@ class normalField extends StatelessWidget {
           return null;
         },
         autovalidateMode: AutovalidateMode.always,
+      ),]
       ),
     );
   }

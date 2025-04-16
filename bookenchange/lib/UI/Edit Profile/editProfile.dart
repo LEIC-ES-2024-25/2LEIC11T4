@@ -1,4 +1,5 @@
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
+import 'package:bookenchange/UI/Edit%20Profile/simpleFormfields.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
@@ -11,6 +12,17 @@ class editProfile extends StatefulWidget {
 }
 
 class _editProfileState extends State<editProfile> {
+  final firstname=TextEditingController();
+  final lastname=TextEditingController();
+  final username=TextEditingController();
+  final email=TextEditingController();
+  final universityCollege=TextEditingController();
+  final degree=TextEditingController();
+  final currentYear=TextEditingController();
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,9 +66,19 @@ class _editProfileState extends State<editProfile> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: SingleChildScrollView(child:Column(children: [
-
+                      normalField(
+                        controller: firstname,
+                        name: S.of(context).first_name,
+                      ),
+                      normalField(controller: lastname, name: S.of(context).last_name),
+                      normalField(controller: username, name: S.of(context).username),
+                      normalField(controller: email, name:S.of(context).email_hint),
+                      //search dropdown university/college
+                      //search dropdown degree
+                      //normal dropdown year
 
                     ]),
+
 
                     ),
                   ),

@@ -37,6 +37,13 @@
   "not_null": "Field can't be null",
   "book_tittle": "Book Tittle",
   "description": "Description",
-
+  "first_name": "First name",
+  "last_name": "Last name",
+  "username": "Username",
+  "university_college": "University/College",
+  "degree": "Degree",
+  "current_year": "Current year of studies",
+  "send": "Send recovery email",
+  "not_found": "User not found"
 
 }

@@ -29,15 +29,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
     "book_tittle": MessageLookupByLibrary.simpleMessage("Book Tittle"),
     "chat": MessageLookupByLibrary.simpleMessage("Chat"),
+    "current_year": MessageLookupByLibrary.simpleMessage(
+      "Current year of studies",
+    ),
+    "degree": MessageLookupByLibrary.simpleMessage("Degree"),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
     "email_hint": MessageLookupByLibrary.simpleMessage(""),
+    "first_name": MessageLookupByLibrary.simpleMessage("First name"),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "Forgot Password ?",
     ),
+    "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "new_contribution": MessageLookupByLibrary.simpleMessage(
       "New Contribution",
     ),
+    "not_found": MessageLookupByLibrary.simpleMessage("User not found"),
     "not_null": MessageLookupByLibrary.simpleMessage("Field can\'t be null"),
     "password_hint": MessageLookupByLibrary.simpleMessage(""),
     "photo": MessageLookupByLibrary.simpleMessage("Add photos"),
@@ -46,7 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "remember": MessageLookupByLibrary.simpleMessage("Remember me"),
-    "required": MessageLookupByLibrary.simpleMessage("This field is required"),
+    "send": MessageLookupByLibrary.simpleMessage("Send recovery email"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
     "sign_in_successful": MessageLookupByLibrary.simpleMessage(
@@ -62,6 +69,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "sign_up_unsuccesful": MessageLookupByLibrary.simpleMessage(
       "Sign in failed",
     ),
+    "university_college": MessageLookupByLibrary.simpleMessage(
+      "University/College",
+    ),
+    "username": MessageLookupByLibrary.simpleMessage("Username"),
     "weak_password": MessageLookupByLibrary.simpleMessage("Weak password"),
   };
 }

@@ -29,17 +29,24 @@ class MessageLookup extends MessageLookupByLibrary {
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
     "book_tittle": MessageLookupByLibrary.simpleMessage("Título do livro"),
     "chat": MessageLookupByLibrary.simpleMessage("Mensagens"),
+    "current_year": MessageLookupByLibrary.simpleMessage("Ano curricular"),
+    "degree": MessageLookupByLibrary.simpleMessage("Curso"),
     "description": MessageLookupByLibrary.simpleMessage("Descrição"),
     "email_hint": MessageLookupByLibrary.simpleMessage("Email"),
+    "first_name": MessageLookupByLibrary.simpleMessage("Primeiro nome"),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "Esqueci-me da palavra-passe?",
     ),
+    "last_name": MessageLookupByLibrary.simpleMessage("Último nome"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "new_contribution": MessageLookupByLibrary.simpleMessage(
       "Nova Contribuição",
     ),
+    "not_found": MessageLookupByLibrary.simpleMessage(
+      "Utilizador não encontrado",
+    ),
     "not_null": MessageLookupByLibrary.simpleMessage(
-      "O campo tem de estar preenchido",
+      "Este campo é obrigatório",
     ),
     "password_hint": MessageLookupByLibrary.simpleMessage("Palavra-passe"),
     "photo": MessageLookupByLibrary.simpleMessage("Adicionar fotos"),
@@ -48,9 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "remember": MessageLookupByLibrary.simpleMessage("Mantenha sessão aberta"),
-    "required": MessageLookupByLibrary.simpleMessage(
-      "Este campo é obrigatório",
-    ),
+    "send": MessageLookupByLibrary.simpleMessage("Enviar email de recuperação"),
     "settings": MessageLookupByLibrary.simpleMessage("Definições"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),
     "sign_in_successful": MessageLookupByLibrary.simpleMessage(
@@ -66,6 +71,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "sign_up_unsuccesful": MessageLookupByLibrary.simpleMessage(
       "Sign in failed",
     ),
+    "university_college": MessageLookupByLibrary.simpleMessage(
+      "Universidade/Instituto superior",
+    ),
+    "username": MessageLookupByLibrary.simpleMessage("Nome de utilizador"),
     "weak_password": MessageLookupByLibrary.simpleMessage(
       "Palavra-passe fraca",
     ),

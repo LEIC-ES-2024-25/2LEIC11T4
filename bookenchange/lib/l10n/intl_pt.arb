@@ -39,6 +39,14 @@
   "not_null": "Este campo é obrigatório",
   "book_tittle": "Título do livro",
   "description": "Descrição",
+  "first_name": "Primeiro nome",
+  "last_name": "Último nome",
+  "username": "Nome de utilizador",
+  "university_college": "Universidade/Instituto superior",
+  "degree": "Curso",
+  "current_year": "Ano curricular",
+  "send": "Enviar email de recuperação",
+  "not_found": "Utilizador não encontrado"
 
 
 }
