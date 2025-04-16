@@ -35,7 +35,6 @@ class normalField extends StatelessWidget {
           }
           return null;
         },
-        autovalidateMode: AutovalidateMode.always,
       ),]
       ),
     );

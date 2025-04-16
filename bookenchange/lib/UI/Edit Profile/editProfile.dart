@@ -19,6 +19,7 @@ class _editProfileState extends State<editProfile> {
   final universityCollege=TextEditingController();
   final degree=TextEditingController();
   final currentYear=TextEditingController();
+  final formKey=GlobalKey<FormState>();
 
 
 
@@ -42,15 +43,19 @@ class _editProfileState extends State<editProfile> {
               color: Theme.of(context).colorScheme.onPrimary,
             ),
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                CustomPageRoute(destination: Navigation.home),
-              ); // Goes back to HomePage
-            },
+              if (formKey.currentState!.validate()) {
+                Navigator.pushReplacement(
+                  context,
+                  CustomPageRoute(destination: Navigation.home),
+                ); // Goes back to HomePage
+              };
+            }
           ),
           centerTitle: true,
         ),
         body: Center(
+          child:Form(
+          key: formKey,
           child: Column(
             children: [
               //fetch image from firebase
@@ -58,8 +63,8 @@ class _editProfileState extends State<editProfile> {
               Padding(
                 padding: EdgeInsets.all(10),
                 child: SizedBox(
-                  width: 320,
-                  height: 800,
+                  width: 400,
+                  height: 500,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
@@ -88,6 +93,7 @@ class _editProfileState extends State<editProfile> {
           ),
         ),
       ),
+    ),
     );
   }
 }

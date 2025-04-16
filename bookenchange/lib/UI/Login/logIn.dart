@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
   final password = TextEditingController();
   bool value = false;
   final Auth auth = Auth();
-
+  final formKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
 
@@ -32,7 +32,7 @@ class _LoginState extends State<Login> {
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Column(
+              child: Form(key:formKey, child:Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(padding: EdgeInsets.all(10)),
@@ -81,6 +81,7 @@ class _LoginState extends State<Login> {
                                 username,
                                 password,
                                 value,
+                                formKey
                               ),
                           style: FilledButton.styleFrom(
                             minimumSize: Size(100, 50),
@@ -101,6 +102,7 @@ class _LoginState extends State<Login> {
                                 username,
                                 password,
                                 value,
+                                formKey
                               ),
                           style: FilledButton.styleFrom(
                             minimumSize: Size(100, 50),
@@ -136,6 +138,7 @@ class _LoginState extends State<Login> {
             ),
           ),
         ),
+      ),
       ),
     );
   }
