@@ -11,9 +11,15 @@ class Auth {
   User? get currentUser => _firebaseAuth.currentUser;
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  Future<void> signin(BuildContext context, username, password, value,GlobalKey<FormState> formKey) async {
+  Future<void> signin(
+    BuildContext context,
+    username,
+    password,
+    value,
+    GlobalKey<FormState> formKey,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
-    if(formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
       try {
         await _firebaseAuth.signInWithEmailAndPassword(
           email: username.text.trim(),
@@ -30,24 +36,14 @@ class Auth {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: Theme
-                  .of(context)
-                  .colorScheme
-                  .secondary,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               content: Text(
-                S
-                    .of(context)
-                    .sign_in_unsuccesful,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyMedium,
+                S.of(context).sign_in_unsuccesful,
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
               behavior: SnackBarBehavior.floating,
               margin: EdgeInsets.only(
-                bottom: MediaQuery
-                    .sizeOf(context)
-                    .height * 0.91,
+                bottom: MediaQuery.sizeOf(context).height * 0.91,
                 left: 10,
                 right: 10,
               ),
@@ -58,9 +54,15 @@ class Auth {
     }
   }
 
-  Future<void> signup(BuildContext context, username, password, value,GlobalKey<FormState> formKey) async {
+  Future<void> signup(
+    BuildContext context,
+    username,
+    password,
+    value,
+    GlobalKey<FormState> formKey,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
-    if(formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
       try {
         await _firebaseAuth.createUserWithEmailAndPassword(
           email: username.text.trim(),
@@ -78,24 +80,14 @@ class Auth {
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                backgroundColor: Theme
-                    .of(context)
-                    .colorScheme
-                    .secondary,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 content: Text(
-                  S
-                      .of(context)
-                      .already_in_use,
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodyMedium,
+                  S.of(context).already_in_use,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 behavior: SnackBarBehavior.floating,
                 margin: EdgeInsets.only(
-                  bottom: MediaQuery
-                      .sizeOf(context)
-                      .height * 0.91,
+                  bottom: MediaQuery.sizeOf(context).height * 0.91,
                   left: 10,
                   right: 10,
                 ),
@@ -108,11 +100,10 @@ class Auth {
   }
 
   Future<void> recover(BuildContext context, username) async {
-    try{
+    try {
       await _firebaseAuth.sendPasswordResetEmail(email: username.text.trim());
-    }
-    catch(e){
-      if(e=='user-not-found' && context.mounted){
+    } catch (e) {
+      if (e == 'user-not-found' && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -129,8 +120,6 @@ class Auth {
           ),
         );
       }
-
     }
-
   }
 }

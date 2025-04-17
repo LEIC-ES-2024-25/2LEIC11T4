@@ -1,5 +1,5 @@
 import 'package:bookenchange/UI/Chat.dart';
-import 'package:bookenchange/UI/Edit%20Profile/editProfile.dart';
+import 'package:bookenchange/UI/Usersetup/firstTimeuser.dart';
 import 'package:bookenchange/UI/ForgotPassword/forgotPassword.dart';
 import 'package:bookenchange/UI/Homepage/homePage.dart';
 import 'package:bookenchange/UI/NewContribution/newContribution.dart';
