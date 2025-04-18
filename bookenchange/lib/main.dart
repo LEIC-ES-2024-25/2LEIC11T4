@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final Auth auth = Auth();
+    final Auth auth = Auth.instance;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Book Donation',
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: auth.currentUser != null ? MyHomePage() : Login(),
+      home: auth.currentUser != null ? MyHomePage() : Login(auth: auth,),
     );
   }
 }

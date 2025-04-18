@@ -8,13 +8,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class Firebase {
+  static final  Firebase _instance=Firebase();
   final api = openLibrary();
   final FirebaseFirestore db;
   final Reference storageRef;
-  Firebase(FirebaseFirestore firestore, FirebaseStorage storage)
-    : db = firestore,
-      storageRef = storage.ref();
+  Firebase()
+      : db = FirebaseFirestore.instance,
+        storageRef = FirebaseStorage.instance.ref();
 
+  static Firebase get instance => _instance;
   //search book by isbn if not yet present in the firebase  it should make a call to api
   Future<bookinfo> getBookByISBN(String isbn) async {
     final doc = await db.collection('books').doc(isbn).get();

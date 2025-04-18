@@ -7,10 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Navigation/transitions.dart';
 
 class Auth {
+  static final  Auth _instance=Auth();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User? get currentUser => _firebaseAuth.currentUser;
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
-
+  static Auth get instance => _instance;
   Future<void> signin(
     BuildContext context,
     username,

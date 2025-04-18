@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  final Auth auth;
+  const Login({super.key, required this.auth});
   @override
   State<Login> createState() => _LoginState();
 }
@@ -15,7 +16,6 @@ class _LoginState extends State<Login> {
   final username = TextEditingController();
   final password = TextEditingController();
   bool value = false;
-  final Auth auth = Auth();
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
