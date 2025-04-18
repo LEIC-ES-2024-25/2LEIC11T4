@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$institution {
 
- int get id; String get institution;
+ String get institution;
 /// Create a copy of institution
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $institutionCopyWith<institution> get copyWith => _$institutionCopyWithImpl<inst
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is institution&&(identical(other.id, id) || other.id == id)&&(identical(other.institution, institution) || other.institution == institution));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is institution&&(identical(other.institution, institution) || other.institution == institution));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,institution);
+int get hashCode => Object.hash(runtimeType,institution);
 
 @override
 String toString() {
-  return 'institution(id: $id, institution: $institution)';
+  return 'institution(institution: $institution)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $institutionCopyWith<$Res>  {
   factory $institutionCopyWith(institution value, $Res Function(institution) _then) = _$institutionCopyWithImpl;
 @useResult
 $Res call({
- int id, String institution
+ String institution
 });
 
 
@@ -66,10 +66,9 @@ class _$institutionCopyWithImpl<$Res>
 
 /// Create a copy of institution
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? institution = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? institution = null,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,institution: null == institution ? _self.institution : institution // ignore: cast_nullable_to_non_nullable
+institution: null == institution ? _self.institution : institution // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -81,10 +80,9 @@ as String,
 @JsonSerializable()
 
 class _institution implements institution {
-  const _institution({required this.id, required this.institution});
+  const _institution({required this.institution});
   factory _institution.fromJson(Map<String, dynamic> json) => _$institutionFromJson(json);
 
-@override final  int id;
 @override final  String institution;
 
 /// Create a copy of institution
@@ -100,16 +98,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _institution&&(identical(other.id, id) || other.id == id)&&(identical(other.institution, institution) || other.institution == institution));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _institution&&(identical(other.institution, institution) || other.institution == institution));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,institution);
+int get hashCode => Object.hash(runtimeType,institution);
 
 @override
 String toString() {
-  return 'institution(id: $id, institution: $institution)';
+  return 'institution(institution: $institution)';
 }
 
 
@@ -120,7 +118,7 @@ abstract mixin class _$institutionCopyWith<$Res> implements $institutionCopyWith
   factory _$institutionCopyWith(_institution value, $Res Function(_institution) _then) = __$institutionCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String institution
+ String institution
 });
 
 
@@ -137,10 +135,9 @@ class __$institutionCopyWithImpl<$Res>
 
 /// Create a copy of institution
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? institution = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? institution = null,}) {
   return _then(_institution(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,institution: null == institution ? _self.institution : institution // ignore: cast_nullable_to_non_nullable
+institution: null == institution ? _self.institution : institution // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

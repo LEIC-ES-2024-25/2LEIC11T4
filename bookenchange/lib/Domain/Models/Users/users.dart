@@ -6,7 +6,6 @@ part 'users.g.dart';
 @freezed
 class users with _$users {
   const factory users({
-    required int id,
     required String First_name,
     required String Last_name,
     required String username,

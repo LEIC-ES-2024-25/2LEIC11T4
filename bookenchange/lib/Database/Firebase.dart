@@ -1,36 +1,44 @@
+import 'package:bookenchange/Database/openLibrary.dart';
 import 'package:bookenchange/Domain/Models/Book/book.dart';
+import 'package:bookenchange/Domain/Models/degree/degree.dart';
 import 'package:bookenchange/Domain/Models/institution/institution.dart';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class Firebase {
+  final api=openLibrary();
   final FirebaseFirestore db;
   final Reference storageRef;
   Firebase(FirebaseFirestore firestore, FirebaseStorage storage)
     : db = firestore,
       storageRef = storage.ref();
 
-  Future<book?> getBookByISBN(String isbn) async {
-    final doc =
-        await FirebaseFirestore.instance.collection('books').doc(isbn).get();
-    if (doc.exists) {
-      return book.fromFirestore(doc);
+  //search book by isbn if not yet present in the firebase  it should make a call to api
+  Future<book> getBookByISBN(String isbn) async {
+    final doc = await FirebaseFirestore.instance.collection('books').doc(isbn).get();
+    if (doc.exists && doc.data()!=null) {
+      return book.fromJson(doc.data()!);
     } else {
-      return null;
+      book fetched=await api.fetchBookByISBN(isbn);
+      await FirebaseFirestore.instance.collection('books').add(fetched.toJson());
+      return fetched;
     }
   }
 
   //fetch institutions
-  Future<List<institution>> getAllInstitutions() async{
+  Future<List<String>> getAllInstitutions() async{
     final snapshot=await db.collection('institution').get();
-    return snapshot.docs.map((doc)=>institution.fromFirestore(doc)).toList();
+    return snapshot.docs.map((doc)=>institution.fromJson(doc.data()).institution).toList();
   }
-  //fetch degree
+  Future<void> addInstittion() async{
 
-  Future<List<degree>> getAllDegrees() async{
-    final snapshot=await db.collection('degree').get();
-    return snapshot.docs.map((doc)=>institution.fromFirestore(doc)).toList();
   }
+  //fetch degrees
+  Future<List<String>> getAllDegrees() async{
+    final snapshot=await db.collection('degree').get();
+    return snapshot.docs.map((doc)=>degree.fromJson(doc.data()).degree).toList();
+  }
+
+
 
 }

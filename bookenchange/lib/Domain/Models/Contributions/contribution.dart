@@ -8,7 +8,6 @@ enum Condition { newCondition, usedCondition, damagedCondition }
 @freezed
 class Contribution with _$Contribution {
   const factory Contribution({
-    required int id,
     required int iduser,
     required int idBook,
     required List<String> images,

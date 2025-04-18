@@ -6,7 +6,6 @@ part 'institution.g.dart';
 @freezed
 class institution with _$institution{
   const factory institution({
-    required int id,
     required String institution,
   }) = _institution;
 

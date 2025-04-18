@@ -6,7 +6,6 @@ part 'degree.g.dart';
 @freezed
 class degree with _$degree {
   const factory degree({
-    required int id,
     required String degree,
   }) = _degree;
 

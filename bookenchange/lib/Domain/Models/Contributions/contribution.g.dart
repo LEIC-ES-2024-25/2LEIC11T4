@@ -8,7 +8,6 @@ part of 'contribution.dart';
 
 _Contribution _$ContributionFromJson(Map<String, dynamic> json) =>
     _Contribution(
-      id: (json['id'] as num).toInt(),
       iduser: (json['iduser'] as num).toInt(),
       idBook: (json['idBook'] as num).toInt(),
       images:
@@ -18,7 +17,6 @@ _Contribution _$ContributionFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ContributionToJson(_Contribution instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'iduser': instance.iduser,
       'idBook': instance.idBook,
       'images': instance.images,
