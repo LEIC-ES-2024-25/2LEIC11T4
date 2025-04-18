@@ -8,6 +8,4 @@ class follow with _$follow {
   const factory follow({required int iduser1, required int iduser2}) = _follow;
 
   factory follow.fromJson(Map<String, Object?> json) => _$followFromJson(json);
-
-
 }

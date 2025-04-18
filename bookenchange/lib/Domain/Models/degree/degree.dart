@@ -5,11 +5,7 @@ part 'degree.g.dart';
 
 @freezed
 class degree with _$degree {
-  const factory degree({
-    required String degree,
-  }) = _degree;
+  const factory degree({required String degree}) = _degree;
 
   factory degree.fromJson(Map<String, Object?> json) => _$degreeFromJson(json);
-
-
 }

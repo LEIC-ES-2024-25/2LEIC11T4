@@ -14,6 +14,4 @@ class transactions with _$transactions {
 
   factory transactions.fromJson(Map<String, Object?> json) =>
       _$transactionsFromJson(json);
-
-
 }

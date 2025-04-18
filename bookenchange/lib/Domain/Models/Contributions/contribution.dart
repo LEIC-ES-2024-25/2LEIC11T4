@@ -16,6 +16,4 @@ class Contribution with _$Contribution {
 
   factory Contribution.fromJson(Map<String, Object?> json) =>
       _$ContributionFromJson(json);
-
-
 }

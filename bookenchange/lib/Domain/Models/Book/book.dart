@@ -8,11 +8,9 @@ class book with _$book {
   const factory book({
     required String ISBN,
     required String name,
-    required String author,
+    required List<String> authors,
     required String Publisher,
   }) = _book;
 
   factory book.fromJson(Map<String, Object?> json) => _$bookFromJson(json);
-
-
 }

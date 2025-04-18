@@ -1,12 +1,14 @@
 import 'package:bookenchange/Database/openLibrary.dart';
+import 'package:bookenchange/Domain/Models/Author/author.dart';
 import 'package:bookenchange/Domain/Models/Book/book.dart';
+import 'package:bookenchange/Domain/Models/bookwithinformation/bookinfo.dart';
 import 'package:bookenchange/Domain/Models/degree/degree.dart';
 import 'package:bookenchange/Domain/Models/institution/institution.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class Firebase {
-  final api=openLibrary();
+  final api = openLibrary();
   final FirebaseFirestore db;
   final Reference storageRef;
   Firebase(FirebaseFirestore firestore, FirebaseStorage storage)
@@ -14,31 +16,74 @@ class Firebase {
       storageRef = storage.ref();
 
   //search book by isbn if not yet present in the firebase  it should make a call to api
-  Future<book> getBookByISBN(String isbn) async {
-    final doc = await FirebaseFirestore.instance.collection('books').doc(isbn).get();
-    if (doc.exists && doc.data()!=null) {
-      return book.fromJson(doc.data()!);
-    } else {
-      book fetched=await api.fetchBookByISBN(isbn);
-      await FirebaseFirestore.instance.collection('books').add(fetched.toJson());
-      return fetched;
+  Future<bookinfo> getBookByISBN(String isbn) async {
+    final doc = await db.collection('books').doc(isbn).get();
+    final List<String> authors;
+    final book result;
+    if (doc.exists && doc.data() != null) {
+      result = book.fromJson(doc.data()!);
+      authors = await getauthors(result.authors);
+      return bookinfo(
+        ISBN: result.ISBN,
+        name: result.name,
+        authors: authors,
+        Publisher: result.Publisher,
+      );
     }
+    result = await api.fetchBookByISBN(isbn);
+    authors = await getauthors(result.authors);
+    await db.collection('books').add(result.toJson());
+    return bookinfo(
+      ISBN: isbn,
+      name: result.name,
+      authors: authors,
+      Publisher: result.Publisher,
+    );
+  }
+
+  Future<String> searchauthor(String authorcode) async {
+    final doc = await db.collection('author').doc(authorcode).get();
+    if (doc.exists && doc.data() != null) {
+      final data = doc.data();
+      return data!['name'];
+    }
+    author feetched = await api.fetchAuthor(authorcode);
+    await db.collection('author').add(feetched.toJson());
+    return feetched.name;
+  }
+
+  //this is use for book info ui
+  Future<List<String>> getauthors(List<String> authorcode) async {
+    List<String> authors = [];
+    for (final id in authorcode) {
+      authors.add(await searchauthor(id));
+    }
+    return authors;
   }
 
   //fetch institutions
-  Future<List<String>> getAllInstitutions() async{
-    final snapshot=await db.collection('institution').get();
-    return snapshot.docs.map((doc)=>institution.fromJson(doc.data()).institution).toList();
+  Future<List<String>> getAllInstitutions() async {
+    final snapshot = await db.collection('institution').get();
+    return snapshot.docs
+        .map((doc) => institution.fromJson(doc.data()).institution)
+        .toList();
   }
-  Future<void> addInstittion() async{
 
+  //add institution
+  Future<void> addInstittion(String inst) async {
+    await db.collection('institution').add({'institution': inst});
   }
+
   //fetch degrees
-  Future<List<String>> getAllDegrees() async{
-    final snapshot=await db.collection('degree').get();
-    return snapshot.docs.map((doc)=>degree.fromJson(doc.data()).degree).toList();
+  Future<List<String>> getAllDegrees() async {
+    final snapshot = await db.collection('degree').get();
+    return snapshot.docs
+        .map((doc) => degree.fromJson(doc.data()).degree)
+        .toList();
   }
 
-
-
+  //add degree
+  Future<void> addDegree(String deg) async {
+    await db.collection('degree').add({'degree': deg});
+  }
 }

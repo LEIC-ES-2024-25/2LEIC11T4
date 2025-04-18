@@ -15,5 +15,4 @@ class users with _$users {
   }) = _users;
 
   factory users.fromJson(Map<String, Object?> json) => _$usersFromJson(json);
-
 }
