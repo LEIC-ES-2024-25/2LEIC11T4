@@ -6,8 +6,8 @@ part of 'institution.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_institution _$institutionFromJson(Map<String, dynamic> json) =>
-    _institution(institution: json['institution'] as String);
+_Institution _$InstitutionFromJson(Map<String, dynamic> json) =>
+    _Institution(name: json['name'] as String);
 
-Map<String, dynamic> _$institutionToJson(_institution instance) =>
-    <String, dynamic>{'institution': instance.institution};
+Map<String, dynamic> _$InstitutionToJson(_Institution instance) =>
+    <String, dynamic>{'name': instance.name};

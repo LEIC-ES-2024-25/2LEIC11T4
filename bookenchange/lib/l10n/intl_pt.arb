@@ -46,7 +46,8 @@
   "degree": "Curso",
   "current_year": "Ano curricular",
   "send": "Enviar email de recuperação",
-  "not_found": "Utilizador não encontrado"
+  "not_found": "Utilizador não encontrado",
+  "add_new": "Adicionar opção"
 
 
 }

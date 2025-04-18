@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                         children: [
                           FilledButton(
                             onPressed:
-                                () => auth.signup(
+                                () => widget.auth.signup(
                                   context,
                                   username,
                                   password,
@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
                           ),
                           FilledButton(
                             onPressed:
-                                () => auth.signin(
+                                () => widget.auth.signin(
                                   context,
                                   username,
                                   password,

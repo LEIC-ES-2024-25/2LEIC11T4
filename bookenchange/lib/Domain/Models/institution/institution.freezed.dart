@@ -14,42 +14,42 @@ part of 'institution.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$institution {
+mixin _$Institution {
 
- String get institution;
-/// Create a copy of institution
+ String get name;
+/// Create a copy of Institution
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$institutionCopyWith<institution> get copyWith => _$institutionCopyWithImpl<institution>(this as institution, _$identity);
+$InstitutionCopyWith<Institution> get copyWith => _$InstitutionCopyWithImpl<Institution>(this as Institution, _$identity);
 
-  /// Serializes this institution to a JSON map.
+  /// Serializes this Institution to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is institution&&(identical(other.institution, institution) || other.institution == institution));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Institution&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,institution);
+int get hashCode => Object.hash(runtimeType,name);
 
 @override
 String toString() {
-  return 'institution(institution: $institution)';
+  return 'Institution(name: $name)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $institutionCopyWith<$Res>  {
-  factory $institutionCopyWith(institution value, $Res Function(institution) _then) = _$institutionCopyWithImpl;
+abstract mixin class $InstitutionCopyWith<$Res>  {
+  factory $InstitutionCopyWith(Institution value, $Res Function(Institution) _then) = _$InstitutionCopyWithImpl;
 @useResult
 $Res call({
- String institution
+ String name
 });
 
 
@@ -57,18 +57,18 @@ $Res call({
 
 }
 /// @nodoc
-class _$institutionCopyWithImpl<$Res>
-    implements $institutionCopyWith<$Res> {
-  _$institutionCopyWithImpl(this._self, this._then);
+class _$InstitutionCopyWithImpl<$Res>
+    implements $InstitutionCopyWith<$Res> {
+  _$InstitutionCopyWithImpl(this._self, this._then);
 
-  final institution _self;
-  final $Res Function(institution) _then;
+  final Institution _self;
+  final $Res Function(Institution) _then;
 
-/// Create a copy of institution
+/// Create a copy of Institution
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? institution = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,}) {
   return _then(_self.copyWith(
-institution: null == institution ? _self.institution : institution // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -79,46 +79,46 @@ as String,
 /// @nodoc
 @JsonSerializable()
 
-class _institution implements institution {
-  const _institution({required this.institution});
-  factory _institution.fromJson(Map<String, dynamic> json) => _$institutionFromJson(json);
+class _Institution implements Institution {
+  const _Institution({required this.name});
+  factory _Institution.fromJson(Map<String, dynamic> json) => _$InstitutionFromJson(json);
 
-@override final  String institution;
+@override final  String name;
 
-/// Create a copy of institution
+/// Create a copy of Institution
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$institutionCopyWith<_institution> get copyWith => __$institutionCopyWithImpl<_institution>(this, _$identity);
+_$InstitutionCopyWith<_Institution> get copyWith => __$InstitutionCopyWithImpl<_Institution>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$institutionToJson(this, );
+  return _$InstitutionToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _institution&&(identical(other.institution, institution) || other.institution == institution));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Institution&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,institution);
+int get hashCode => Object.hash(runtimeType,name);
 
 @override
 String toString() {
-  return 'institution(institution: $institution)';
+  return 'Institution(name: $name)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$institutionCopyWith<$Res> implements $institutionCopyWith<$Res> {
-  factory _$institutionCopyWith(_institution value, $Res Function(_institution) _then) = __$institutionCopyWithImpl;
+abstract mixin class _$InstitutionCopyWith<$Res> implements $InstitutionCopyWith<$Res> {
+  factory _$InstitutionCopyWith(_Institution value, $Res Function(_Institution) _then) = __$InstitutionCopyWithImpl;
 @override @useResult
 $Res call({
- String institution
+ String name
 });
 
 
@@ -126,18 +126,18 @@ $Res call({
 
 }
 /// @nodoc
-class __$institutionCopyWithImpl<$Res>
-    implements _$institutionCopyWith<$Res> {
-  __$institutionCopyWithImpl(this._self, this._then);
+class __$InstitutionCopyWithImpl<$Res>
+    implements _$InstitutionCopyWith<$Res> {
+  __$InstitutionCopyWithImpl(this._self, this._then);
 
-  final _institution _self;
-  final $Res Function(_institution) _then;
+  final _Institution _self;
+  final $Res Function(_Institution) _then;
 
-/// Create a copy of institution
+/// Create a copy of Institution
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? institution = null,}) {
-  return _then(_institution(
-institution: null == institution ? _self.institution : institution // ignore: cast_nullable_to_non_nullable
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,}) {
+  return _then(_Institution(
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

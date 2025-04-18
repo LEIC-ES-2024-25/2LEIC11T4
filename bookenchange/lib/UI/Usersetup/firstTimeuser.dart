@@ -1,4 +1,6 @@
+import 'package:bookenchange/Database/Firebase.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
+import 'package:bookenchange/UI/Usersetup/dropdownSearch.dart';
 import 'package:bookenchange/UI/Usersetup/simpleFormfields.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
@@ -12,6 +14,7 @@ class editProfile extends StatefulWidget {
 }
 
 class _editProfileState extends State<editProfile> {
+  final firebase = Firebase.instance;
   final firstname = TextEditingController();
   final lastname = TextEditingController();
   final username = TextEditingController();
@@ -70,7 +73,13 @@ class _editProfileState extends State<editProfile> {
                         name: S.of(context).email_hint,
                       ),
 
-                      //search dropdown university/college
+                      dropdownSearch(
+                        get: firebase.getAllInstitutions,
+                        add: firebase.addDegree,
+                        name: S.of(context).university_college,
+                        hint:
+                            'Faculdade de engenharia da universidade do porto',
+                      ),
                       //search dropdown degree
                       //normal dropdown year
                       //save changes button/cancel

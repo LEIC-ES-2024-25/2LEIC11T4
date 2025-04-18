@@ -44,6 +44,7 @@
   "degree": "Degree",
   "current_year": "Current year of studies",
   "send": "Send recovery email",
-  "not_found": "User not found"
+  "not_found": "User not found",
+  "add_new": "Add new option"
 
 }

@@ -245,10 +245,10 @@ class S {
     return Intl.message('Username', name: 'username', desc: '', args: []);
   }
 
-  /// `institution/College`
+  /// `University/College`
   String get university_college {
     return Intl.message(
-      'institution/College',
+      'University/College',
       name: 'university_college',
       desc: '',
       args: [],
@@ -288,6 +288,11 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Add new option`
+  String get add_new {
+    return Intl.message('Add new option', name: 'add_new', desc: '', args: []);
   }
 }
 

@@ -6,9 +6,9 @@ part of 'degree.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_degree _$degreeFromJson(Map<String, dynamic> json) =>
-    _degree(degree: json['degree'] as String);
+_Degree _$DegreeFromJson(Map<String, dynamic> json) =>
+    _Degree(name: json['name'] as String);
 
-Map<String, dynamic> _$degreeToJson(_degree instance) => <String, dynamic>{
-  'degree': instance.degree,
+Map<String, dynamic> _$DegreeToJson(_Degree instance) => <String, dynamic>{
+  'name': instance.name,
 };

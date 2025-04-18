@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "add_new": MessageLookupByLibrary.simpleMessage("Adicionar opção"),
     "add_photo": MessageLookupByLibrary.simpleMessage("Adicione até 3 fotos"),
     "already_in_use": MessageLookupByLibrary.simpleMessage(
       "Já existe um usuário com esse email",

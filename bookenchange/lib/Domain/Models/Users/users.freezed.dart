@@ -14,22 +14,22 @@ part of 'users.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$users {
+mixin _$Users {
 
  String get First_name; String get Last_name; String get username; int get institutionid; int get degreeid; int get yearofStudy;
-/// Create a copy of users
+/// Create a copy of Users
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$usersCopyWith<users> get copyWith => _$usersCopyWithImpl<users>(this as users, _$identity);
+$UsersCopyWith<Users> get copyWith => _$UsersCopyWithImpl<Users>(this as Users, _$identity);
 
-  /// Serializes this users to a JSON map.
+  /// Serializes this Users to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is users&&(identical(other.First_name, First_name) || other.First_name == First_name)&&(identical(other.Last_name, Last_name) || other.Last_name == Last_name)&&(identical(other.username, username) || other.username == username)&&(identical(other.institutionid, institutionid) || other.institutionid == institutionid)&&(identical(other.degreeid, degreeid) || other.degreeid == degreeid)&&(identical(other.yearofStudy, yearofStudy) || other.yearofStudy == yearofStudy));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Users&&(identical(other.First_name, First_name) || other.First_name == First_name)&&(identical(other.Last_name, Last_name) || other.Last_name == Last_name)&&(identical(other.username, username) || other.username == username)&&(identical(other.institutionid, institutionid) || other.institutionid == institutionid)&&(identical(other.degreeid, degreeid) || other.degreeid == degreeid)&&(identical(other.yearofStudy, yearofStudy) || other.yearofStudy == yearofStudy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -38,15 +38,15 @@ int get hashCode => Object.hash(runtimeType,First_name,Last_name,username,instit
 
 @override
 String toString() {
-  return 'users(First_name: $First_name, Last_name: $Last_name, username: $username, institutionid: $institutionid, degreeid: $degreeid, yearofStudy: $yearofStudy)';
+  return 'Users(First_name: $First_name, Last_name: $Last_name, username: $username, institutionid: $institutionid, degreeid: $degreeid, yearofStudy: $yearofStudy)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $usersCopyWith<$Res>  {
-  factory $usersCopyWith(users value, $Res Function(users) _then) = _$usersCopyWithImpl;
+abstract mixin class $UsersCopyWith<$Res>  {
+  factory $UsersCopyWith(Users value, $Res Function(Users) _then) = _$UsersCopyWithImpl;
 @useResult
 $Res call({
  String First_name, String Last_name, String username, int institutionid, int degreeid, int yearofStudy
@@ -57,14 +57,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$usersCopyWithImpl<$Res>
-    implements $usersCopyWith<$Res> {
-  _$usersCopyWithImpl(this._self, this._then);
+class _$UsersCopyWithImpl<$Res>
+    implements $UsersCopyWith<$Res> {
+  _$UsersCopyWithImpl(this._self, this._then);
 
-  final users _self;
-  final $Res Function(users) _then;
+  final Users _self;
+  final $Res Function(Users) _then;
 
-/// Create a copy of users
+/// Create a copy of Users
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? First_name = null,Object? Last_name = null,Object? username = null,Object? institutionid = null,Object? degreeid = null,Object? yearofStudy = null,}) {
   return _then(_self.copyWith(
@@ -84,9 +84,9 @@ as int,
 /// @nodoc
 @JsonSerializable()
 
-class _users implements users {
-  const _users({required this.First_name, required this.Last_name, required this.username, required this.institutionid, required this.degreeid, required this.yearofStudy});
-  factory _users.fromJson(Map<String, dynamic> json) => _$usersFromJson(json);
+class _Users implements Users {
+  const _Users({required this.First_name, required this.Last_name, required this.username, required this.institutionid, required this.degreeid, required this.yearofStudy});
+  factory _Users.fromJson(Map<String, dynamic> json) => _$UsersFromJson(json);
 
 @override final  String First_name;
 @override final  String Last_name;
@@ -95,20 +95,20 @@ class _users implements users {
 @override final  int degreeid;
 @override final  int yearofStudy;
 
-/// Create a copy of users
+/// Create a copy of Users
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$usersCopyWith<_users> get copyWith => __$usersCopyWithImpl<_users>(this, _$identity);
+_$UsersCopyWith<_Users> get copyWith => __$UsersCopyWithImpl<_Users>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$usersToJson(this, );
+  return _$UsersToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _users&&(identical(other.First_name, First_name) || other.First_name == First_name)&&(identical(other.Last_name, Last_name) || other.Last_name == Last_name)&&(identical(other.username, username) || other.username == username)&&(identical(other.institutionid, institutionid) || other.institutionid == institutionid)&&(identical(other.degreeid, degreeid) || other.degreeid == degreeid)&&(identical(other.yearofStudy, yearofStudy) || other.yearofStudy == yearofStudy));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Users&&(identical(other.First_name, First_name) || other.First_name == First_name)&&(identical(other.Last_name, Last_name) || other.Last_name == Last_name)&&(identical(other.username, username) || other.username == username)&&(identical(other.institutionid, institutionid) || other.institutionid == institutionid)&&(identical(other.degreeid, degreeid) || other.degreeid == degreeid)&&(identical(other.yearofStudy, yearofStudy) || other.yearofStudy == yearofStudy));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -117,15 +117,15 @@ int get hashCode => Object.hash(runtimeType,First_name,Last_name,username,instit
 
 @override
 String toString() {
-  return 'users(First_name: $First_name, Last_name: $Last_name, username: $username, institutionid: $institutionid, degreeid: $degreeid, yearofStudy: $yearofStudy)';
+  return 'Users(First_name: $First_name, Last_name: $Last_name, username: $username, institutionid: $institutionid, degreeid: $degreeid, yearofStudy: $yearofStudy)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$usersCopyWith<$Res> implements $usersCopyWith<$Res> {
-  factory _$usersCopyWith(_users value, $Res Function(_users) _then) = __$usersCopyWithImpl;
+abstract mixin class _$UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
+  factory _$UsersCopyWith(_Users value, $Res Function(_Users) _then) = __$UsersCopyWithImpl;
 @override @useResult
 $Res call({
  String First_name, String Last_name, String username, int institutionid, int degreeid, int yearofStudy
@@ -136,17 +136,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$usersCopyWithImpl<$Res>
-    implements _$usersCopyWith<$Res> {
-  __$usersCopyWithImpl(this._self, this._then);
+class __$UsersCopyWithImpl<$Res>
+    implements _$UsersCopyWith<$Res> {
+  __$UsersCopyWithImpl(this._self, this._then);
 
-  final _users _self;
-  final $Res Function(_users) _then;
+  final _Users _self;
+  final $Res Function(_Users) _then;
 
-/// Create a copy of users
+/// Create a copy of Users
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? First_name = null,Object? Last_name = null,Object? username = null,Object? institutionid = null,Object? degreeid = null,Object? yearofStudy = null,}) {
-  return _then(_users(
+  return _then(_Users(
 First_name: null == First_name ? _self.First_name : First_name // ignore: cast_nullable_to_non_nullable
 as String,Last_name: null == Last_name ? _self.Last_name : Last_name // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable

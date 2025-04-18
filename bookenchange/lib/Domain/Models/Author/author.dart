@@ -4,8 +4,11 @@ part 'author.freezed.dart';
 part 'author.g.dart';
 
 @freezed
-class author with _$author {
-  const factory author({required String code, required String name}) = _author;
+class Author with _$Author {
+  const factory Author({
+    required String code,
+    required String name,
+  }) = _Author;
 
-  factory author.fromJson(Map<String, Object?> json) => _$authorFromJson(json);
+  factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
 }

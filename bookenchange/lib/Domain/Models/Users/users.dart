@@ -4,15 +4,15 @@ part 'users.freezed.dart';
 part 'users.g.dart';
 
 @freezed
-class users with _$users {
-  const factory users({
+class Users with _$Users {
+  const factory Users({
     required String First_name,
     required String Last_name,
     required String username,
     required int institutionid,
     required int degreeid,
     required int yearofStudy,
-  }) = _users;
+  }) = _Users;
 
-  factory users.fromJson(Map<String, Object?> json) => _$usersFromJson(json);
+  factory Users.fromJson(Map<String, Object?> json) => _$UsersFromJson(json);
 }

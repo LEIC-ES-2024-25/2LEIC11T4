@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "add_new": MessageLookupByLibrary.simpleMessage("Add new option"),
     "add_photo": MessageLookupByLibrary.simpleMessage("Add up to 3 photos"),
     "already_in_use": MessageLookupByLibrary.simpleMessage(
       "Email in use already",
@@ -70,7 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in failed",
     ),
     "university_college": MessageLookupByLibrary.simpleMessage(
-      "institution/College",
+      "University/College",
     ),
     "username": MessageLookupByLibrary.simpleMessage("Username"),
     "weak_password": MessageLookupByLibrary.simpleMessage("Weak password"),

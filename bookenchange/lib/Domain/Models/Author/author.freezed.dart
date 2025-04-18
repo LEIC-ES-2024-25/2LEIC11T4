@@ -14,22 +14,22 @@ part of 'author.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$author {
+mixin _$Author {
 
  String get code; String get name;
-/// Create a copy of author
+/// Create a copy of Author
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$authorCopyWith<author> get copyWith => _$authorCopyWithImpl<author>(this as author, _$identity);
+$AuthorCopyWith<Author> get copyWith => _$AuthorCopyWithImpl<Author>(this as Author, _$identity);
 
-  /// Serializes this author to a JSON map.
+  /// Serializes this Author to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is author&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Author&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -38,15 +38,15 @@ int get hashCode => Object.hash(runtimeType,code,name);
 
 @override
 String toString() {
-  return 'author(code: $code, name: $name)';
+  return 'Author(code: $code, name: $name)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $authorCopyWith<$Res>  {
-  factory $authorCopyWith(author value, $Res Function(author) _then) = _$authorCopyWithImpl;
+abstract mixin class $AuthorCopyWith<$Res>  {
+  factory $AuthorCopyWith(Author value, $Res Function(Author) _then) = _$AuthorCopyWithImpl;
 @useResult
 $Res call({
  String code, String name
@@ -57,14 +57,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$authorCopyWithImpl<$Res>
-    implements $authorCopyWith<$Res> {
-  _$authorCopyWithImpl(this._self, this._then);
+class _$AuthorCopyWithImpl<$Res>
+    implements $AuthorCopyWith<$Res> {
+  _$AuthorCopyWithImpl(this._self, this._then);
 
-  final author _self;
-  final $Res Function(author) _then;
+  final Author _self;
+  final $Res Function(Author) _then;
 
-/// Create a copy of author
+/// Create a copy of Author
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? code = null,Object? name = null,}) {
   return _then(_self.copyWith(
@@ -80,27 +80,27 @@ as String,
 /// @nodoc
 @JsonSerializable()
 
-class _author implements author {
-  const _author({required this.code, required this.name});
-  factory _author.fromJson(Map<String, dynamic> json) => _$authorFromJson(json);
+class _Author implements Author {
+  const _Author({required this.code, required this.name});
+  factory _Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
 
 @override final  String code;
 @override final  String name;
 
-/// Create a copy of author
+/// Create a copy of Author
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$authorCopyWith<_author> get copyWith => __$authorCopyWithImpl<_author>(this, _$identity);
+_$AuthorCopyWith<_Author> get copyWith => __$AuthorCopyWithImpl<_Author>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$authorToJson(this, );
+  return _$AuthorToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _author&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Author&&(identical(other.code, code) || other.code == code)&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -109,15 +109,15 @@ int get hashCode => Object.hash(runtimeType,code,name);
 
 @override
 String toString() {
-  return 'author(code: $code, name: $name)';
+  return 'Author(code: $code, name: $name)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$authorCopyWith<$Res> implements $authorCopyWith<$Res> {
-  factory _$authorCopyWith(_author value, $Res Function(_author) _then) = __$authorCopyWithImpl;
+abstract mixin class _$AuthorCopyWith<$Res> implements $AuthorCopyWith<$Res> {
+  factory _$AuthorCopyWith(_Author value, $Res Function(_Author) _then) = __$AuthorCopyWithImpl;
 @override @useResult
 $Res call({
  String code, String name
@@ -128,17 +128,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$authorCopyWithImpl<$Res>
-    implements _$authorCopyWith<$Res> {
-  __$authorCopyWithImpl(this._self, this._then);
+class __$AuthorCopyWithImpl<$Res>
+    implements _$AuthorCopyWith<$Res> {
+  __$AuthorCopyWithImpl(this._self, this._then);
 
-  final _author _self;
-  final $Res Function(_author) _then;
+  final _Author _self;
+  final $Res Function(_Author) _then;
 
-/// Create a copy of author
+/// Create a copy of Author
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? code = null,Object? name = null,}) {
-  return _then(_author(
+  return _then(_Author(
 code: null == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,

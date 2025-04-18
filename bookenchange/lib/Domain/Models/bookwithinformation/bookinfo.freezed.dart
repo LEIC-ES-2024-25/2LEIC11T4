@@ -14,22 +14,22 @@ part of 'bookinfo.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$bookinfo {
+mixin _$Bookinfo {
 
  String get ISBN; String get name; List<String> get authors; String get Publisher;
-/// Create a copy of bookinfo
+/// Create a copy of Bookinfo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$bookinfoCopyWith<bookinfo> get copyWith => _$bookinfoCopyWithImpl<bookinfo>(this as bookinfo, _$identity);
+$BookinfoCopyWith<Bookinfo> get copyWith => _$BookinfoCopyWithImpl<Bookinfo>(this as Bookinfo, _$identity);
 
-  /// Serializes this bookinfo to a JSON map.
+  /// Serializes this Bookinfo to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is bookinfo&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.authors, authors)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Bookinfo&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.authors, authors)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -38,15 +38,15 @@ int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquali
 
 @override
 String toString() {
-  return 'bookinfo(ISBN: $ISBN, name: $name, authors: $authors, Publisher: $Publisher)';
+  return 'Bookinfo(ISBN: $ISBN, name: $name, authors: $authors, Publisher: $Publisher)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $bookinfoCopyWith<$Res>  {
-  factory $bookinfoCopyWith(bookinfo value, $Res Function(bookinfo) _then) = _$bookinfoCopyWithImpl;
+abstract mixin class $BookinfoCopyWith<$Res>  {
+  factory $BookinfoCopyWith(Bookinfo value, $Res Function(Bookinfo) _then) = _$BookinfoCopyWithImpl;
 @useResult
 $Res call({
  String ISBN, String name, List<String> authors, String Publisher
@@ -57,14 +57,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$bookinfoCopyWithImpl<$Res>
-    implements $bookinfoCopyWith<$Res> {
-  _$bookinfoCopyWithImpl(this._self, this._then);
+class _$BookinfoCopyWithImpl<$Res>
+    implements $BookinfoCopyWith<$Res> {
+  _$BookinfoCopyWithImpl(this._self, this._then);
 
-  final bookinfo _self;
-  final $Res Function(bookinfo) _then;
+  final Bookinfo _self;
+  final $Res Function(Bookinfo) _then;
 
-/// Create a copy of bookinfo
+/// Create a copy of Bookinfo
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? Publisher = null,}) {
   return _then(_self.copyWith(
@@ -82,9 +82,9 @@ as String,
 /// @nodoc
 @JsonSerializable()
 
-class _bookinfo implements bookinfo {
-  const _bookinfo({required this.ISBN, required this.name, required final  List<String> authors, required this.Publisher}): _authors = authors;
-  factory _bookinfo.fromJson(Map<String, dynamic> json) => _$bookinfoFromJson(json);
+class _Bookinfo implements Bookinfo {
+  const _Bookinfo({required this.ISBN, required this.name, required final  List<String> authors, required this.Publisher}): _authors = authors;
+  factory _Bookinfo.fromJson(Map<String, dynamic> json) => _$BookinfoFromJson(json);
 
 @override final  String ISBN;
 @override final  String name;
@@ -97,20 +97,20 @@ class _bookinfo implements bookinfo {
 
 @override final  String Publisher;
 
-/// Create a copy of bookinfo
+/// Create a copy of Bookinfo
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$bookinfoCopyWith<_bookinfo> get copyWith => __$bookinfoCopyWithImpl<_bookinfo>(this, _$identity);
+_$BookinfoCopyWith<_Bookinfo> get copyWith => __$BookinfoCopyWithImpl<_Bookinfo>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$bookinfoToJson(this, );
+  return _$BookinfoToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _bookinfo&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._authors, _authors)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Bookinfo&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._authors, _authors)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -119,15 +119,15 @@ int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquali
 
 @override
 String toString() {
-  return 'bookinfo(ISBN: $ISBN, name: $name, authors: $authors, Publisher: $Publisher)';
+  return 'Bookinfo(ISBN: $ISBN, name: $name, authors: $authors, Publisher: $Publisher)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$bookinfoCopyWith<$Res> implements $bookinfoCopyWith<$Res> {
-  factory _$bookinfoCopyWith(_bookinfo value, $Res Function(_bookinfo) _then) = __$bookinfoCopyWithImpl;
+abstract mixin class _$BookinfoCopyWith<$Res> implements $BookinfoCopyWith<$Res> {
+  factory _$BookinfoCopyWith(_Bookinfo value, $Res Function(_Bookinfo) _then) = __$BookinfoCopyWithImpl;
 @override @useResult
 $Res call({
  String ISBN, String name, List<String> authors, String Publisher
@@ -138,17 +138,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$bookinfoCopyWithImpl<$Res>
-    implements _$bookinfoCopyWith<$Res> {
-  __$bookinfoCopyWithImpl(this._self, this._then);
+class __$BookinfoCopyWithImpl<$Res>
+    implements _$BookinfoCopyWith<$Res> {
+  __$BookinfoCopyWithImpl(this._self, this._then);
 
-  final _bookinfo _self;
-  final $Res Function(_bookinfo) _then;
+  final _Bookinfo _self;
+  final $Res Function(_Bookinfo) _then;
 
-/// Create a copy of bookinfo
+/// Create a copy of Bookinfo
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? Publisher = null,}) {
-  return _then(_bookinfo(
+  return _then(_Bookinfo(
 ISBN: null == ISBN ? _self.ISBN : ISBN // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,authors: null == authors ? _self._authors : authors // ignore: cast_nullable_to_non_nullable
