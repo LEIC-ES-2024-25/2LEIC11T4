@@ -119,7 +119,7 @@ class _NewContributionState extends State<Newcontribution> {
                 setState(() => selectedCondition = val);
               }),
               _buildDropdown(
-                "University/College",
+                "institution/College",
                 universities,
                 selectedUniversity,
                 (val) {

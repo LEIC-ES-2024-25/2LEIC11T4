@@ -70,7 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in failed",
     ),
     "university_college": MessageLookupByLibrary.simpleMessage(
-      "University/College",
+      "institution/College",
     ),
     "username": MessageLookupByLibrary.simpleMessage("Username"),
     "weak_password": MessageLookupByLibrary.simpleMessage("Weak password"),

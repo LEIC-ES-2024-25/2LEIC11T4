@@ -14,8 +14,5 @@ class book with _$book {
 
   factory book.fromJson(Map<String, Object?> json) => _$bookFromJson(json);
 
-  factory book.fromFirestore(doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return book.fromJson(data);
-  }
+
 }

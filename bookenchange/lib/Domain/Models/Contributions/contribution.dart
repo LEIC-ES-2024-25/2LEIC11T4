@@ -18,8 +18,5 @@ class Contribution with _$Contribution {
   factory Contribution.fromJson(Map<String, Object?> json) =>
       _$ContributionFromJson(json);
 
-  factory Contribution.fromFirestore(doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return Contribution.fromJson(data);
-  }
+
 }

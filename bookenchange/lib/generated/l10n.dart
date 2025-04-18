@@ -245,10 +245,10 @@ class S {
     return Intl.message('Username', name: 'username', desc: '', args: []);
   }
 
-  /// `University/College`
+  /// `institution/College`
   String get university_college {
     return Intl.message(
-      'University/College',
+      'institution/College',
       name: 'university_college',
       desc: '',
       args: [],

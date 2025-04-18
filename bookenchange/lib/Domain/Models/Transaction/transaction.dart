@@ -15,8 +15,5 @@ class transactions with _$transactions {
   factory transactions.fromJson(Map<String, Object?> json) =>
       _$transactionsFromJson(json);
 
-  factory transactions.fromFirestore(doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return transactions.fromJson(data);
-  }
+
 }

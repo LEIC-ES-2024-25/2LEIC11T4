@@ -66,7 +66,7 @@ void main() {
       expect(
         find.widgetWithText(
           DropdownButtonFormField<String>,
-          'University/College',
+          'institution/College',
         ),
         findsOneWidget,
       );
@@ -106,7 +106,7 @@ void main() {
       ); // For Name and ISBN
       expect(find.text('Please select Area of Study'), findsOneWidget);
       expect(find.text('Please select Condition'), findsOneWidget);
-      expect(find.text('Please select University/College'), findsOneWidget);
+      expect(find.text('Please select institution/College'), findsOneWidget);
     });
 
     testWidgets('Dropdown fields can be selected', (WidgetTester tester) async {
@@ -139,11 +139,11 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Used - Good'), findsOneWidget);
 
-      // And for "University/College"
+      // And for "institution/College"
       await tester.tap(
         find.widgetWithText(
           DropdownButtonFormField<String>,
-          'University/College',
+          'institution/College',
         ),
       );
       await tester.pumpAndSettle();
