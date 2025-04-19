@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../NewContribution.dart'; // Import the New Contribution page
+// Import the New Contribution page
 
 class AreaOfStudiesPage extends StatefulWidget {
   const AreaOfStudiesPage({super.key});

@@ -31,6 +31,8 @@ class chatPage extends StatelessWidget {
 }
 
 class multiplechats extends StatefulWidget {
+  const multiplechats({super.key});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState

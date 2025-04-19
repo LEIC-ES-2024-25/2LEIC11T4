@@ -4,7 +4,7 @@ part 'bookinfo.freezed.dart';
 part 'bookinfo.g.dart';
 
 @freezed
-class Bookinfo with _$Bookinfo {
+abstract class Bookinfo with _$Bookinfo {
   const factory Bookinfo({
     required String ISBN,
     required String name,
@@ -12,5 +12,6 @@ class Bookinfo with _$Bookinfo {
     required String Publisher,
   }) = _Bookinfo;
 
-  factory Bookinfo.fromJson(Map<String, dynamic> json) => _$BookinfoFromJson(json);
+  factory Bookinfo.fromJson(Map<String, dynamic> json) =>
+      _$BookinfoFromJson(json);
 }

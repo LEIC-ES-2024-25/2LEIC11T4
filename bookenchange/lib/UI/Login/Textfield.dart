@@ -35,7 +35,7 @@ class loginTextFields extends StatelessWidget {
           ),
           fillColor: Theme.of(context).colorScheme.onPrimary,
           filled: true,
-          hintText: hint != null ? hint : "",
+          hintText: hint ?? "",
         ),
         obscureText: obscureText,
         validator: (value) {

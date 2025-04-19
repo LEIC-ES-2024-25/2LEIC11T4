@@ -1,10 +1,8 @@
 import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:bookenchange/UI/Usersetup/dropdownSearch.dart';
 import 'package:bookenchange/UI/Usersetup/simpleFormfields.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
-import 'package:bookenchange/Logic/Navigation/navigation.dart';
 
 class editProfile extends StatefulWidget {
   const editProfile({super.key});
@@ -39,22 +37,22 @@ class _editProfileState extends State<editProfile> {
           backgroundColor: Theme.of(context).colorScheme.primary,
           centerTitle: true,
         ),
-        body: Form(
+        body:SingleChildScrollView(
+          reverse: true,
+          child:Form(
           key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               //blank photo display
               //photograph button
+              Padding(padding: EdgeInsets.all(50)),
               DecoratedBox(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.secondary,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: SingleChildScrollView(
-                  reverse: true,
-                  padding: const EdgeInsets.all(5),
-                  child: Column(
+                child: Column(
                     children: [
                       normalField(
                         controller: firstname,
@@ -75,21 +73,19 @@ class _editProfileState extends State<editProfile> {
 
                       dropdownSearch(
                         get: firebase.getAllInstitutions,
-                        add: firebase.addDegree,
+                        add: firebase.addInstittion,
                         name: S.of(context).university_college,
-                        hint:
-                            'Faculdade de engenharia da universidade do porto',
                       ),
-                      //search dropdown degree
+                      dropdownSearch(get: firebase.getAllDegrees, add: firebase.addDegree, name:S.of(context).degree),
                       //normal dropdown year
                       //save changes button/cancel
                     ],
                   ),
                 ),
-              ),
             ],
           ),
         ),
+      ),
       ),
     );
   }

@@ -4,10 +4,9 @@ part 'institution.freezed.dart';
 part 'institution.g.dart';
 
 @freezed
-class Institution with _$Institution {
-  const factory Institution({
-    required String name,
-  }) = _Institution;
+abstract class Institution with _$Institution {
+  const factory Institution({required String name}) = _Institution;
 
-  factory Institution.fromJson(Map<String, dynamic> json) => _$InstitutionFromJson(json);
+  factory Institution.fromJson(Map<String, dynamic> json) =>
+      _$InstitutionFromJson(json);
 }

@@ -3,7 +3,6 @@ import 'package:bookenchange/Domain/Models/Author/author.dart';
 import 'package:bookenchange/Domain/Models/Book/book.dart';
 import 'package:bookenchange/Domain/Models/Degree/degree.dart';
 import 'package:bookenchange/Domain/Models/bookwithinformation/bookinfo.dart';
-import 'package:bookenchange/Domain/Models/degree/degree.dart';
 import 'package:bookenchange/Domain/Models/institution/institution.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -70,11 +69,12 @@ class Firebase {
     return snapshot.docs
         .map((doc) => Institution.fromJson(doc.data()).name)
         .toList();
+
   }
 
   //add institution
   Future<void> addInstittion(String inst) async {
-    await db.collection('institution').add({'institution': inst});
+    await db.collection('institution').add(Institution(name: inst).toJson());
   }
 
   //fetch degrees
@@ -87,6 +87,6 @@ class Firebase {
 
   //add degree
   Future<void> addDegree(String deg) async {
-    await db.collection('degree').add({'degree': deg});
+    await db.collection('degree').add(Degree(name: deg).toJson());
   }
 }

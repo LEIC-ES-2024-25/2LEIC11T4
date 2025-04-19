@@ -1,8 +1,5 @@
-import 'package:bookenchange/Logic/Navigation/navigation.dart';
-import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:bookenchange/UI/NewContribution/normalfields.dart';
 import 'package:bookenchange/generated/l10n.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class newContribution extends StatefulWidget {

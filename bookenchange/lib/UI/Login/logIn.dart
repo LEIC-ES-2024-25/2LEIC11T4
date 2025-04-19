@@ -77,13 +77,16 @@ class _LoginState extends State<Login> {
                         children: [
                           FilledButton(
                             onPressed:
-                                () => widget.auth.signup(
+                                () => {
+                                  FocusScope.of(context).unfocus(),
+                                  widget.auth.signup(
                                   context,
                                   username,
                                   password,
                                   value,
                                   formKey,
-                                ),
+                                )
+                                },
                             style: FilledButton.styleFrom(
                               minimumSize: Size(100, 50),
                               shape: RoundedRectangleBorder(
@@ -98,13 +101,15 @@ class _LoginState extends State<Login> {
                           ),
                           FilledButton(
                             onPressed:
-                                () => widget.auth.signin(
+                                () => {
+                                  FocusScope.of(context).unfocus(),
+                                  widget.auth.signin(
                                   context,
                                   username,
                                   password,
                                   value,
                                   formKey,
-                                ),
+                                )},
                             style: FilledButton.styleFrom(
                               minimumSize: Size(100, 50),
                               shape: RoundedRectangleBorder(

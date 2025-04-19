@@ -6,13 +6,11 @@ class dropdownSearch extends StatefulWidget {
   final Future<List<String>> Function() get;
   final Future<void> Function(String) add;
   final String name;
-  final String hint;
   const dropdownSearch({
     super.key,
     required this.get,
     required this.add,
     required this.name,
-    required this.hint,
   });
 
   @override
@@ -24,7 +22,7 @@ class _dropdownSearchState extends State<dropdownSearch> {
   List<String> items = [];
   @override
   Widget build(BuildContext context) {
-    return DropdownSearch<String>(
+    return Padding(padding:EdgeInsets.all(10), child:DropdownSearch<String>(
       mode: Mode.form,
       items: (String filter, LoadProps? props) async {
         return await widget.get();
@@ -38,7 +36,6 @@ class _dropdownSearchState extends State<dropdownSearch> {
       decoratorProps: DropDownDecoratorProps(
         decoration: InputDecoration(
           labelText: widget.name,
-          hintText: widget.hint,
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.onTertiary,
@@ -55,9 +52,11 @@ class _dropdownSearchState extends State<dropdownSearch> {
           );
           return TextButton(
             onPressed:
-                () => {
-                  widget.add(controller.text.trim()),
-                  selected = controller.text.trim(),
+                () async => {
+                  await widget.add(controller.text.trim()),
+                  setState(() {
+                    selected = controller.text.trim();
+                  })
                 },
             child: Text(
               S.of(context).add_new,
@@ -72,6 +71,7 @@ class _dropdownSearchState extends State<dropdownSearch> {
         }
         return null;
       },
+    ),
     );
   }
 }
