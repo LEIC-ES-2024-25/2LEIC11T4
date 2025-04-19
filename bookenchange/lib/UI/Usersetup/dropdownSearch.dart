@@ -6,11 +6,15 @@ class dropdownSearch extends StatefulWidget {
   final Future<List<String>> Function() get;
   final Future<void> Function(String) add;
   final String name;
-  const dropdownSearch({
+  String? selected;
+  final ValueChanged<String?> onChanged;
+  dropdownSearch({
     super.key,
     required this.get,
     required this.add,
     required this.name,
+    required this.selected,
+    required this.onChanged,
   });
 
   @override
@@ -18,7 +22,6 @@ class dropdownSearch extends StatefulWidget {
 }
 
 class _dropdownSearchState extends State<dropdownSearch> {
-  String? selected;
   List<String> items = [];
   @override
   Widget build(BuildContext context) {
@@ -29,11 +32,9 @@ class _dropdownSearchState extends State<dropdownSearch> {
         items: (String filter, LoadProps? props) async {
           return await widget.get();
         },
-        selectedItem: selected,
+        selectedItem: widget.selected,
         onChanged: (value) {
-          setState(() {
-            selected = value;
-          });
+          widget.onChanged(value);
         },
         decoratorProps: DropDownDecoratorProps(
           decoration: InputDecoration(
@@ -46,7 +47,9 @@ class _dropdownSearchState extends State<dropdownSearch> {
           ),
         ),
         popupProps: PopupProps.menu(
-          menuProps: MenuProps(backgroundColor: Theme.of(context).colorScheme.tertiary,),
+          menuProps: MenuProps(
+            backgroundColor: Theme.of(context).colorScheme.tertiary,
+          ),
           showSearchBox: true,
           emptyBuilder: (context, searchEntry) {
             final TextEditingController controller = TextEditingController(
@@ -57,7 +60,7 @@ class _dropdownSearchState extends State<dropdownSearch> {
                   () async => {
                     await widget.add(controller.text.trim()),
                     setState(() {
-                      selected = controller.text.trim();
+                      widget.selected = controller.text.trim();
                     }),
                   },
               child: Text(

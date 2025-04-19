@@ -18,9 +18,9 @@ class _editProfileState extends State<editProfile> {
   final lastname = TextEditingController();
   final username = TextEditingController();
   final email = TextEditingController();
-  final universityCollege = TextEditingController();
-  final degree = TextEditingController();
-  final currentYear = TextEditingController();
+  String? universityCollege;
+  String? degree;
+  int? year;
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -71,20 +71,52 @@ class _editProfileState extends State<editProfile> {
                         controller: email,
                         name: S.of(context).email_hint,
                       ),
-
                       dropdownSearch(
                         get: firebase.getAllInstitutions,
                         add: firebase.addInstittion,
                         name: S.of(context).university_college,
+                        selected: universityCollege,
+                        onChanged: (val) {
+                          setState(() {
+                            universityCollege = val;
+                          });
+                        },
                       ),
                       dropdownSearch(
                         get: firebase.getAllDegrees,
                         add: firebase.addDegree,
                         name: S.of(context).degree,
+                        selected: degree,
+                        onChanged: (val) {
+                          setState(() {
+                            degree = val;
+                          });
+                        },
                       ),
-                      normalDropdown(years: [1,2,3,4,5,6], label: S.of(context).current_year,),
-                      //normal dropdown year
-                      //save changes button/cancel
+                      normalDropdown(
+                        years: [1, 2, 3, 4, 5, 6],
+                        label: S.of(context).current_year,
+                        selected: year,
+                        onChanged: (val) {
+                          setState(() {
+                            year = val;
+                          });
+                        },
+                      ),
+                      FilledButton(
+                        onPressed:
+                            () => {if (formKey.currentState!.validate()) {}},
+                        style: FilledButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor: Theme.of(context).indicatorColor,
+                        ),
+                        child: Text(
+                          S.of(context).save,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -94,5 +126,14 @@ class _editProfileState extends State<editProfile> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    firstname.dispose();
+    lastname.dispose();
+    username.dispose();
+    email.dispose();
   }
 }

@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "remember": MessageLookupByLibrary.simpleMessage("Mantenha sessão aberta"),
+    "save": MessageLookupByLibrary.simpleMessage("Guardar perfil"),
     "send": MessageLookupByLibrary.simpleMessage("Enviar email de recuperação"),
     "settings": MessageLookupByLibrary.simpleMessage("Definições"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign in"),

@@ -45,6 +45,7 @@
   "current_year": "Current year of studies",
   "send": "Send recovery email",
   "not_found": "User not found",
-  "add_new": "Add new option"
+  "add_new": "Add new option",
+  "save": "Save profile"
 
 }

@@ -11,22 +11,22 @@ class normalField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: TextFormField(
-            controller: controller,
-            decoration: InputDecoration(
-              labelText: name,
-              border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.onTertiary,
-                ),
-              ),
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: name,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.onTertiary,
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return S.of(context).not_null;
-              }
-              return null;
-            },
           ),
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return S.of(context).not_null;
+          }
+          return null;
+        },
+      ),
     );
   }
 }

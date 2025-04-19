@@ -88,4 +88,6 @@ class Firebase {
   Future<void> addDegree(String deg) async {
     await db.collection('degree').add(Degree(name: deg).toJson());
   }
+
+  //add user
 }

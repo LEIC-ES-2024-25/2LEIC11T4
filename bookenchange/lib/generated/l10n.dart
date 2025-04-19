@@ -294,6 +294,11 @@ class S {
   String get add_new {
     return Intl.message('Add new option', name: 'add_new', desc: '', args: []);
   }
+
+  /// `Save profile`
+  String get save {
+    return Intl.message('Save profile', name: 'save', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
