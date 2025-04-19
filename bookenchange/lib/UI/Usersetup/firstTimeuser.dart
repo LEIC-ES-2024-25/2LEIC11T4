@@ -1,5 +1,6 @@
 import 'package:bookenchange/Database/Firebase.dart';
 import 'package:bookenchange/UI/Usersetup/dropdownSearch.dart';
+import 'package:bookenchange/UI/Usersetup/normalDropdown.dart';
 import 'package:bookenchange/UI/Usersetup/simpleFormfields.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
@@ -37,22 +38,22 @@ class _editProfileState extends State<editProfile> {
           backgroundColor: Theme.of(context).colorScheme.primary,
           centerTitle: true,
         ),
-        body:SingleChildScrollView(
+        body: SingleChildScrollView(
           reverse: true,
-          child:Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              //blank photo display
-              //photograph button
-              Padding(padding: EdgeInsets.all(50)),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                //blank photo display
+                //photograph button
+                Padding(padding: EdgeInsets.all(50)),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
                     children: [
                       normalField(
                         controller: firstname,
@@ -76,16 +77,21 @@ class _editProfileState extends State<editProfile> {
                         add: firebase.addInstittion,
                         name: S.of(context).university_college,
                       ),
-                      dropdownSearch(get: firebase.getAllDegrees, add: firebase.addDegree, name:S.of(context).degree),
+                      dropdownSearch(
+                        get: firebase.getAllDegrees,
+                        add: firebase.addDegree,
+                        name: S.of(context).degree,
+                      ),
+                      normalDropdown(years: [1,2,3,4,5,6], label: S.of(context).current_year,),
                       //normal dropdown year
                       //save changes button/cancel
                     ],
                   ),
                 ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
       ),
     );
   }

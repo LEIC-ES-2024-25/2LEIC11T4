@@ -48,7 +48,7 @@ class _LoginState extends State<Login> {
                       controller: username,
                       label: S.of(context).email_hint,
                       obscureText: false,
-                      hint: "johndoe@gmaiil.com",
+                      hint: "johndoe@gmail.com",
                     ),
                     Padding(padding: EdgeInsets.all(5)),
                     loginTextFields(
@@ -80,12 +80,12 @@ class _LoginState extends State<Login> {
                                 () => {
                                   FocusScope.of(context).unfocus(),
                                   widget.auth.signup(
-                                  context,
-                                  username,
-                                  password,
-                                  value,
-                                  formKey,
-                                )
+                                    context,
+                                    username,
+                                    password,
+                                    value,
+                                    formKey,
+                                  ),
                                 },
                             style: FilledButton.styleFrom(
                               minimumSize: Size(100, 50),
@@ -104,12 +104,13 @@ class _LoginState extends State<Login> {
                                 () => {
                                   FocusScope.of(context).unfocus(),
                                   widget.auth.signin(
-                                  context,
-                                  username,
-                                  password,
-                                  value,
-                                  formKey,
-                                )},
+                                    context,
+                                    username,
+                                    password,
+                                    value,
+                                    formKey,
+                                  ),
+                                },
                             style: FilledButton.styleFrom(
                               minimumSize: Size(100, 50),
                               shape: RoundedRectangleBorder(

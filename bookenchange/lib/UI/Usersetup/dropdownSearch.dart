@@ -22,56 +22,58 @@ class _dropdownSearchState extends State<dropdownSearch> {
   List<String> items = [];
   @override
   Widget build(BuildContext context) {
-    return Padding(padding:EdgeInsets.all(10), child:DropdownSearch<String>(
-      mode: Mode.form,
-      items: (String filter, LoadProps? props) async {
-        return await widget.get();
-      },
-      selectedItem: selected,
-      onChanged: (value) {
-        setState(() {
-          selected = value;
-        });
-      },
-      decoratorProps: DropDownDecoratorProps(
-        decoration: InputDecoration(
-          labelText: widget.name,
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.onTertiary,
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: DropdownSearch<String>(
+        mode: Mode.form,
+        items: (String filter, LoadProps? props) async {
+          return await widget.get();
+        },
+        selectedItem: selected,
+        onChanged: (value) {
+          setState(() {
+            selected = value;
+          });
+        },
+        decoratorProps: DropDownDecoratorProps(
+          decoration: InputDecoration(
+            labelText: widget.name,
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.onTertiary,
+              ),
             ),
-            borderRadius: BorderRadius.zero,
           ),
         ),
-      ),
-      popupProps: PopupProps.menu(
-        showSearchBox: true,
-        emptyBuilder: (context, searchEntry) {
-          final TextEditingController controller = TextEditingController(
-            text: searchEntry,
-          );
-          return TextButton(
-            onPressed:
-                () async => {
-                  await widget.add(controller.text.trim()),
-                  setState(() {
-                    selected = controller.text.trim();
-                  })
-                },
-            child: Text(
-              S.of(context).add_new,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          );
+        popupProps: PopupProps.menu(
+          menuProps: MenuProps(backgroundColor: Theme.of(context).colorScheme.tertiary,),
+          showSearchBox: true,
+          emptyBuilder: (context, searchEntry) {
+            final TextEditingController controller = TextEditingController(
+              text: searchEntry,
+            );
+            return TextButton(
+              onPressed:
+                  () async => {
+                    await widget.add(controller.text.trim()),
+                    setState(() {
+                      selected = controller.text.trim();
+                    }),
+                  },
+              child: Text(
+                S.of(context).add_new,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            );
+          },
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return S.of(context).not_null;
+          }
+          return null;
         },
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return S.of(context).not_null;
-        }
-        return null;
-      },
-    ),
     );
   }
 }

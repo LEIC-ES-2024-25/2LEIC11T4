@@ -69,7 +69,6 @@ class Firebase {
     return snapshot.docs
         .map((doc) => Institution.fromJson(doc.data()).name)
         .toList();
-
   }
 
   //add institution

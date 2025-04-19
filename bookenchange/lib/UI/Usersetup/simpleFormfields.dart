@@ -10,20 +10,14 @@ class normalField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(name, style: Theme.of(context).textTheme.bodySmall),
-          ),
-          TextFormField(
+      child: TextFormField(
             controller: controller,
             decoration: InputDecoration(
+              labelText: name,
               border: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Theme.of(context).colorScheme.onTertiary,
                 ),
-                borderRadius: BorderRadius.zero,
               ),
             ),
             validator: (value) {
@@ -33,8 +27,6 @@ class normalField extends StatelessWidget {
               return null;
             },
           ),
-        ],
-      ),
     );
   }
 }
