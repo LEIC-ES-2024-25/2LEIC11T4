@@ -15,12 +15,12 @@ class Firebase {
 
   //search book by isbn if not yet present in the firebase  it should make a call to api
   Future<book> getBookByISBN(String isbn) async {
-    final doc = await FirebaseFirestore.instance.collection('books').doc(isbn).get();
+    final doc = await FirebaseFirestore.instance.collection('book').doc(isbn).get();
     if (doc.exists && doc.data()!=null) {
       return book.fromJson(doc.data()!);
     } else {
       book fetched=await api.fetchBookByISBN(isbn);
-      await FirebaseFirestore.instance.collection('books').add(fetched.toJson());
+      await FirebaseFirestore.instance.collection('book').add(fetched.toJson());
       return fetched;
     }
   }
@@ -30,8 +30,25 @@ class Firebase {
     final snapshot=await db.collection('institution').get();
     return snapshot.docs.map((doc)=>institution.fromJson(doc.data()).institution).toList();
   }
-  Future<void> addInstittion() async{
-
+  Future<void> addInstitution(String institutionName) async{
+    try {
+      List<String> Institutions = await getAllInstitutions();
+       if (!Institutions.contains(institutionName)) {
+        await db.collection('institution').add({
+          'name': institutionName,
+        });
+        // não é para manter a mensagem
+        print('Institution added successfully!');
+      }
+      else {
+        // não é para manter a mensagem
+        print('Instituion already on the database.');
+      }
+    }
+     catch (e) {
+       // não é para manter a mensagem
+      print('Error on adding the Institution: $e');
+    }
   }
   //fetch degrees
   Future<List<String>> getAllDegrees() async{
