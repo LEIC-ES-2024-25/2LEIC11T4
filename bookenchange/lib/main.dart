@@ -1,4 +1,5 @@
 import 'package:bookenchange/UI/Login/logIn.dart';
+import 'package:bookenchange/UI/Settings/settingsPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: auth.currentUser != null ? MyHomePage() : Login(),
+      home: SettingsPage() // auth.currentUser != null ? MyHomePage() : Login(),
     );
   }
 }
