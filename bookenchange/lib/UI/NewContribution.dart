@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'NewContribution/areaofStudiesPage.dart';
 import '../firebase_options.dart';
 
@@ -171,6 +175,32 @@ class _NewContributionState extends State<Newcontribution> {
                       if (currentUser==null){
                         throw Exception("User not authenticated");
                       }
+                      final ImagePicker _picker = ImagePicker();
+                      List<XFile> _selectedImages = [];
+
+                      final storage = FirebaseStorage.instance;
+                      List<String>  imageUrls = [];
+
+                      for (var image in _selectedImages) {
+                        final ref = storage.ref().child('images/${image.name}');
+                        await ref.putFile(File(image.path));
+                        final url = await ref.getDownloadURL();
+                        imageUrls.add(url);
+                      }
+
+                      Future<void> _pickImages() async {
+                        final List<XFile>? images = await _picker.pickMultiImage();
+                        if (images != null && images.length + _selectedImages.length <= 20){
+                          setState(() {
+                            _selectedImages.addAll(images);
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('You can only upload up to 20 images.')),
+                          );
+                        }
+                      }
+
                       // institution has to be a reference because there is a class for it in the db
                       await FirebaseFirestore.instance.collection('contribution').add({
                         'idBook': bookRef,
