@@ -42,4 +42,8 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+<!-- No permission is needed to add files to shared storage on Android 10 (API level 29) or higher  -->
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+<!-- Devices running Android 13 (API level 33) or higher -->
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 </manifest>

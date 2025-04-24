@@ -10,9 +10,10 @@ _Users _$UsersFromJson(Map<String, dynamic> json) => _Users(
   First_name: json['First_name'] as String,
   Last_name: json['Last_name'] as String,
   username: json['username'] as String,
-  institutionid: (json['institutionid'] as num).toInt(),
-  degreeid: (json['degreeid'] as num).toInt(),
+  institutionid: json['institutionid'] as String,
+  degreeid: json['degreeid'] as String,
   yearofStudy: (json['yearofStudy'] as num).toInt(),
+  profileImageUrl: json['profileImageUrl'] as String?,
 );
 
 Map<String, dynamic> _$UsersToJson(_Users instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$UsersToJson(_Users instance) => <String, dynamic>{
   'institutionid': instance.institutionid,
   'degreeid': instance.degreeid,
   'yearofStudy': instance.yearofStudy,
+  'profileImageUrl': instance.profileImageUrl,
 };

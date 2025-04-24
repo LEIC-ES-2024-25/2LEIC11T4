@@ -10,6 +10,7 @@ class Auth {
   static final Auth _instance = Auth();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User? get currentUser => _firebaseAuth.currentUser;
+  String? get userid => currentUser?.uid;
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
   static Auth get instance => _instance;
   Future<void> signin(

@@ -9,9 +9,10 @@ abstract class Users with _$Users {
     required String First_name,
     required String Last_name,
     required String username,
-    required int institutionid,
-    required int degreeid,
+    required String institutionid,
+    required String degreeid,
     required int yearofStudy,
+    final String? profileImageUrl,
   }) = _Users;
 
   factory Users.fromJson(Map<String, Object?> json) => _$UsersFromJson(json);

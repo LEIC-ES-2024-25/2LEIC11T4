@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:bookenchange/Database/Firebase.dart';
 import 'package:bookenchange/UI/Usersetup/dropdownSearch.dart';
 import 'package:bookenchange/UI/Usersetup/normalDropdown.dart';
 import 'package:bookenchange/UI/Usersetup/simpleFormfields.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
+import 'package:image_picker/image_picker.dart' as picker;
+import 'package:permission_handler/permission_handler.dart' as AppSettings;
 
 class editProfile extends StatefulWidget {
   const editProfile({super.key});
@@ -22,6 +26,23 @@ class _editProfileState extends State<editProfile> {
   String? degree;
   int? year;
   final formKey = GlobalKey<FormState>();
+  picker.XFile? pickedFiles;
+
+  Future<void> uploadImages() async {
+    final status = await AppSettings.Permission.photos.request();
+    if (status.isPermanentlyDenied || status.isDenied) {
+      await AppSettings.openAppSettings();
+    } else {
+      final imagePicker = picker.ImagePicker();
+      final selectedImages = await imagePicker.pickImage(source: picker.ImageSource.gallery);
+      if (selectedImages!=null) {
+        setState(() {
+          pickedFiles=selectedImages;
+        });
+    
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +66,49 @@ class _editProfileState extends State<editProfile> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                //blank photo display
-                //photograph button
-                Padding(padding: EdgeInsets.all(50)),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      if (pickedFiles!=null) CircleAvatar(
+                        radius:50,
+                        backgroundImage: Image.file(File(pickedFiles!.path),fit:BoxFit.fill),
+                      ) else CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Theme.of(context).indicatorColor,
+                        child: Icon(
+                          Icons.person,
+                          size: 48,
+                          color: Theme.of(context).colorScheme.primary,
+                        )
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: FloatingActionButton(
+                          onPressed:()=> uploadImages(),
+                          elevation: 0,
+                          highlightElevation: 0,
+                          mini: true,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onError,
+                          shape: CircleBorder(
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                              width: 1,
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                            size: 16,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 DecoratedBox(
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.secondary,
@@ -103,18 +164,21 @@ class _editProfileState extends State<editProfile> {
                           });
                         },
                       ),
-                      FilledButton(
-                        onPressed:
-                            () => {if (formKey.currentState!.validate()) {}},
-                        style: FilledButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: FilledButton(
+                          onPressed:
+                              () => {if (formKey.currentState!.validate()) {}},
+                          style: FilledButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            backgroundColor: Theme.of(context).indicatorColor,
                           ),
-                          backgroundColor: Theme.of(context).indicatorColor,
-                        ),
-                        child: Text(
-                          S.of(context).save,
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          child: Text(
+                            S.of(context).save,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
                         ),
                       ),
                     ],
