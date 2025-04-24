@@ -73,7 +73,7 @@ class _editProfileState extends State<editProfile> {
                     children: [
                       if (pickedFiles!=null) CircleAvatar(
                         radius:50,
-                        backgroundImage: Image.file(File(pickedFiles!.path),fit:BoxFit.fill),
+                        backgroundImage: FileImage(File(pickedFiles!.path)),
                       ) else CircleAvatar(
                         radius: 50,
                         backgroundColor: Theme.of(context).indicatorColor,
