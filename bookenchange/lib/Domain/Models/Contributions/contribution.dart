@@ -12,6 +12,7 @@ class Contribution with _$Contribution {
     required int idBook,
     required List<String> images,
     required Condition condition,
+    required String institution,
   }) = _Contribution;
 
   factory Contribution.fromJson(Map<String, Object?> json) =>

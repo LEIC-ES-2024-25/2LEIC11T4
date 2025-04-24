@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'NewContribution/areaofStudiesPage.dart';
+import '../firebase_options.dart';
 
 class Newcontribution extends StatefulWidget {
   const Newcontribution({super.key});
@@ -16,7 +19,10 @@ class _NewContributionState extends State<Newcontribution> {
   String? selectedUniversity;
 
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController authorController = TextEditingController();
   final TextEditingController descController = TextEditingController();
+  final TextEditingController pubController = TextEditingController();
+  final TextEditingController degController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
 
   final List<String> conditions = ['New', 'Used - Good', 'Used - Acceptable'];
@@ -105,8 +111,18 @@ class _NewContributionState extends State<Newcontribution> {
               ),
               _buildTextField(
                 nameController,
-                "Name of the book",
+                "Title",
                 "e.g. Fluent Python, Introduction to Algorithms, ...",
+              ),
+              _buildTextField(
+                  authorController,
+                  "Author",
+                  "e.g. Thomas H. Cormen, Clifford Stein ...",
+              ),
+              _buildTextField(
+                  pubController,
+                  "Publisher",
+                  "The MIT Press, O'Reilly Media ...",
               ),
               _buildTextField(
                 descController,
@@ -126,11 +142,55 @@ class _NewContributionState extends State<Newcontribution> {
                   setState(() => selectedUniversity = val);
                 },
               ),
+              _buildTextField(degController, "Degree", "L.EIC, L.EQ, L.EM",),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    // Save contribution logic
+                    try {
+                      final existingBook = await FirebaseFirestore.instance
+                      .collection('book').where('isbn', isEqualTo: isbnController.text)
+                      .limit(1).get();
+
+                      DocumentReference bookRef;
+                      if (existingBook.docs.isEmpty) {
+                        final newBook = await FirebaseFirestore.instance.collection('book').add(
+                            {
+                              'name': nameController.text,
+                              'author': authorController.text,
+                              'publisher': pubController.text,
+                              'description': descController.text,
+                              'isbn': isbnController.text,
+                            });
+                        bookRef = newBook;
+                      } else {
+                        bookRef = existingBook.docs.first.reference;
+                      }
+                      // has to be revised
+                      final currentUser = FirebaseAuth.instance.currentUser;
+                      if (currentUser==null){
+                        throw Exception("User not authenticated");
+                      }
+                      // institution has to be a reference because there is a class for it in the db
+                      await FirebaseFirestore.instance.collection('contribution').add({
+                        'idBook': bookRef,
+                        'condition': selectedCondition,
+                        'institution': selectedUniversity,
+                        'iduser': currentUser.uid,
+                        'timestamp': FieldValue.serverTimestamp(),
+                      });
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text(
+                            'Contribution submitted successfully!')),
+                      );
+                      // Save contribution logic
+                      Navigator.pop(context);
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to submit: $e')),
+                      );
+                    }
                   }
                 },
                 child: const Text("Submit Contribution"),
