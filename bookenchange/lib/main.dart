@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: SettingsPage() // auth.currentUser != null ? MyHomePage() : Login(),
+      home: auth.currentUser != null ? MyHomePage() : Login(),
     );
   }
 }

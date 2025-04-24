@@ -90,16 +90,6 @@ class S {
     );
   }
 
-  /// `Change Password`
-  String get change_password {
-    return Intl.message(
-      'Change Password',
-      name: 'change_password',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Login`
   String get login {
     return Intl.message('Login', name: 'login', desc: '', args: []);

@@ -17,6 +17,8 @@
   "@password_hint": {},
   "forgot_password": "Esqueci-me da palavra-passe?",
   "@forgot_password": {},
+  "change_password": "Mudar Senha",
+  "@change_password": {},
   "sign_in": "Sign in",
   "@sign_in": {},
   "sign_up": "Sign up",
@@ -46,7 +48,24 @@
   "degree": "Curso",
   "current_year": "Ano curricular",
   "send": "Enviar email de recuperação",
-  "not_found": "Utilizador não encontrado"
-
+  "not_found": "Utilizador não encontrado",
+  "password_changed_successfully": "Palavra-passe alterada com sucesso",
+  "@password_changed_successfully": {},
+  "change_password_failed": "Falha ao alterar a palavra-passe",
+  "@change_password_failed": {},
+  "wrong_previous_password": "Palavra-passe anterior incorreta",
+  "@wrong_previous_password": {},
+  "please_enter_password": "Por favor, introduza a sua palavra-passe",
+  "@please_enter_password": {},
+  "password_too_short": "A palavra-passe deve ter pelo menos 6 caracteres",
+  "@password_too_short": {},
+  "previous_password": "Palavra-passe Anterior",
+  "@previous_password": {},
+  "value": "Valor",
+  "@value": {},
+  "new_password": "Nova Palavra-passe",
+  "@new_password": {},
+  "submit": "Submeter",
+  "@submit": {}
 
 }
