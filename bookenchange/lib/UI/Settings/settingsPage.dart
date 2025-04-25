@@ -7,9 +7,97 @@ import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:bookenchange/UI/Login/logIn.dart';
 import 'package:bookenchange/UI/Settings/previousContributions.dart';
 import 'package:bookenchange/UI/Settings/changePassword.dart';
+import 'package:bookenchange/Logic/Authentication.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
+
+  Future<void> _logout(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('remember_me', false);
+      if (context.mounted) {
+        Navigator.pushReplacement(
+          context,
+          CustomPageRoute(destination: Navigation.login),         
+        );
+        
+      } 
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text('Error logging out: $e'),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+      
+    }
+  }
+
+  Future<void> _deleteAccount(BuildContext context) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.delete();
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('remember_me', false);
+        if (context.mounted) {
+          Navigator.pushReplacement(
+            context,
+            CustomPageRoute(destination: Navigation.login),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('Account deleted successfully.'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.redAccent,
+              content: Text('No user is currently logged in.'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      if (context.mounted) {
+        String errorMessage = 'Error deleting account.';
+        if (e.code == 'requires-recent-login') {
+          errorMessage =
+              'This operation is sensitive and requires recent authentication. Please log in again before deleting your account.';
+          // You might want to redirect the user to the login screen here
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(errorMessage),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text('An unexpected error occurred while deleting your account.'),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -149,18 +237,9 @@ class SettingsPage extends StatelessWidget {
           ),
           onTap: () async {
             switch (title) {
-              case "Log out":
-                 await FirebaseAuth.instance.signOut();
-                final prefs = await SharedPreferences.getInstance();
-                prefs.setBool('remember_me', false); // optional, if you're using it
-                if (context.mounted) {
-                  Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Login()),
-                );  
-
-                }
-                break;
+              case "Log Out":
+                await _logout(context);
+                break;                 
               case "Previous Contributions":
                 Navigator.push(
                   context,
@@ -174,7 +253,30 @@ class SettingsPage extends StatelessWidget {
                 );
                 break;
               case "Delete Account":
-                // To do
+                // Show a confirmation dialog before deleting
+                showDialog<bool>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Delete Account?'),
+                      content: const Text('Are you sure you want to permanently delete your account? This action cannot be undone.'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false), // Dismiss
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(true), // Confirm
+                          child: const Text('Delete'),
+                        ),
+                      ],
+                    );
+                  },
+                ).then((shouldDelete) async {
+                  if (shouldDelete == true) {
+                    await _deleteAccount(context);
+                  }
+                });
               default:
                 break;
             }

@@ -1,4 +1,5 @@
 import 'package:bookenchange/UI/Chat.dart';
+import 'package:bookenchange/UI/Login/logIn.dart';
 import 'package:bookenchange/UI/Settings/changePassword.dart';
 import 'package:bookenchange/UI/Usersetup/firstTimeuser.dart';
 import 'package:bookenchange/UI/ForgotPassword/forgotPassword.dart';
@@ -17,7 +18,8 @@ enum Navigation {
   edProfile(editProfile()),
   forgotPass(forgotPassword()),
   changePass(ChangePasswordPage()),
-  prevContribution(PreviousContributionsPage());
+  prevContribution(PreviousContributionsPage()),
+  login(Login());
 
 
   const Navigation(this.builder);
