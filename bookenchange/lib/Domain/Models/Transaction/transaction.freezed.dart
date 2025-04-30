@@ -14,42 +14,42 @@ part of 'transaction.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$transactions {
+mixin _$Transactions {
 
- int get idcontribution; int get iduser1; int get iduser2; DateTime get date;
-/// Create a copy of transactions
+ int get IdContribution; int get IdUser1; int get IdUser2; DateTime get Date;
+/// Create a copy of Transactions
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$transactionsCopyWith<transactions> get copyWith => _$transactionsCopyWithImpl<transactions>(this as transactions, _$identity);
+$TransactionsCopyWith<Transactions> get copyWith => _$TransactionsCopyWithImpl<Transactions>(this as Transactions, _$identity);
 
-  /// Serializes this transactions to a JSON map.
+  /// Serializes this Transactions to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is transactions&&(identical(other.idcontribution, idcontribution) || other.idcontribution == idcontribution)&&(identical(other.iduser1, iduser1) || other.iduser1 == iduser1)&&(identical(other.iduser2, iduser2) || other.iduser2 == iduser2)&&(identical(other.date, date) || other.date == date));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Transactions&&(identical(other.IdContribution, IdContribution) || other.IdContribution == IdContribution)&&(identical(other.IdUser1, IdUser1) || other.IdUser1 == IdUser1)&&(identical(other.IdUser2, IdUser2) || other.IdUser2 == IdUser2)&&(identical(other.Date, Date) || other.Date == Date));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,idcontribution,iduser1,iduser2,date);
+int get hashCode => Object.hash(runtimeType,IdContribution,IdUser1,IdUser2,Date);
 
 @override
 String toString() {
-  return 'transactions(idcontribution: $idcontribution, iduser1: $iduser1, iduser2: $iduser2, date: $date)';
+  return 'Transactions(IdContribution: $IdContribution, IdUser1: $IdUser1, IdUser2: $IdUser2, Date: $Date)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $transactionsCopyWith<$Res>  {
-  factory $transactionsCopyWith(transactions value, $Res Function(transactions) _then) = _$transactionsCopyWithImpl;
+abstract mixin class $TransactionsCopyWith<$Res>  {
+  factory $TransactionsCopyWith(Transactions value, $Res Function(Transactions) _then) = _$TransactionsCopyWithImpl;
 @useResult
 $Res call({
- int idcontribution, int iduser1, int iduser2, DateTime date
+ int IdContribution, int IdUser1, int IdUser2, DateTime Date
 });
 
 
@@ -57,21 +57,21 @@ $Res call({
 
 }
 /// @nodoc
-class _$transactionsCopyWithImpl<$Res>
-    implements $transactionsCopyWith<$Res> {
-  _$transactionsCopyWithImpl(this._self, this._then);
+class _$TransactionsCopyWithImpl<$Res>
+    implements $TransactionsCopyWith<$Res> {
+  _$TransactionsCopyWithImpl(this._self, this._then);
 
-  final transactions _self;
-  final $Res Function(transactions) _then;
+  final Transactions _self;
+  final $Res Function(Transactions) _then;
 
-/// Create a copy of transactions
+/// Create a copy of Transactions
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? idcontribution = null,Object? iduser1 = null,Object? iduser2 = null,Object? date = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? IdContribution = null,Object? IdUser1 = null,Object? IdUser2 = null,Object? Date = null,}) {
   return _then(_self.copyWith(
-idcontribution: null == idcontribution ? _self.idcontribution : idcontribution // ignore: cast_nullable_to_non_nullable
-as int,iduser1: null == iduser1 ? _self.iduser1 : iduser1 // ignore: cast_nullable_to_non_nullable
-as int,iduser2: null == iduser2 ? _self.iduser2 : iduser2 // ignore: cast_nullable_to_non_nullable
-as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+IdContribution: null == IdContribution ? _self.IdContribution : IdContribution // ignore: cast_nullable_to_non_nullable
+as int,IdUser1: null == IdUser1 ? _self.IdUser1 : IdUser1 // ignore: cast_nullable_to_non_nullable
+as int,IdUser2: null == IdUser2 ? _self.IdUser2 : IdUser2 // ignore: cast_nullable_to_non_nullable
+as int,Date: null == Date ? _self.Date : Date // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }
@@ -82,49 +82,49 @@ as DateTime,
 /// @nodoc
 @JsonSerializable()
 
-class _transactions implements transactions {
-  const _transactions({required this.idcontribution, required this.iduser1, required this.iduser2, required this.date});
-  factory _transactions.fromJson(Map<String, dynamic> json) => _$transactionsFromJson(json);
+class _Transactions implements Transactions {
+  const _Transactions({required this.IdContribution, required this.IdUser1, required this.IdUser2, required this.Date});
+  factory _Transactions.fromJson(Map<String, dynamic> json) => _$TransactionsFromJson(json);
 
-@override final  int idcontribution;
-@override final  int iduser1;
-@override final  int iduser2;
-@override final  DateTime date;
+@override final  int IdContribution;
+@override final  int IdUser1;
+@override final  int IdUser2;
+@override final  DateTime Date;
 
-/// Create a copy of transactions
+/// Create a copy of Transactions
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$transactionsCopyWith<_transactions> get copyWith => __$transactionsCopyWithImpl<_transactions>(this, _$identity);
+_$TransactionsCopyWith<_Transactions> get copyWith => __$TransactionsCopyWithImpl<_Transactions>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$transactionsToJson(this, );
+  return _$TransactionsToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _transactions&&(identical(other.idcontribution, idcontribution) || other.idcontribution == idcontribution)&&(identical(other.iduser1, iduser1) || other.iduser1 == iduser1)&&(identical(other.iduser2, iduser2) || other.iduser2 == iduser2)&&(identical(other.date, date) || other.date == date));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Transactions&&(identical(other.IdContribution, IdContribution) || other.IdContribution == IdContribution)&&(identical(other.IdUser1, IdUser1) || other.IdUser1 == IdUser1)&&(identical(other.IdUser2, IdUser2) || other.IdUser2 == IdUser2)&&(identical(other.Date, Date) || other.Date == Date));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,idcontribution,iduser1,iduser2,date);
+int get hashCode => Object.hash(runtimeType,IdContribution,IdUser1,IdUser2,Date);
 
 @override
 String toString() {
-  return 'transactions(idcontribution: $idcontribution, iduser1: $iduser1, iduser2: $iduser2, date: $date)';
+  return 'Transactions(IdContribution: $IdContribution, IdUser1: $IdUser1, IdUser2: $IdUser2, Date: $Date)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$transactionsCopyWith<$Res> implements $transactionsCopyWith<$Res> {
-  factory _$transactionsCopyWith(_transactions value, $Res Function(_transactions) _then) = __$transactionsCopyWithImpl;
+abstract mixin class _$TransactionsCopyWith<$Res> implements $TransactionsCopyWith<$Res> {
+  factory _$TransactionsCopyWith(_Transactions value, $Res Function(_Transactions) _then) = __$TransactionsCopyWithImpl;
 @override @useResult
 $Res call({
- int idcontribution, int iduser1, int iduser2, DateTime date
+ int IdContribution, int IdUser1, int IdUser2, DateTime Date
 });
 
 
@@ -132,21 +132,21 @@ $Res call({
 
 }
 /// @nodoc
-class __$transactionsCopyWithImpl<$Res>
-    implements _$transactionsCopyWith<$Res> {
-  __$transactionsCopyWithImpl(this._self, this._then);
+class __$TransactionsCopyWithImpl<$Res>
+    implements _$TransactionsCopyWith<$Res> {
+  __$TransactionsCopyWithImpl(this._self, this._then);
 
-  final _transactions _self;
-  final $Res Function(_transactions) _then;
+  final _Transactions _self;
+  final $Res Function(_Transactions) _then;
 
-/// Create a copy of transactions
+/// Create a copy of Transactions
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? idcontribution = null,Object? iduser1 = null,Object? iduser2 = null,Object? date = null,}) {
-  return _then(_transactions(
-idcontribution: null == idcontribution ? _self.idcontribution : idcontribution // ignore: cast_nullable_to_non_nullable
-as int,iduser1: null == iduser1 ? _self.iduser1 : iduser1 // ignore: cast_nullable_to_non_nullable
-as int,iduser2: null == iduser2 ? _self.iduser2 : iduser2 // ignore: cast_nullable_to_non_nullable
-as int,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+@override @pragma('vm:prefer-inline') $Res call({Object? IdContribution = null,Object? IdUser1 = null,Object? IdUser2 = null,Object? Date = null,}) {
+  return _then(_Transactions(
+IdContribution: null == IdContribution ? _self.IdContribution : IdContribution // ignore: cast_nullable_to_non_nullable
+as int,IdUser1: null == IdUser1 ? _self.IdUser1 : IdUser1 // ignore: cast_nullable_to_non_nullable
+as int,IdUser2: null == IdUser2 ? _self.IdUser2 : IdUser2 // ignore: cast_nullable_to_non_nullable
+as int,Date: null == Date ? _self.Date : Date // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }
