@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// Import the New Contribution page
+import '../NewContribution.dart'; // Import the New Contribution page
 
 class AreaOfStudiesPage extends StatefulWidget {
   const AreaOfStudiesPage({super.key});
@@ -94,48 +94,31 @@ class _AreaOfStudiesPageState extends State<AreaOfStudiesPage> {
               itemBuilder: (context, index) {
                 final area = filteredAreas[index];
 
-                return Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        theme.colorScheme.primary,
-                        theme.colorScheme.secondary,
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: theme.shadowColor,
-                        spreadRadius: 1,
-                        blurRadius: 3,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
                   ),
                   child: ListTile(
                     leading: Icon(
                       areaIcons[area],
-                      color: theme.colorScheme.onPrimary,
+                      color: theme.colorScheme.primary,
                     ),
-                    title: Text(area, style: theme.textTheme.bodyMedium),
+                    title: Text(
+                      area,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                     onTap: () {
-                      // When ready to send data back:
-                      // Navigator.pop(context, area);
-
                       Navigator.pop(context, area);
                     },
                   ),
                 );
               },
             ),
-          ),
+          )
         ],
       ),
     );
