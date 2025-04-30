@@ -14,22 +14,22 @@ part of 'degree.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$degree {
+mixin _$Degree {
 
  String get degree;
-/// Create a copy of degree
+/// Create a copy of Degree
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$degreeCopyWith<degree> get copyWith => _$degreeCopyWithImpl<degree>(this as degree, _$identity);
+$DegreeCopyWith<Degree> get copyWith => _$DegreeCopyWithImpl<Degree>(this as Degree, _$identity);
 
-  /// Serializes this degree to a JSON map.
+  /// Serializes this Degree to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is degree&&(identical(other.degree, degree) || other.degree == degree));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Degree&&(identical(other.degree, degree) || other.degree == degree));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -38,15 +38,15 @@ int get hashCode => Object.hash(runtimeType,degree);
 
 @override
 String toString() {
-  return 'degree(degree: $degree)';
+  return 'Degree(degree: $degree)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $degreeCopyWith<$Res>  {
-  factory $degreeCopyWith(degree value, $Res Function(degree) _then) = _$degreeCopyWithImpl;
+abstract mixin class $DegreeCopyWith<$Res>  {
+  factory $DegreeCopyWith(Degree value, $Res Function(Degree) _then) = _$DegreeCopyWithImpl;
 @useResult
 $Res call({
  String degree
@@ -57,14 +57,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$degreeCopyWithImpl<$Res>
-    implements $degreeCopyWith<$Res> {
-  _$degreeCopyWithImpl(this._self, this._then);
+class _$DegreeCopyWithImpl<$Res>
+    implements $DegreeCopyWith<$Res> {
+  _$DegreeCopyWithImpl(this._self, this._then);
 
-  final degree _self;
-  final $Res Function(degree) _then;
+  final Degree _self;
+  final $Res Function(Degree) _then;
 
-/// Create a copy of degree
+/// Create a copy of Degree
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? degree = null,}) {
   return _then(_self.copyWith(
@@ -79,26 +79,26 @@ as String,
 /// @nodoc
 @JsonSerializable()
 
-class _degree implements degree {
-  const _degree({required this.degree});
-  factory _degree.fromJson(Map<String, dynamic> json) => _$degreeFromJson(json);
+class _Degree implements Degree {
+  const _Degree({required this.degree});
+  factory _Degree.fromJson(Map<String, dynamic> json) => _$DegreeFromJson(json);
 
 @override final  String degree;
 
-/// Create a copy of degree
+/// Create a copy of Degree
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$degreeCopyWith<_degree> get copyWith => __$degreeCopyWithImpl<_degree>(this, _$identity);
+_$DegreeCopyWith<_Degree> get copyWith => __$DegreeCopyWithImpl<_Degree>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$degreeToJson(this, );
+  return _$DegreeToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _degree&&(identical(other.degree, degree) || other.degree == degree));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Degree&&(identical(other.degree, degree) || other.degree == degree));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -107,15 +107,15 @@ int get hashCode => Object.hash(runtimeType,degree);
 
 @override
 String toString() {
-  return 'degree(degree: $degree)';
+  return 'Degree(degree: $degree)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$degreeCopyWith<$Res> implements $degreeCopyWith<$Res> {
-  factory _$degreeCopyWith(_degree value, $Res Function(_degree) _then) = __$degreeCopyWithImpl;
+abstract mixin class _$DegreeCopyWith<$Res> implements $DegreeCopyWith<$Res> {
+  factory _$DegreeCopyWith(_Degree value, $Res Function(_Degree) _then) = __$DegreeCopyWithImpl;
 @override @useResult
 $Res call({
  String degree
@@ -126,17 +126,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$degreeCopyWithImpl<$Res>
-    implements _$degreeCopyWith<$Res> {
-  __$degreeCopyWithImpl(this._self, this._then);
+class __$DegreeCopyWithImpl<$Res>
+    implements _$DegreeCopyWith<$Res> {
+  __$DegreeCopyWithImpl(this._self, this._then);
 
-  final _degree _self;
-  final $Res Function(_degree) _then;
+  final _Degree _self;
+  final $Res Function(_Degree) _then;
 
-/// Create a copy of degree
+/// Create a copy of Degree
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? degree = null,}) {
-  return _then(_degree(
+  return _then(_Degree(
 degree: null == degree ? _self.degree : degree // ignore: cast_nullable_to_non_nullable
 as String,
   ));

@@ -21,7 +21,7 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
-  final TextEditingController _previousPasswordController = TextEditingController();
+  final TextEditingController _currentPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmNewPasswordController = TextEditingController(); // New controller
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -33,20 +33,35 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   // Define your strings directly here for testing
   final String _passwordChangedSuccessfully = "Password changed successfully";
   final String _changePasswordFailed = "Change password failed";
-  final String _wrongPreviousPassword = "Wrong previous password";
+  final String _wrongCurrentPassword = "Wrong current password";
   final String _pleaseEnterPassword = "Please enter your password";
   final String _passwordTooShort = "Password must be at least 6 characters long";
-  final String _previousPasswordLabel = "Previous Password";
+  final String _currentPasswordLabel = "Current Password";
   final String _valueHint = "Value";
   final String _newPasswordLabel = "New Password";
   final String _submitButtonText = "Submit";
   final String _changePasswordTitle = "Change Password";
   final String _confirmNewPasswordLabel = "Confirm New Password";
   final String _passwordsDoNotMatch = "Passwords do not match";
+  final  String _sameAsCurrentPassword = "New password cannot be the same as the current password";
 
   Future<void> _changePassword(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      if (_newPasswordController.text.trim() != _confirmNewPasswordController.text.trim()) {
+      final currentPassword = _currentPasswordController.text.trim();
+      final newPassword = _newPasswordController.text.trim();
+
+      if (currentPassword == newPassword) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(_sameAsCurrentPassword),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+        return;
+      }
+
+      if (newPassword != _confirmNewPasswordController.text.trim()) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,
@@ -54,7 +69,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             behavior: SnackBarBehavior.floating,
           ),
         );
-        return; // Stop the process if passwords don't match
+        return;
       }
 
       setState(() {
@@ -63,7 +78,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       try {
         final user = FirebaseAuth.instance.currentUser;
         final credential = EmailAuthProvider.credential(
-            email: user!.email!, password: _previousPasswordController.text.trim());
+            email: user!.email!, password: _currentPasswordController.text.trim());
 
         await user.reauthenticateWithCredential(credential);
         await user.updatePassword(_newPasswordController.text.trim());
@@ -81,7 +96,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       } on FirebaseAuthException catch (e) {
         String errorMessage = _changePasswordFailed;
         if (e.code == 'wrong-password') {
-          errorMessage = _wrongPreviousPassword;
+          errorMessage = _wrongCurrentPassword;
         } else if (e.code == 'weak-password') {
           errorMessage = "Weak password"; // Kept as direct string as in original
         }
@@ -134,7 +149,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       ),
       backgroundColor: const Color(0xFF9EC1C4), // light blue background
       body: Center(
-        child: Container(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Container(
           padding: const EdgeInsets.all(24),
           margin: const EdgeInsets.symmetric(horizontal: 24),
           decoration: BoxDecoration(
@@ -148,10 +165,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               children: [
                 const SizedBox(height: 20),
                 TextFormField(
-                  controller: _previousPasswordController,
+                  controller: _currentPasswordController,
                   obscureText: _obscurePreviousPassword,
                   decoration: InputDecoration(
-                    labelText: _previousPasswordLabel,
+                    labelText: _currentPasswordLabel,
                     border: const OutlineInputBorder(),
                     hintText: _valueHint,
                     suffixIcon: IconButton( // Eye icon for previous password
@@ -232,6 +249,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
           ),
         ),
+        )
       ),
     );
   }

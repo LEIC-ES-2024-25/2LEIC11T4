@@ -14,12 +14,12 @@ class Firebase {
       storageRef = storage.ref();
 
   //search book by isbn if not yet present in the firebase  it should make a call to api
-  Future<book> getBookByISBN(String isbn) async {
+  Future<Book> getBookByISBN(String isbn) async {
     final doc = await FirebaseFirestore.instance.collection('books').doc(isbn).get();
     if (doc.exists && doc.data()!=null) {
-      return book.fromJson(doc.data()!);
+      return Book.fromJson(doc.data()!);
     } else {
-      book fetched=await api.fetchBookByISBN(isbn);
+      Book fetched=await api.fetchBookByISBN(isbn);
       await FirebaseFirestore.instance.collection('books').add(fetched.toJson());
       return fetched;
     }
@@ -28,7 +28,7 @@ class Firebase {
   //fetch institutions
   Future<List<String>> getAllInstitutions() async{
     final snapshot=await db.collection('institution').get();
-    return snapshot.docs.map((doc)=>institution.fromJson(doc.data()).institution).toList();
+    return snapshot.docs.map((doc)=>Institution.fromJson(doc.data()).institution).toList();
   }
   Future<void> addInstittion() async{
 
@@ -36,9 +36,24 @@ class Firebase {
   //fetch degrees
   Future<List<String>> getAllDegrees() async{
     final snapshot=await db.collection('degree').get();
-    return snapshot.docs.map((doc)=>degree.fromJson(doc.data()).degree).toList();
+    return snapshot.docs.map((doc)=>Degree.fromJson(doc.data()).degree).toList();
   }
 
+  Future<Map<String, dynamic>?> getCurrentUserInfo(String uid) async {
+  final userDoc = await db.collection('users').doc(uid).get();
+  if (!userDoc.exists) return null;
 
+  final data = userDoc.data();
+  if (data == null) return null;
+
+  final institutionSnap = await db.collection('institution').doc(data['institutionId']).get();
+  final degreeSnap = await db.collection('degree').doc(data['degreeId']).get();
+
+  return {
+    'username': data['username'],
+    'institution': institutionSnap.data()?['institution'] ?? 'Unknown',
+    'degree': degreeSnap.data()?['degree'] ?? 'Unknown',
+  };
+}
 
 }
