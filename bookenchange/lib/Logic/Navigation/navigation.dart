@@ -17,8 +17,9 @@ enum Navigation {
   edProfile(editProfile()),
   forgotPass(forgotPassword()),
   changePass(ChangePasswordPage()),
-  prevContribution(PreviousContributionsPage()),
-  login(Login());
+  prevContribution(PreviousContributionsPage());
+
+
 
 
   const Navigation(this.builder);

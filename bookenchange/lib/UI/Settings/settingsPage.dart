@@ -10,8 +10,8 @@ import 'package:bookenchange/UI/Settings/changePassword.dart';
 import 'package:bookenchange/Logic/Authentication.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
+  const SettingsPage({super.key});  
+  
   Future<void> _logout(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -20,7 +20,7 @@ class SettingsPage extends StatelessWidget {
       if (context.mounted) {
         Navigator.pushReplacement(
           context,
-          CustomPageRoute(destination: Navigation.login),         
+          MaterialPageRoute(builder: (context) => Login(auth: Auth.instance)),         
         );
         
       } 
@@ -48,7 +48,7 @@ class SettingsPage extends StatelessWidget {
         if (context.mounted) {
           Navigator.pushReplacement(
             context,
-            CustomPageRoute(destination: Navigation.login),
+            MaterialPageRoute(builder: (context) => Login(auth: Auth.instance)),
           );
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
