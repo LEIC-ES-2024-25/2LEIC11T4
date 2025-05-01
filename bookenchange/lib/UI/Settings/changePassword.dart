@@ -97,9 +97,17 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         String errorMessage = _changePasswordFailed;
         if (e.code == 'wrong-password') {
           errorMessage = _wrongCurrentPassword;
+        } else if (e.code == 'user-mismatch') {
+          errorMessage = 'User mismatch. Please log in again.';
+        } else if (e.code == 'invalid-credential') {
+          errorMessage = 'Invalid credentials. Please try again.';
         } else if (e.code == 'weak-password') {
-          errorMessage = "Weak password"; // Kept as direct string as in original
+          errorMessage = 'The new password is too weak.';
+        } else {
+          // Log the error code for debugging
+          debugPrint('FirebaseAuthException: ${e.code}');
         }
+
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

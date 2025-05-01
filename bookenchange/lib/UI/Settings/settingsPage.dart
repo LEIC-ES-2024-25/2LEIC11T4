@@ -160,29 +160,6 @@ class SettingsPage extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
-                Positioned(
-                  bottom: 5,
-                  right: 5,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.primary, // border color
-                        width: 2, // border width
-                      ),
-                    ),
-                    child: CircleAvatar(
-                      radius: 14,
-                      backgroundColor: Theme.of(context).colorScheme.surface,
-                      child: Icon(
-                        Icons.edit,
-                        size: 16,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ),
-
               ],
             ),
           ),
@@ -286,9 +263,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  Future<void> openCamera() async {
-    // TODO: Implement camera feature
-  }
+
 }
 
 

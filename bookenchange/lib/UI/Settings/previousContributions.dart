@@ -8,18 +8,15 @@ import 'package:bookenchange/UI/Homepage/contributionCard.dart';
 class PreviousContributionsPage extends StatelessWidget {
   const PreviousContributionsPage({super.key});
 
-    Future<Map<String, dynamic>?> _getUserData(String uid) async {
-    final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
-    return userDoc.data();
-  }
-
   Future<List<Map<String, dynamic>>> _getUserContributions(String uid) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('contributions')
-        .where('uid', isEqualTo: uid)
+        .where('iduser', isEqualTo: uid)
         .get();
-    return snapshot.docs.map((doc) => doc.data()).toList();
+    return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -44,67 +41,38 @@ class PreviousContributionsPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: FutureBuilder(
-        future: Future.wait([
-          _getUserData(uid),
-          _getUserContributions(uid),
-        ]),
-        builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        future: _getUserContributions(uid),
+        builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data == null) {
-            return const Center(child: Text("Failed to load data."));
+            return const Center(child: Text("Failed to load contributions."));
           }
 
-          final userData = snapshot.data![0] as Map<String, dynamic>?;
-          final contributions = snapshot.data![1] as List<Map<String, dynamic>>;
+          final contributions = snapshot.data!;
 
-          if (userData == null) {
-            return const Center(child: Text("User data not found."));
+          if (contributions.isEmpty) {
+            return const Center(child: Text("No contributions found."));
           }
 
-          final username = userData['username'] ?? 'Unknown';
-          final degree = userData['degree'] ?? 'Unknown';
-          final college = userData['institution'] ?? 'Unknown';
-
-          return Column(
-            children: [
-              Container(
-                color: Theme.of(context).colorScheme.secondaryContainer,
-                width: double.infinity,
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Username: $username", style: Theme.of(context).textTheme.bodyLarge),
-                    Text("Degree: $degree", style: Theme.of(context).textTheme.bodyMedium),
-                    Text("College: $college", style: Theme.of(context).textTheme.bodyMedium),
-                  ],
+          return ListView.builder(
+            padding: const EdgeInsets.all(8),
+            itemCount: contributions.length,
+            itemBuilder: (context, index) {
+              final item = contributions[index];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Contribution(
+                  images: List<String>.from(item['images'] ?? []),
+                  name: item['title'] ?? 'Untitled',
+                  condition: item['condition'],
+                  institution: item['institution'] ?? 'Unknown',
                 ),
-              ),
-              Expanded(
-                child: contributions.isEmpty
-                    ? const Center(child: Text("No contributions found."))
-                    : ListView.builder(
-                        padding: const EdgeInsets.all(8),
-                        itemCount: contributions.length,
-                        itemBuilder: (context, index) {
-                          final item = contributions[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
-                            child: Contribution(
-                              images: List<String>.from(item['images'] ?? []),
-                              name: item['title'] ?? 'Untitled',
-                              condition: item['condition'], // Should be Enum if mapped
-                              institution: college,
-                            ),
-                          );
-                        },
-                      ),
-              ),
-            ],
+              );
+            },
           );
         },
       ),

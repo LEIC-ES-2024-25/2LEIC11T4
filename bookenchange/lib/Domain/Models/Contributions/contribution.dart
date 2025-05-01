@@ -6,7 +6,7 @@ part 'contribution.g.dart';
 enum Condition { newCondition, usedCondition, damagedCondition }
 
 @freezed
-class Contribution with _$Contribution {
+abstract class Contribution with _$Contribution {
   const factory Contribution({
     required int iduser,
     required int idBook,

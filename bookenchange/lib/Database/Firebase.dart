@@ -39,21 +39,6 @@ class Firebase {
     return snapshot.docs.map((doc)=>Degree.fromJson(doc.data()).degree).toList();
   }
 
-  Future<Map<String, dynamic>?> getCurrentUserInfo(String uid) async {
-  final userDoc = await db.collection('users').doc(uid).get();
-  if (!userDoc.exists) return null;
 
-  final data = userDoc.data();
-  if (data == null) return null;
-
-  final institutionSnap = await db.collection('institution').doc(data['institutionId']).get();
-  final degreeSnap = await db.collection('degree').doc(data['degreeId']).get();
-
-  return {
-    'username': data['username'],
-    'institution': institutionSnap.data()?['institution'] ?? 'Unknown',
-    'degree': degreeSnap.data()?['degree'] ?? 'Unknown',
-  };
-}
 
 }
