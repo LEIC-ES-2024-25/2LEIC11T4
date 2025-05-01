@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bookenchange/Database/openLibrary.dart';
 import 'package:bookenchange/Domain/Models/Author/author.dart';
 import 'package:bookenchange/Domain/Models/Book/book.dart';
-import 'package:bookenchange/Domain/Models/Degree/degree.dart';
+import 'package:bookenchange/Domain/Models/degree/degree.dart';
 import 'package:bookenchange/Domain/Models/Users/users.dart';
 import 'package:bookenchange/Domain/Models/bookwithinformation/bookinfo.dart';
 import 'package:bookenchange/Domain/Models/institution/institution.dart';
