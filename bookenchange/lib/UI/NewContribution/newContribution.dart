@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:bookenchange/UI/NewContribution/normalfields.dart';
 import 'package:bookenchange/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class newContribution extends StatefulWidget {
   @override
@@ -16,10 +19,7 @@ class _newContributionState extends State<newContribution> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
-
-  Future<void> photos() async {
-    throw UnimplementedError();
-  }
+  File ? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class _newContributionState extends State<newContribution> {
                         ),
                       ),
                       TextButton.icon(
-                        onPressed: photos,
+                        onPressed: _pickImageFromGallery,
                         icon: Icon(
                           Icons.photo_camera,
                           color: Theme.of(context).indicatorColor,
@@ -81,6 +81,16 @@ class _newContributionState extends State<newContribution> {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
+                      if (_selectedImage != null)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.file(
+                            _selectedImage!,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -104,6 +114,18 @@ class _newContributionState extends State<newContribution> {
         ),
       ),
     );
+  }
+
+  Future _pickImageFromGallery() async {
+    final returnedImage = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+
+    if (returnedImage != null) {
+      setState(() {
+        _selectedImage = File(returnedImage.path);
+      });    }
   }
 
   @override
