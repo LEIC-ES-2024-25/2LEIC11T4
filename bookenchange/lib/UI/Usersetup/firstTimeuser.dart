@@ -1,6 +1,7 @@
 import 'dart:io';
-
+import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:bookenchange/Database/Firebase.dart';
+import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/UI/Usersetup/dropdownSearch.dart';
 import 'package:bookenchange/UI/Usersetup/normalDropdown.dart';
 import 'package:bookenchange/UI/Usersetup/simpleFormfields.dart';
@@ -27,6 +28,7 @@ class _editProfileState extends State<editProfile> {
   int? year;
   final formKey = GlobalKey<FormState>();
   picker.XFile? pickedFiles;
+  String? previousImg;
 
   Future<void> uploadImages() async {
     final status = await AppSettings.Permission.photos.request();
@@ -34,12 +36,15 @@ class _editProfileState extends State<editProfile> {
       await AppSettings.openAppSettings();
     } else {
       final imagePicker = picker.ImagePicker();
-      final selectedImages = await imagePicker.pickImage(source: picker.ImageSource.gallery);
-      if (selectedImages!=null) {
+      final selectedImages = await imagePicker.pickImage(
+        source: picker.ImageSource.gallery,
+      );
+      if (selectedImages != null) {
         setState(() {
-          pickedFiles=selectedImages;
+          if (selectedImages.path != previousImg) {
+            pickedFiles = selectedImages;
+          }
         });
-    
       }
     }
   }
@@ -71,23 +76,27 @@ class _editProfileState extends State<editProfile> {
                   child: Stack(
                     alignment: Alignment.topCenter,
                     children: [
-                      if (pickedFiles!=null) CircleAvatar(
-                        radius:50,
-                        backgroundImage: FileImage(File(pickedFiles!.path)),
-                      ) else CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Theme.of(context).indicatorColor,
-                        child: Icon(
-                          Icons.person,
-                          size: 48,
-                          color: Theme.of(context).colorScheme.primary,
+                      if (pickedFiles != null)
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: FileImage(File(pickedFiles!.path)),
                         )
-                      ),
+                      else
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Theme.of(context).indicatorColor,
+                          child: Icon(
+                            Icons.person,
+                            size: 48,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
                       Positioned(
+                        top: 75,
                         bottom: 0,
                         right: 0,
                         child: FloatingActionButton(
-                          onPressed:()=> uploadImages(),
+                          onPressed: () => uploadImages(),
                           elevation: 0,
                           highlightElevation: 0,
                           mini: true,
@@ -168,7 +177,26 @@ class _editProfileState extends State<editProfile> {
                         padding: EdgeInsets.only(bottom: 10),
                         child: FilledButton(
                           onPressed:
-                              () => {if (formKey.currentState!.validate()) {}},
+                              () async => {
+                                if (formKey.currentState!.validate())
+                                  {
+                                    await firebase.addUsers(
+                                      firstname.text.trim(),
+                                      lastname.text.trim(),
+                                      username.text.trim(),
+                                      universityCollege!,
+                                      degree!,
+                                      year!,
+                                      File(pickedFiles!.path),
+                                      Navigator.push(
+                                        context,
+                                        CustomPageRoute(
+                                          destination: Navigation.home,
+                                        ),
+                                      ),
+                                    ),
+                                  },
+                              },
                           style: FilledButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
