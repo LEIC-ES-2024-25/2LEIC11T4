@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bookenchange/Database/openLibrary.dart';
 import 'package:bookenchange/Domain/Models/Author/author.dart';
 import 'package:bookenchange/Domain/Models/Book/book.dart';
-import 'package:bookenchange/Domain/Models/Degree/degree.dart';
+import 'package:bookenchange/Domain/Models/degree/degree.dart';
 import 'package:bookenchange/Domain/Models/Users/users.dart';
 import 'package:bookenchange/Domain/Models/bookwithinformation/bookinfo.dart';
 import 'package:bookenchange/Domain/Models/institution/institution.dart';
@@ -95,13 +95,13 @@ class Firebase {
   Future<List<String>> getAllDegrees() async {
     final snapshot = await db.collection('degree').get();
     return snapshot.docs
-        .map((doc) => Degree.fromJson(doc.data()).name)
+        .map((doc) => Degree.fromJson(doc.data()).degree)
         .toList();
   }
 
   //add degree
   Future<void> addDegree(String deg) async {
-    await db.collection('degree').add(Degree(name: deg).toJson());
+    await db.collection('degree').add(Degree(degree: deg).toJson());
   }
 
   //add user
