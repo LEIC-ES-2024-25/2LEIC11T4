@@ -5,8 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:bookenchange/UI/Login/logIn.dart';
-import 'package:bookenchange/UI/Settings/previousContributions.dart';
-import 'package:bookenchange/UI/Settings/changePassword.dart';
 import 'package:bookenchange/Logic/Authentication.dart';
 
 class SettingsPage extends StatelessWidget {

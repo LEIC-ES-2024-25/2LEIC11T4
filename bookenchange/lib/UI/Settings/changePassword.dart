@@ -1,17 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:bookenchange/Logic/Navigation/navigation.dart';
-import 'package:bookenchange/Logic/Navigation/transitions.dart';
-import 'package:bookenchange/generated/l10n.dart';
-import 'package:bookenchange/UI/Homepage/homePage.dart';
-import 'package:bookenchange/Logic/Authentication.dart';
-import 'package:bookenchange/UI/Login/logIn.dart';
-import 'package:bookenchange/UI/Settings/settingsPage.dart';
 
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});

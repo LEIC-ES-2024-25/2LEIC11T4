@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
-import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/UI/Homepage/contributionCard.dart';
 
 class PreviousContributionsPage extends StatelessWidget {
   const PreviousContributionsPage({super.key});
@@ -13,10 +11,62 @@ class PreviousContributionsPage extends StatelessWidget {
         .collection('contributions')
         .where('iduser', isEqualTo: uid)
         .get();
-    return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
+
   
+    Widget _buildContributionCard(Map<String, dynamic> contributionData) {
+    return Card(
+      elevation: 2,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Contribution image (display the first image if available)
+          Expanded(
+            child: (contributionData['images'] != null && (contributionData['images'] as List).isNotEmpty)
+                ? Image.network(
+                    (contributionData['images'] as List).first ?? '',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  )
+                : const SizedBox.shrink(), // Or a placeholder if no image
+          ),
+          // Title
+          Padding(
+            padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
+            child: Text(
+              contributionData['title'] ?? '',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: 2, // Limit title to two lines
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          // Condition
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4),
+            child: Text(
+              contributionData['condition'] ?? '',
+              style: const TextStyle(fontSize: 14),
+            ),
+          ),
+          // Institution
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+            child: Text(
+              contributionData['institution'] ?? 'Unknown',
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,22 +108,19 @@ class PreviousContributionsPage extends StatelessWidget {
             return const Center(child: Text("No contributions found."));
           }
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: contributions.length,
-            itemBuilder: (context, index) {
-              final item = contributions[index];
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Contribution(
-                  images: List<String>.from(item['images'] ?? []),
-                  name: item['title'] ?? 'Untitled',
-                  condition: item['condition'],
-                  institution: item['institution'] ?? 'Unknown',
-                ),
-              );
-            },
-          );
+          return GridView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: contributions.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,    // 2 columns
+                mainAxisSpacing: 8,   // vertical spacing
+                crossAxisSpacing: 8,  // horizontal spacing
+                childAspectRatio: 0.75, // Adjust to taste, slightly taller for more info
+              ),
+              itemBuilder: (context, index) {
+                return _buildContributionCard(contributions[index]);
+              },
+            );
         },
       ),
     );
