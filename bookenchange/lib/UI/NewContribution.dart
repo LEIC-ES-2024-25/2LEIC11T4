@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'NewContribution/areaofStudiesPage.dart';
-import '../firebase_options.dart';
+import 'areaofStudiesPage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import '../Domain/theme.dart';
 
 class Newcontribution extends StatefulWidget {
   const Newcontribution({super.key});
@@ -22,6 +20,7 @@ class _NewContributionState extends State<Newcontribution> {
   String? selectedArea;
   String? selectedUniversity;
 
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController authorController = TextEditingController();
   final TextEditingController descController = TextEditingController();
@@ -30,13 +29,73 @@ class _NewContributionState extends State<Newcontribution> {
   final TextEditingController isbnController = TextEditingController();
 
   final List<String> conditions = ['New', 'Used - Good', 'Used - Acceptable'];
-  final List<String> areas = [
-    'Computer Science',
-    'Mathematics',
-    'Law',
-    'History',
-  ];
+  final List<String> areas = ['Computer Science', 'Mathematics', 'Law', 'History'];
   final List<String> universities = ['FEUP', 'FEP', 'FLUP', 'ICBAS'];
+  final ImagePicker _picker = ImagePicker();
+  List<File> _selectedImages = [];
+
+  Future<void> _pickImages() async {
+    if (_selectedImages.length >= 20) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You can only select up to 20 images')),
+      );
+      return;
+    }
+
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImages.add(File(pickedFile.path));
+      });
+    }
+  }
+  Future<String> _uploadImage(File imageFile) async {
+    try{
+    final fileName = 'contributions/${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final ref = FirebaseStorage.instance.ref().child(fileName);
+    await ref.putFile(imageFile);
+    return await ref.getDownloadURL();
+  }
+  catch(e){
+    print("Error uploading image: $e");
+    rethrow;
+  }
+  }
+
+  // Save contribution to Firestore
+  Future<void> _saveContribution() async {
+    if (_formKey.currentState!.validate()){
+      List<String> imageUrls = [];
+      for (File image in _selectedImages){
+        final url = await _uploadImage(image);
+        imageUrls.add(url);
+      }
+      try {
+        await FirebaseFirestore.instance.collection('contributions').add({
+          'name': nameController.text,
+          'description': descController.text,
+          'area': selectedArea,
+          'isbn': isbnController.text,
+          'condition': selectedCondition,
+          'university': selectedUniversity,
+          'images': imageUrls,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contribution saved successfully')),
+        );
+        // Reset form fields
+        _formKey.currentState!.reset();
+        setState(() {
+          _selectedImages = [];
+          selectedArea = null;
+          selectedCondition = null;
+          selectedUniversity = null;
+        });
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error saving contribution: $e')),
+        );
+      }
+    }
+  }
 
   Widget _buildAreaSelector() {
     return Padding(
@@ -45,7 +104,9 @@ class _NewContributionState extends State<Newcontribution> {
         onTap: () async {
           final selected = await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const AreaOfStudiesPage()),
+            MaterialPageRoute(
+              builder: (context) => const AreaOfStudiesPage(),
+            ),
           );
           if (selected != null && selected is String) {
             setState(() {
@@ -68,7 +129,6 @@ class _NewContributionState extends State<Newcontribution> {
       ),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -77,11 +137,7 @@ class _NewContributionState extends State<Newcontribution> {
       appBar: AppBar(
         title: const Text(
           'New Contribution',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: theme.colorScheme.primary,
@@ -109,47 +165,54 @@ class _NewContributionState extends State<Newcontribution> {
                       icon: const Icon(Icons.photo_camera),
                       label: const Text("Add Photos"),
                     ),
+                    if (_selectedImages.isNotEmpty)
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: _selectedImages.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 1,
+                        ),
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              Image.file(_selectedImages[index], fit: BoxFit.cover),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: IconButton(
+                                  icon: Icon(Icons.cancel, color: theme.colorScheme.primary),
+                                  onPressed: () {
+                                    setState(() {
+                                      _selectedImages.removeAt(index);
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     const SizedBox(height: 20),
                   ],
                 ),
               ),
-              _buildTextField(
-                nameController,
-                "Title",
-                "e.g. Fluent Python, Introduction to Algorithms, ...",
-              ),
-              _buildTextField(
-                authorController,
-                "Author",
-                "e.g. Thomas H. Cormen, Clifford Stein ...",
-              ),
-              _buildTextField(
-                pubController,
-                "Publisher",
-                "The MIT Press, O'Reilly Media ...",
-              ),
-              _buildTextField(
-                descController,
-                "Description",
-                "Optional description...",
-              ),
+              _buildTextField(nameController, "Name of the book", "e.g. Fluent Python, Introduction to Algorithms, ..."),
+              _buildTextField(descController, "Description", "Optional description..."),
               _buildAreaSelector(),
               _buildTextField(isbnController, "ISBN", "e.g. 9781633436336"),
               _buildDropdown("Condition", conditions, selectedCondition, (val) {
                 setState(() => selectedCondition = val);
               }),
-              _buildDropdown(
-                "institution/College",
-                universities,
-                selectedUniversity,
-                (val) {
-                  setState(() => selectedUniversity = val);
-                },
-              ),
-              _buildTextField(degController, "Degree", "L.EIC, L.EQ, L.EM"),
+              _buildDropdown("University/College", universities, selectedUniversity, (val) {
+                setState(() => selectedUniversity = val);
+              }),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () async {
+                onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     try {
                       final existingBook =
@@ -239,11 +302,7 @@ class _NewContributionState extends State<Newcontribution> {
     );
   }
 
-  Widget _buildTextField(
-    TextEditingController controller,
-    String label,
-    String hint,
-  ) {
+  Widget _buildTextField(TextEditingController controller, String label, String hint) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
@@ -263,12 +322,7 @@ class _NewContributionState extends State<Newcontribution> {
     );
   }
 
-  Widget _buildDropdown(
-    String label,
-    List<String> items,
-    String? selectedValue,
-    Function(String?) onChanged,
-  ) {
+  Widget _buildDropdown(String label, List<String> items, String? selectedValue, Function(String?) onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: DropdownButtonFormField<String>(
@@ -277,10 +331,12 @@ class _NewContributionState extends State<Newcontribution> {
           labelText: label,
           border: const OutlineInputBorder(),
         ),
-        items:
-            items.map((item) {
-              return DropdownMenuItem<String>(value: item, child: Text(item));
-            }).toList(),
+        items: items.map((item) {
+          return DropdownMenuItem<String>(
+            value: item,
+            child: Text(item),
+          );
+        }).toList(),
         onChanged: onChanged,
         validator: (value) => value == null ? 'Please select $label' : null,
       ),
