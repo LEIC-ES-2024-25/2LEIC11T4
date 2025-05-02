@@ -18,9 +18,6 @@ enum Navigation {
   changePass(ChangePasswordPage()),
   prevContribution(PreviousContributionsPage());
 
-
-
-
   const Navigation(this.builder);
   final Widget builder;
   Widget get() {

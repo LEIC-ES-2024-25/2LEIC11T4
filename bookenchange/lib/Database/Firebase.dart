@@ -113,7 +113,6 @@ class Firebase {
     String degree,
     int yearofStudy,
     File file,
-    Future<Object?> push,
   ) async {
     await uploadProfilePhotos(auth.userid, file);
     String image = await getDownloadURL(auth.userid);

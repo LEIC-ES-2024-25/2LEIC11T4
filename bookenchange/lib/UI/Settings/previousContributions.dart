@@ -7,16 +7,15 @@ class PreviousContributionsPage extends StatelessWidget {
   const PreviousContributionsPage({super.key});
 
   Future<List<Map<String, dynamic>>> _getUserContributions(String uid) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('contributions')
-        .where('iduser', isEqualTo: uid)
-        .get();
+    final snapshot =
+        await FirebaseFirestore.instance
+            .collection('contributions')
+            .where('iduser', isEqualTo: uid)
+            .get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
-
-  
-    Widget _buildContributionCard(Map<String, dynamic> contributionData) {
+  Widget _buildContributionCard(Map<String, dynamic> contributionData) {
     return Card(
       elevation: 2,
       child: Column(
@@ -24,23 +23,22 @@ class PreviousContributionsPage extends StatelessWidget {
         children: [
           // Contribution image (display the first image if available)
           Expanded(
-            child: (contributionData['images'] != null && (contributionData['images'] as List).isNotEmpty)
-                ? Image.network(
-                    (contributionData['images'] as List).first ?? '',
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  )
-                : const SizedBox.shrink(), // Or a placeholder if no image
+            child:
+                (contributionData['images'] != null &&
+                        (contributionData['images'] as List).isNotEmpty)
+                    ? Image.network(
+                      (contributionData['images'] as List).first ?? '',
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    )
+                    : const SizedBox.shrink(), // Or a placeholder if no image
           ),
           // Title
           Padding(
             padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
             child: Text(
               contributionData['title'] ?? '',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               maxLines: 2, // Limit title to two lines
               overflow: TextOverflow.ellipsis,
             ),
@@ -86,7 +84,10 @@ class PreviousContributionsPage extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -109,18 +110,19 @@ class PreviousContributionsPage extends StatelessWidget {
           }
 
           return GridView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: contributions.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,    // 2 columns
-                mainAxisSpacing: 8,   // vertical spacing
-                crossAxisSpacing: 8,  // horizontal spacing
-                childAspectRatio: 0.75, // Adjust to taste, slightly taller for more info
-              ),
-              itemBuilder: (context, index) {
-                return _buildContributionCard(contributions[index]);
-              },
-            );
+            padding: const EdgeInsets.all(8),
+            itemCount: contributions.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // 2 columns
+              mainAxisSpacing: 8, // vertical spacing
+              crossAxisSpacing: 8, // horizontal spacing
+              childAspectRatio:
+                  0.75, // Adjust to taste, slightly taller for more info
+            ),
+            itemBuilder: (context, index) {
+              return _buildContributionCard(contributions[index]);
+            },
+          );
         },
       ),
     );

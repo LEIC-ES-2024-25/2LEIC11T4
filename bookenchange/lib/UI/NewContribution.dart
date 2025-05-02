@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'NewContribution/areaofStudiesPage.dart';
 import '../firebase_options.dart';
 
@@ -119,14 +119,14 @@ class _NewContributionState extends State<Newcontribution> {
                 "e.g. Fluent Python, Introduction to Algorithms, ...",
               ),
               _buildTextField(
-                  authorController,
-                  "Author",
-                  "e.g. Thomas H. Cormen, Clifford Stein ...",
+                authorController,
+                "Author",
+                "e.g. Thomas H. Cormen, Clifford Stein ...",
               ),
               _buildTextField(
-                  pubController,
-                  "Publisher",
-                  "The MIT Press, O'Reilly Media ...",
+                pubController,
+                "Publisher",
+                "The MIT Press, O'Reilly Media ...",
               ),
               _buildTextField(
                 descController,
@@ -146,20 +146,24 @@ class _NewContributionState extends State<Newcontribution> {
                   setState(() => selectedUniversity = val);
                 },
               ),
-              _buildTextField(degController, "Degree", "L.EIC, L.EQ, L.EM",),
+              _buildTextField(degController, "Degree", "L.EIC, L.EQ, L.EM"),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     try {
-                      final existingBook = await FirebaseFirestore.instance
-                      .collection('book').where('isbn', isEqualTo: isbnController.text)
-                      .limit(1).get();
+                      final existingBook =
+                          await FirebaseFirestore.instance
+                              .collection('book')
+                              .where('isbn', isEqualTo: isbnController.text)
+                              .limit(1)
+                              .get();
 
                       DocumentReference bookRef;
                       if (existingBook.docs.isEmpty) {
-                        final newBook = await FirebaseFirestore.instance.collection('book').add(
-                            {
+                        final newBook = await FirebaseFirestore.instance
+                            .collection('book')
+                            .add({
                               'name': nameController.text,
                               'author': authorController.text,
                               'publisher': pubController.text,
@@ -172,10 +176,10 @@ class _NewContributionState extends State<Newcontribution> {
                       }
                       // has to be revised
                       final currentUser = FirebaseAuth.instance.currentUser;
-                      if (currentUser==null){
+                      if (currentUser == null) {
                         throw Exception("User not authenticated");
                       }
-                      final ImagePicker _picker = ImagePicker();
+                      /*final ImagePicker _picker = ImagePicker();
                       List<XFile> _selectedImages = [];
 
                       final storage = FirebaseStorage.instance;
@@ -199,20 +203,23 @@ class _NewContributionState extends State<Newcontribution> {
                             const SnackBar(content: Text('You can only upload up to 20 images.')),
                           );
                         }
-                      }
+                      }*/
 
                       // institution has to be a reference because there is a class for it in the db
-                      await FirebaseFirestore.instance.collection('contribution').add({
-                        'idBook': bookRef,
-                        'condition': selectedCondition,
-                        'institution': selectedUniversity,
-                        'iduser': currentUser.uid,
-                        'timestamp': FieldValue.serverTimestamp(),
-                      });
+                      await FirebaseFirestore.instance
+                          .collection('contribution')
+                          .add({
+                            'idBook': bookRef,
+                            'condition': selectedCondition,
+                            'institution': selectedUniversity,
+                            'iduser': currentUser.uid,
+                            'timestamp': FieldValue.serverTimestamp(),
+                          });
 
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text(
-                            'Contribution submitted successfully!')),
+                        const SnackBar(
+                          content: Text('Contribution submitted successfully!'),
+                        ),
                       );
                       // Save contribution logic
                       Navigator.pop(context);

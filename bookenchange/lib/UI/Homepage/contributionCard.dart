@@ -13,7 +13,6 @@ class Contribution extends StatelessWidget {
   final Enum condition;
   final String institution;
 
-  
   @override
   Widget build(BuildContext context) {
     return SizedBox(

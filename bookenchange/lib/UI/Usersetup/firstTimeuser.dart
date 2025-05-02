@@ -7,8 +7,8 @@ import 'package:bookenchange/UI/Usersetup/normalDropdown.dart';
 import 'package:bookenchange/UI/Usersetup/simpleFormfields.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
-import 'package:image_picker/image_picker.dart' as picker;
-import 'package:permission_handler/permission_handler.dart' as AppSettings;
+import 'package:file_picker/file_picker.dart' as picker;
+import 'package:permission_handler/permission_handler.dart';
 
 class editProfile extends StatefulWidget {
   const editProfile({super.key});
@@ -27,24 +27,29 @@ class _editProfileState extends State<editProfile> {
   String? degree;
   int? year;
   final formKey = GlobalKey<FormState>();
-  picker.XFile? pickedFiles;
+  File? pickedFiles;
   String? previousImg;
 
   Future<void> uploadImages() async {
-    final status = await AppSettings.Permission.photos.request();
+    final status = await Permission.photos.request();
+
     if (status.isPermanentlyDenied || status.isDenied) {
-      await AppSettings.openAppSettings();
+      await openAppSettings(); // Open app settings using permission_handler
     } else {
-      final imagePicker = picker.ImagePicker();
-      final selectedImages = await imagePicker.pickImage(
-        source: picker.ImageSource.gallery,
+      final result = await picker.FilePicker.platform.pickFiles(
+        type: picker.FileType.image,
+        allowMultiple: false,
       );
-      if (selectedImages != null) {
-        setState(() {
-          if (selectedImages.path != previousImg) {
-            pickedFiles = selectedImages;
-          }
-        });
+
+      if (result != null && result.files.single.path != null) {
+        final selectedPath = result.files.single.path!;
+
+        if (selectedPath != previousImg) {
+          setState(() {
+            pickedFiles = File(selectedPath);
+            previousImg = selectedPath;
+          });
+        }
       }
     }
   }
@@ -187,12 +192,12 @@ class _editProfileState extends State<editProfile> {
                                       universityCollege!,
                                       degree!,
                                       year!,
-                                      File(pickedFiles!.path),
-                                      Navigator.push(
-                                        context,
-                                        CustomPageRoute(
-                                          destination: Navigation.home,
-                                        ),
+                                      File(pickedFiles!.path)
+                                    ),
+                                    Navigator.push(
+                                      context,
+                                      CustomPageRoute(
+                                        destination: Navigation.home,
                                       ),
                                     ),
                                   },

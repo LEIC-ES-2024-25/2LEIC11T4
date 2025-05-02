@@ -95,7 +95,10 @@ class _AreaOfStudiesPageState extends State<AreaOfStudiesPage> {
                 final area = filteredAreas[index];
 
                 return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -118,7 +121,7 @@ class _AreaOfStudiesPageState extends State<AreaOfStudiesPage> {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

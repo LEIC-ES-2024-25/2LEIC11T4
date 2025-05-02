@@ -8,8 +8,8 @@ import 'package:bookenchange/UI/Login/logIn.dart';
 import 'package:bookenchange/Logic/Authentication.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});  
-  
+  const SettingsPage({super.key});
+
   Future<void> _logout(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -18,10 +18,9 @@ class SettingsPage extends StatelessWidget {
       if (context.mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Login(auth: Auth.instance)),         
+          MaterialPageRoute(builder: (context) => Login(auth: Auth.instance)),
         );
-        
-      } 
+      }
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -32,7 +31,6 @@ class SettingsPage extends StatelessWidget {
           ),
         );
       }
-      
     }
   }
 
@@ -88,14 +86,15 @@ class SettingsPage extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,
-            content: Text('An unexpected error occurred while deleting your account.'),
+            content: Text(
+              'An unexpected error occurred while deleting your account.',
+            ),
             behavior: SnackBarBehavior.floating,
           ),
         );
       }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -119,62 +118,71 @@ class SettingsPage extends StatelessWidget {
           centerTitle: true,
         ),
         body: Stack(
-  children: [
-    // Background split
-    Column(
-      children: [
-        Container(
-          height: 160,
-          color: Colors.white,
-        ),
-        Expanded(
-          child: Container(
-            color: const Color(0xFFB0D9E8), // slightly darker soft blue
-          ),
-        ),
-      ],
-    ),
-
-    // Foreground content
-    Column(
-      children: [
-        const SizedBox(height: 20),
-
-        // Avatar
-        Center(
-          child: Container(
-            margin: const EdgeInsets.only(top: 10),
-            height: 120,
-            width: 120,
-            child: Stack(
-              alignment: Alignment.center,
+          children: [
+            // Background split
+            Column(
               children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  child: Icon(
-                    Icons.person,
-                    size: 50,
-                    color: Theme.of(context).colorScheme.primary,
+                Container(height: 160, color: Colors.white),
+                Expanded(
+                  child: Container(
+                    color: const Color(0xFFB0D9E8), // slightly darker soft blue
                   ),
                 ),
               ],
             ),
-          ),
+
+            // Foreground content
+            Column(
+              children: [
+                const SizedBox(height: 20),
+
+                // Avatar
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    height: 120,
+                    width: 120,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          child: Icon(
+                            Icons.person,
+                            size: 50,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                // Settings Options
+                _buildSettingsOption(
+                  Icons.chat_bubble_outline,
+                  "Previous Contributions",
+                  context,
+                ),
+                _buildSettingsOption(
+                  Icons.lock_outline,
+                  "Change Password",
+                  context,
+                ),
+                _buildSettingsOption(Icons.logout, "Log Out", context),
+                _buildSettingsOption(
+                  Icons.delete_forever_outlined,
+                  "Delete Account",
+                  context,
+                ),
+              ],
+            ),
+          ],
         ),
-
-        const SizedBox(height: 30),
-
-        // Settings Options
-        _buildSettingsOption(Icons.chat_bubble_outline, "Previous Contributions", context),
-        _buildSettingsOption(Icons.lock_outline, "Change Password", context),
-        _buildSettingsOption(Icons.logout, "Log Out", context),
-        _buildSettingsOption(Icons.delete_forever_outlined, "Delete Account", context),
-      ],
-    ),
-  ],
-),
-
       ),
     );
   }
@@ -189,18 +197,20 @@ class SettingsPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface.withOpacity(0.9), // Slight transparency
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface.withOpacity(
+            0.9,
+          ), // Slight transparency
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.grey.shade200),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
 
         child: ListTile(
           leading: Icon(icon, color: theme.colorScheme.primary),
@@ -214,7 +224,7 @@ class SettingsPage extends StatelessWidget {
             switch (title) {
               case "Log Out":
                 await _logout(context);
-                break;                 
+                break;
               case "Previous Contributions":
                 Navigator.push(
                   context,
@@ -234,14 +244,18 @@ class SettingsPage extends StatelessWidget {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: const Text('Delete Account?'),
-                      content: const Text('Are you sure you want to permanently delete your account? This action cannot be undone.'),
+                      content: const Text(
+                        'Are you sure you want to permanently delete your account? This action cannot be undone.',
+                      ),
                       actions: <Widget>[
                         TextButton(
-                          onPressed: () => Navigator.of(context).pop(false), // Dismiss
+                          onPressed:
+                              () => Navigator.of(context).pop(false), // Dismiss
                           child: const Text('Cancel'),
                         ),
                         TextButton(
-                          onPressed: () => Navigator.of(context).pop(true), // Confirm
+                          onPressed:
+                              () => Navigator.of(context).pop(true), // Confirm
                           child: const Text('Delete'),
                         ),
                       ],
@@ -260,8 +274,4 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
-
-
 }
-
-
