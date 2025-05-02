@@ -1,4 +1,5 @@
 import 'package:bookenchange/UI/Chat.dart';
+import 'package:bookenchange/UI/NewContribution/newContribution.dart';
 import 'package:bookenchange/UI/Settings/changePassword.dart';
 import 'package:bookenchange/UI/Usersetup/firstTimeuser.dart';
 import 'package:bookenchange/UI/ForgotPassword/forgotPassword.dart';
@@ -11,7 +12,7 @@ import 'package:flutter/material.dart';
 enum Navigation {
   home(MyHomePage()),
   settings(SettingsPage()),
-  nContribution(Newcontribution()),
+  nContribution(newContribution()),
   chat(chatPage()),
   edProfile(editProfile()),
   forgotPass(forgotPassword()),

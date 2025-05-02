@@ -192,7 +192,7 @@ class _editProfileState extends State<editProfile> {
                                       universityCollege!,
                                       degree!,
                                       year!,
-                                      File(pickedFiles!.path)
+                                      File(pickedFiles!.path),
                                     ),
                                     Navigator.push(
                                       context,

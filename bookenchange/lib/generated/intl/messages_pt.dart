@@ -29,6 +29,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
     "book_tittle": MessageLookupByLibrary.simpleMessage("Título do livro"),
+    "change_password": MessageLookupByLibrary.simpleMessage("Mudar Senha"),
+    "change_password_failed": MessageLookupByLibrary.simpleMessage(
+      "Falha ao alterar a palavra-passe",
+    ),
     "chat": MessageLookupByLibrary.simpleMessage("Mensagens"),
     "current_year": MessageLookupByLibrary.simpleMessage("Ano curricular"),
     "degree": MessageLookupByLibrary.simpleMessage("Curso"),
@@ -38,21 +42,35 @@ class MessageLookup extends MessageLookupByLibrary {
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "Esqueci-me da palavra-passe?",
     ),
+    "isbn": MessageLookupByLibrary.simpleMessage("ISBN"),
     "last_name": MessageLookupByLibrary.simpleMessage("Último nome"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "new_contribution": MessageLookupByLibrary.simpleMessage(
       "Nova Contribuição",
     ),
+    "new_password": MessageLookupByLibrary.simpleMessage("Nova Palavra-passe"),
     "not_found": MessageLookupByLibrary.simpleMessage(
       "Utilizador não encontrado",
     ),
     "not_null": MessageLookupByLibrary.simpleMessage(
       "Este campo é obrigatório",
     ),
+    "password_changed_successfully": MessageLookupByLibrary.simpleMessage(
+      "Palavra-passe alterada com sucesso",
+    ),
     "password_hint": MessageLookupByLibrary.simpleMessage("Palavra-passe"),
+    "password_too_short": MessageLookupByLibrary.simpleMessage(
+      "A palavra-passe deve ter pelo menos 6 caracteres",
+    ),
     "photo": MessageLookupByLibrary.simpleMessage("Adicionar fotos"),
+    "please_enter_password": MessageLookupByLibrary.simpleMessage(
+      "Por favor, introduza a sua palavra-passe",
+    ),
     "previous_contributions": MessageLookupByLibrary.simpleMessage(
       "Contribuições Anteriores",
+    ),
+    "previous_password": MessageLookupByLibrary.simpleMessage(
+      "Palavra-passe Anterior",
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "remember": MessageLookupByLibrary.simpleMessage("Mantenha sessão aberta"),
@@ -73,12 +91,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "sign_up_unsuccesful": MessageLookupByLibrary.simpleMessage(
       "Sign in failed",
     ),
+    "submit": MessageLookupByLibrary.simpleMessage("Submeter"),
     "university_college": MessageLookupByLibrary.simpleMessage(
       "Universidade/Instituto superior",
     ),
     "username": MessageLookupByLibrary.simpleMessage("Nome de utilizador"),
+    "value": MessageLookupByLibrary.simpleMessage("Valor"),
     "weak_password": MessageLookupByLibrary.simpleMessage(
       "Palavra-passe fraca",
+    ),
+    "wrong_previous_password": MessageLookupByLibrary.simpleMessage(
+      "Palavra-passe anterior incorreta",
     ),
   };
 }

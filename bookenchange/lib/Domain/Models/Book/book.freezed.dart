@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Book {
 
- String get ISBN; String get name; List<String> get authors; String get Publisher;
+ String get ISBN; String get name; List<String?> get authors; List<String> get publishers;
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $BookCopyWith<Book> get copyWith => _$BookCopyWithImpl<Book>(this as Book, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.authors, authors)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.authors, authors)&&const DeepCollectionEquality().equals(other.publishers, publishers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquality().hash(authors),Publisher);
+int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquality().hash(authors),const DeepCollectionEquality().hash(publishers));
 
 @override
 String toString() {
-  return 'Book(ISBN: $ISBN, name: $name, authors: $authors, Publisher: $Publisher)';
+  return 'Book(ISBN: $ISBN, name: $name, authors: $authors, publishers: $publishers)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $BookCopyWith<$Res>  {
   factory $BookCopyWith(Book value, $Res Function(Book) _then) = _$BookCopyWithImpl;
 @useResult
 $Res call({
- String ISBN, String name, List<String> authors, String Publisher
+ String ISBN, String name, List<String?> authors, List<String> publishers
 });
 
 
@@ -66,13 +66,13 @@ class _$BookCopyWithImpl<$Res>
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? Publisher = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? publishers = null,}) {
   return _then(_self.copyWith(
 ISBN: null == ISBN ? _self.ISBN : ISBN // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,authors: null == authors ? _self.authors : authors // ignore: cast_nullable_to_non_nullable
-as List<String>,Publisher: null == Publisher ? _self.Publisher : Publisher // ignore: cast_nullable_to_non_nullable
-as String,
+as List<String?>,publishers: null == publishers ? _self.publishers : publishers // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 
@@ -83,19 +83,25 @@ as String,
 @JsonSerializable()
 
 class _Book implements Book {
-  const _Book({required this.ISBN, required this.name, required final  List<String> authors, required this.Publisher}): _authors = authors;
+  const _Book({required this.ISBN, required this.name, required final  List<String?> authors, required final  List<String> publishers}): _authors = authors,_publishers = publishers;
   factory _Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
 
 @override final  String ISBN;
 @override final  String name;
- final  List<String> _authors;
-@override List<String> get authors {
+ final  List<String?> _authors;
+@override List<String?> get authors {
   if (_authors is EqualUnmodifiableListView) return _authors;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_authors);
 }
 
-@override final  String Publisher;
+ final  List<String> _publishers;
+@override List<String> get publishers {
+  if (_publishers is EqualUnmodifiableListView) return _publishers;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_publishers);
+}
+
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
@@ -110,16 +116,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._authors, _authors)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._authors, _authors)&&const DeepCollectionEquality().equals(other._publishers, _publishers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquality().hash(_authors),Publisher);
+int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquality().hash(_authors),const DeepCollectionEquality().hash(_publishers));
 
 @override
 String toString() {
-  return 'Book(ISBN: $ISBN, name: $name, authors: $authors, Publisher: $Publisher)';
+  return 'Book(ISBN: $ISBN, name: $name, authors: $authors, publishers: $publishers)';
 }
 
 
@@ -130,7 +136,7 @@ abstract mixin class _$BookCopyWith<$Res> implements $BookCopyWith<$Res> {
   factory _$BookCopyWith(_Book value, $Res Function(_Book) _then) = __$BookCopyWithImpl;
 @override @useResult
 $Res call({
- String ISBN, String name, List<String> authors, String Publisher
+ String ISBN, String name, List<String?> authors, List<String> publishers
 });
 
 
@@ -147,13 +153,13 @@ class __$BookCopyWithImpl<$Res>
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? Publisher = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? publishers = null,}) {
   return _then(_Book(
 ISBN: null == ISBN ? _self.ISBN : ISBN // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,authors: null == authors ? _self._authors : authors // ignore: cast_nullable_to_non_nullable
-as List<String>,Publisher: null == Publisher ? _self.Publisher : Publisher // ignore: cast_nullable_to_non_nullable
-as String,
+as List<String?>,publishers: null == publishers ? _self._publishers : publishers // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

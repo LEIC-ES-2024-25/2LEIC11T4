@@ -1,9 +1,15 @@
+import 'dart:io';
+
+import 'package:bookenchange/Database/Firebase.dart';
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:bookenchange/UI/NewContribution/normalfields.dart';
 import 'package:bookenchange/generated/l10n.dart';
+import 'package:file_picker/file_picker.dart' as picker;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:bookenchange/Domain/Models/Book/book.dart';
 
 class newContribution extends StatefulWidget {
   @override
@@ -16,9 +22,32 @@ class _newContributionState extends State<newContribution> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
+  final firebase = Firebase.instance;
+  List<File> pickedFiles = [];
+  Book? bookInfo;
+  Future<void> uploadImages() async {
+    final status = await Permission.photos.request();
 
-  Future<void> photos() async {
-    throw UnimplementedError();
+    if (status.isPermanentlyDenied || status.isDenied) {
+      await openAppSettings(); // Open app settings using permission_handler
+    } else {
+      final result = await picker.FilePicker.platform.pickFiles(
+        type: picker.FileType.image,
+        allowMultiple: true,
+      );
+      final newPaths =
+          result!.files
+              .where(
+                (file) => file.path != null && !pickedFiles.contains(file.path),
+              )
+              .map((file) => file.path!)
+              .toList();
+      final availableSlots = 5 - pickedFiles.length;
+      final limitedFiles = newPaths.take(availableSlots).toList();
+      setState(() {
+        pickedFiles.addAll(limitedFiles.map((path) => File(path)));
+      });
+    }
   }
 
   @override
@@ -28,10 +57,7 @@ class _newContributionState extends State<newContribution> {
         appBar: AppBar(
           title: Text(
             S.of(context).new_contribution,
-            style:
-                Theme.of(
-                  context,
-                ).textTheme.titleMedium, // Using theme text styles
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           backgroundColor: Theme.of(context).colorScheme.primary,
           leading: IconButton(
@@ -71,7 +97,12 @@ class _newContributionState extends State<newContribution> {
                         ),
                       ),
                       TextButton.icon(
-                        onPressed: photos,
+                        onPressed: () => uploadImages(),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.tertiary,
+                          ),
+                        ),
                         icon: Icon(
                           Icons.photo_camera,
                           color: Theme.of(context).indicatorColor,
@@ -86,19 +117,48 @@ class _newContributionState extends State<newContribution> {
                 ),
               ),
               normalField(
-                controller: nameController,
-                label: S.of(context).book_tittle,
-                hint: "e.g. Fluent Python, Introduction to Algorithms, ...",
+                controller: isbnController,
+                label: S.of(context).isbn,
+                hint: "e.g 0596156715",
               ),
-              normalField(
-                controller: descController,
-                label: S.of(context).description,
-                hint: "e.g. Fluent Python, Introduction to Algorithms, ...",
+              IconButton(
+                onPressed: () async {
+                  final result = await firebase.getBookByISBN(
+                    isbnController.text.trim(),
+                  );
+                  setState(() {
+                    bookInfo = result;
+                  });
+                },
+                icon: Icon(
+                  Icons.search,
+                  color: Theme.of(context).indicatorColor,
+                ),
               ),
-
-              //be redirected to a page where you can add the study area if no there already
+              bookInfo != null
+                  ? ExpansionTile(
+                    title: Text(
+                      bookInfo!.name,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    children: [
+                      ListTile(
+                        title: Text(
+                          bookInfo!.authors.join(','),
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          bookInfo!.publishers.join(','),
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                    ],
+                  )
+                  : SizedBox.shrink(),
               //dropdown with condition
-              //be redirected to a page where you can add your college /university if it isn't there already
+              //searchdropdown areaof study
             ],
           ),
         ),

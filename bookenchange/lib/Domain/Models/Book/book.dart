@@ -8,8 +8,8 @@ abstract class Book with _$Book {
   const factory Book({
     required String ISBN,
     required String name,
-    required List<String> authors,
-    required String Publisher,
+    required List<String?> authors,
+    required List<String> publishers,
   }) = _Book;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
