@@ -11,7 +11,7 @@ abstract class Contribution with _$Contribution {
     required int iduser,
     required int idBook,
     required String description,
-    required String condition,
+    required Condition condition, // Changed from String to Condition
     required String area,
     required String university,
     required List<String> images,
