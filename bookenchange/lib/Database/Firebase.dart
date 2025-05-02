@@ -5,7 +5,6 @@ import 'package:bookenchange/Domain/Models/Author/author.dart';
 import 'package:bookenchange/Domain/Models/Book/book.dart';
 import 'package:bookenchange/Domain/Models/degree/degree.dart';
 import 'package:bookenchange/Domain/Models/Users/users.dart';
-import 'package:bookenchange/Domain/Models/bookwithinformation/bookinfo.dart';
 import 'package:bookenchange/Domain/Models/institution/institution.dart';
 import 'package:bookenchange/Logic/Authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,32 +22,19 @@ class Firebase {
 
   static Firebase get instance => _instance;
   //search book by isbn if not yet present in the firebase  it should make a call to api
-  Future<Bookinfo> getBookByISBN(String isbn) async {
+  Future<Book> getBookByISBN(String isbn) async {
     final doc = await db.collection('books').doc(isbn).get();
-    final List<String> authors;
     final Book result;
     if (doc.exists && doc.data() != null) {
       result = Book.fromJson(doc.data()!);
-      authors = await getauthors(result.authors);
-      return Bookinfo(
-        ISBN: result.ISBN,
-        name: result.name,
-        authors: authors,
-        Publisher: result.Publisher,
-      );
+      return result;
     }
     result = await api.fetchBookByISBN(isbn);
-    authors = await getauthors(result.authors);
     await db.collection('books').add(result.toJson());
-    return Bookinfo(
-      ISBN: isbn,
-      name: result.name,
-      authors: authors,
-      Publisher: result.Publisher,
-    );
+    return result;
   }
 
-  Future<String> searchauthor(String authorcode) async {
+  /*Future<String> searchauthor(String authorcode) async {
     final doc = await db.collection('author').doc(authorcode).get();
     if (doc.exists && doc.data() != null) {
       final data = doc.data();
@@ -66,7 +52,7 @@ class Firebase {
       authors.add(await searchauthor(id));
     }
     return authors;
-  }
+  }*/
 
   //fetch institutions
   Future<String> getInstitution(String institution) async {

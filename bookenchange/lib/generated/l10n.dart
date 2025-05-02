@@ -115,6 +115,16 @@ class S {
     );
   }
 
+  /// `Change Password`
+  String get change_password {
+    return Intl.message(
+      'Change Password',
+      name: 'change_password',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sign in`
   String get sign_in {
     return Intl.message('Sign in', name: 'sign_in', desc: '', args: []);
@@ -298,6 +308,101 @@ class S {
   /// `Save profile`
   String get save {
     return Intl.message('Save profile', name: 'save', desc: '', args: []);
+  }
+
+  /// `Password changed successfully`
+  String get password_changed_successfully {
+    return Intl.message(
+      'Password changed successfully',
+      name: 'password_changed_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change password failed`
+  String get change_password_failed {
+    return Intl.message(
+      'Change password failed',
+      name: 'change_password_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong previous password`
+  String get wrong_previous_password {
+    return Intl.message(
+      'Wrong previous password',
+      name: 'wrong_previous_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your password`
+  String get please_enter_password {
+    return Intl.message(
+      'Please enter your password',
+      name: 'please_enter_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 6 characters long`
+  String get password_too_short {
+    return Intl.message(
+      'Password must be at least 6 characters long',
+      name: 'password_too_short',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Previous Password`
+  String get previous_password {
+    return Intl.message(
+      'Previous Password',
+      name: 'previous_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Value`
+  String get value {
+    return Intl.message('Value', name: 'value', desc: '', args: []);
+  }
+
+  /// `New Password`
+  String get new_password {
+    return Intl.message(
+      'New Password',
+      name: 'new_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message('Submit', name: 'submit', desc: '', args: []);
+  }
+
+  /// `ISBN`
+  String get isbn {
+    return Intl.message('ISBN', name: 'isbn', desc: '', args: []);
+  }
+
+  /// `Authors`
+  String get authors {
+    return Intl.message('Authors', name: 'authors', desc: '', args: []);
+  }
+
+  /// `Publishers`
+  String get publishers {
+    return Intl.message('Publishers', name: 'publishers', desc: '', args: []);
   }
 }
 

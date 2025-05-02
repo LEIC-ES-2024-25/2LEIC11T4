@@ -11,7 +11,7 @@ _Contribution _$ContributionFromJson(Map<String, dynamic> json) =>
       iduser: (json['iduser'] as num).toInt(),
       idBook: (json['idBook'] as num).toInt(),
       description: json['description'] as String,
-      condition: json['condition'] as String,
+      condition: $enumDecode(_$ConditionEnumMap, json['condition']),
       area: json['area'] as String,
       university: json['university'] as String,
       images:
@@ -23,8 +23,14 @@ Map<String, dynamic> _$ContributionToJson(_Contribution instance) =>
       'iduser': instance.iduser,
       'idBook': instance.idBook,
       'description': instance.description,
-      'condition': instance.condition,
+      'condition': _$ConditionEnumMap[instance.condition]!,
       'area': instance.area,
       'university': instance.university,
       'images': instance.images,
     };
+
+const _$ConditionEnumMap = {
+  Condition.newCondition: 'newCondition',
+  Condition.usedCondition: 'usedCondition',
+  Condition.damagedCondition: 'damagedCondition',
+};
