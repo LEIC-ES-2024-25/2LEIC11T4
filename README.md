@@ -120,6 +120,18 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 - For this sprint, we’ve focused on addressing the gaps from Sprint 1. We assigned tasks aimed at completing the logic for the New Contribution feature and integrating it with the OpenLibrary API to ensure it becomes fully functional. Additionally, we planned work on new user stories such as Sign Up, Log In, Profile Editing and Chat, in order to expand the core functionality of the application. These tasks were prioritized to ensure end-to-end value delivery and to enable meaningful user interaction within the app.
 ![github com_orgs_LEIC-ES-2024-25_projects_75_views_1](https://github.com/user-attachments/assets/c82eedfd-9123-4758-9ee5-617486f8876d)
 
+### Sprint 2
+![github com_orgs_LEIC-ES-2024-25_projects_75_views_1](https://github.com/user-attachments/assets/35c5ae9b-fe58-432a-9a85-095c37ee2587)
+
+#### Sprint review
+- For this sprint we proposed ourselves to work on the link between the dart code and the Firebase, in order to make the Contribution and User logic work. We were able to complete these tasks, however as there are no cards available for the user it's assumed as having no additional user value. At the stage that we are at this moment the next tasks related to this part of the project will be eased, remaining the implementation of the chat (related to the users db) and the visual cards in the main pages.
+
+#### Sprint retrospective
+- We faced several difficulties, related for instance to dependencies that delayed our tasks. Still, we made efforts to individually solve those problems, according to the tasks assigned, reporting in group our solutions. We acknowledge that we should've made a more integrated test of the features in order to systematically check that they were all working.
+  
+#### Sprint 3 planning
+- As this is the final sprint and it requires delivering all user value proposed, we will have to focus on finishing the logic we worked on and testing all the features. We will have to finish the contribution cards, the user settings and the chat.
+  
 ---
  ## Authors
  Project developed by Belém Bilhoto, Guilherme Linhares, João Marques, José Reis and Sofia Cruz
