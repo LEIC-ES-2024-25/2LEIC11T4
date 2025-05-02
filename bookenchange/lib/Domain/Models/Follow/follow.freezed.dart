@@ -14,42 +14,42 @@ part of 'follow.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$follow {
+mixin _$Follow {
 
- int get iduser1; int get iduser2;
-/// Create a copy of follow
+ int get IdUser1; int get IdUser2;
+/// Create a copy of Follow
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$followCopyWith<follow> get copyWith => _$followCopyWithImpl<follow>(this as follow, _$identity);
+$FollowCopyWith<Follow> get copyWith => _$FollowCopyWithImpl<Follow>(this as Follow, _$identity);
 
-  /// Serializes this follow to a JSON map.
+  /// Serializes this Follow to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is follow&&(identical(other.iduser1, iduser1) || other.iduser1 == iduser1)&&(identical(other.iduser2, iduser2) || other.iduser2 == iduser2));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Follow&&(identical(other.IdUser1, IdUser1) || other.IdUser1 == IdUser1)&&(identical(other.IdUser2, IdUser2) || other.IdUser2 == IdUser2));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,iduser1,iduser2);
+int get hashCode => Object.hash(runtimeType,IdUser1,IdUser2);
 
 @override
 String toString() {
-  return 'follow(iduser1: $iduser1, iduser2: $iduser2)';
+  return 'Follow(IdUser1: $IdUser1, IdUser2: $IdUser2)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $followCopyWith<$Res>  {
-  factory $followCopyWith(follow value, $Res Function(follow) _then) = _$followCopyWithImpl;
+abstract mixin class $FollowCopyWith<$Res>  {
+  factory $FollowCopyWith(Follow value, $Res Function(Follow) _then) = _$FollowCopyWithImpl;
 @useResult
 $Res call({
- int iduser1, int iduser2
+ int IdUser1, int IdUser2
 });
 
 
@@ -57,19 +57,19 @@ $Res call({
 
 }
 /// @nodoc
-class _$followCopyWithImpl<$Res>
-    implements $followCopyWith<$Res> {
-  _$followCopyWithImpl(this._self, this._then);
+class _$FollowCopyWithImpl<$Res>
+    implements $FollowCopyWith<$Res> {
+  _$FollowCopyWithImpl(this._self, this._then);
 
-  final follow _self;
-  final $Res Function(follow) _then;
+  final Follow _self;
+  final $Res Function(Follow) _then;
 
-/// Create a copy of follow
+/// Create a copy of Follow
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? iduser1 = null,Object? iduser2 = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? IdUser1 = null,Object? IdUser2 = null,}) {
   return _then(_self.copyWith(
-iduser1: null == iduser1 ? _self.iduser1 : iduser1 // ignore: cast_nullable_to_non_nullable
-as int,iduser2: null == iduser2 ? _self.iduser2 : iduser2 // ignore: cast_nullable_to_non_nullable
+IdUser1: null == IdUser1 ? _self.IdUser1 : IdUser1 // ignore: cast_nullable_to_non_nullable
+as int,IdUser2: null == IdUser2 ? _self.IdUser2 : IdUser2 // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -80,47 +80,47 @@ as int,
 /// @nodoc
 @JsonSerializable()
 
-class _follow implements follow {
-  const _follow({required this.iduser1, required this.iduser2});
-  factory _follow.fromJson(Map<String, dynamic> json) => _$followFromJson(json);
+class _Follow implements Follow {
+  const _Follow({required this.IdUser1, required this.IdUser2});
+  factory _Follow.fromJson(Map<String, dynamic> json) => _$FollowFromJson(json);
 
-@override final  int iduser1;
-@override final  int iduser2;
+@override final  int IdUser1;
+@override final  int IdUser2;
 
-/// Create a copy of follow
+/// Create a copy of Follow
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$followCopyWith<_follow> get copyWith => __$followCopyWithImpl<_follow>(this, _$identity);
+_$FollowCopyWith<_Follow> get copyWith => __$FollowCopyWithImpl<_Follow>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$followToJson(this, );
+  return _$FollowToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _follow&&(identical(other.iduser1, iduser1) || other.iduser1 == iduser1)&&(identical(other.iduser2, iduser2) || other.iduser2 == iduser2));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Follow&&(identical(other.IdUser1, IdUser1) || other.IdUser1 == IdUser1)&&(identical(other.IdUser2, IdUser2) || other.IdUser2 == IdUser2));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,iduser1,iduser2);
+int get hashCode => Object.hash(runtimeType,IdUser1,IdUser2);
 
 @override
 String toString() {
-  return 'follow(iduser1: $iduser1, iduser2: $iduser2)';
+  return 'Follow(IdUser1: $IdUser1, IdUser2: $IdUser2)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$followCopyWith<$Res> implements $followCopyWith<$Res> {
-  factory _$followCopyWith(_follow value, $Res Function(_follow) _then) = __$followCopyWithImpl;
+abstract mixin class _$FollowCopyWith<$Res> implements $FollowCopyWith<$Res> {
+  factory _$FollowCopyWith(_Follow value, $Res Function(_Follow) _then) = __$FollowCopyWithImpl;
 @override @useResult
 $Res call({
- int iduser1, int iduser2
+ int IdUser1, int IdUser2
 });
 
 
@@ -128,19 +128,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$followCopyWithImpl<$Res>
-    implements _$followCopyWith<$Res> {
-  __$followCopyWithImpl(this._self, this._then);
+class __$FollowCopyWithImpl<$Res>
+    implements _$FollowCopyWith<$Res> {
+  __$FollowCopyWithImpl(this._self, this._then);
 
-  final _follow _self;
-  final $Res Function(_follow) _then;
+  final _Follow _self;
+  final $Res Function(_Follow) _then;
 
-/// Create a copy of follow
+/// Create a copy of Follow
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? iduser1 = null,Object? iduser2 = null,}) {
-  return _then(_follow(
-iduser1: null == iduser1 ? _self.iduser1 : iduser1 // ignore: cast_nullable_to_non_nullable
-as int,iduser2: null == iduser2 ? _self.iduser2 : iduser2 // ignore: cast_nullable_to_non_nullable
+@override @pragma('vm:prefer-inline') $Res call({Object? IdUser1 = null,Object? IdUser2 = null,}) {
+  return _then(_Follow(
+IdUser1: null == IdUser1 ? _self.IdUser1 : IdUser1 // ignore: cast_nullable_to_non_nullable
+as int,IdUser2: null == IdUser2 ? _self.IdUser2 : IdUser2 // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

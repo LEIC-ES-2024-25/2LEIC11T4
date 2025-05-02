@@ -229,6 +229,76 @@ class S {
   String get description {
     return Intl.message('Description', name: 'description', desc: '', args: []);
   }
+
+  /// `First name`
+  String get first_name {
+    return Intl.message('First name', name: 'first_name', desc: '', args: []);
+  }
+
+  /// `Last name`
+  String get last_name {
+    return Intl.message('Last name', name: 'last_name', desc: '', args: []);
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message('Username', name: 'username', desc: '', args: []);
+  }
+
+  /// `University/College`
+  String get university_college {
+    return Intl.message(
+      'University/College',
+      name: 'university_college',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Degree`
+  String get degree {
+    return Intl.message('Degree', name: 'degree', desc: '', args: []);
+  }
+
+  /// `Current year of studies`
+  String get current_year {
+    return Intl.message(
+      'Current year of studies',
+      name: 'current_year',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send recovery email`
+  String get send {
+    return Intl.message(
+      'Send recovery email',
+      name: 'send',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User not found`
+  String get not_found {
+    return Intl.message(
+      'User not found',
+      name: 'not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new option`
+  String get add_new {
+    return Intl.message('Add new option', name: 'add_new', desc: '', args: []);
+  }
+
+  /// `Save profile`
+  String get save {
+    return Intl.message('Save profile', name: 'save', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

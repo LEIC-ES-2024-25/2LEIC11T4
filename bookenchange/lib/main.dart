@@ -1,5 +1,7 @@
 import 'package:bookenchange/UI/Login/logIn.dart';
+import 'package:bookenchange/UI/Settings/settingsPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,9 +17,15 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final prefs = await SharedPreferences.getInstance();
   final bool rememberMe = prefs.getBool('remember_me') ?? false;
-  if (!rememberMe ) {
+  if (!rememberMe) {
     await FirebaseAuth.instance.signOut();
   }
+
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug, // ou .playIntegrity
+    appleProvider: AppleProvider.debug,
+  );
+
   runApp(const MyApp());
 }
 
@@ -27,7 +35,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final Auth auth = Auth();
+    final Auth auth = Auth.instance;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Book Donation',
@@ -39,7 +47,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      home: auth.currentUser != null ? MyHomePage() : Login(),
+      home: auth.currentUser != null ? MyHomePage() : Login(auth: auth),
     );
   }
 }

@@ -1,5 +1,10 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'areaofStudiesPage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import '../Domain/theme.dart';
 
 class Newcontribution extends StatefulWidget {
   const Newcontribution({super.key});
@@ -17,12 +22,80 @@ class _NewContributionState extends State<Newcontribution> {
 
 
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController authorController = TextEditingController();
   final TextEditingController descController = TextEditingController();
+  final TextEditingController pubController = TextEditingController();
+  final TextEditingController degController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
 
   final List<String> conditions = ['New', 'Used - Good', 'Used - Acceptable'];
   final List<String> areas = ['Computer Science', 'Mathematics', 'Law', 'History'];
   final List<String> universities = ['FEUP', 'FEP', 'FLUP', 'ICBAS'];
+  final ImagePicker _picker = ImagePicker();
+  List<File> _selectedImages = [];
+
+  Future<void> _pickImages() async {
+    if (_selectedImages.length >= 20) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You can only select up to 20 images')),
+      );
+      return;
+    }
+
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImages.add(File(pickedFile.path));
+      });
+    }
+  }
+  Future<String> _uploadImage(File imageFile) async {
+    try{
+    final fileName = 'contributions/${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final ref = FirebaseStorage.instance.ref().child(fileName);
+    await ref.putFile(imageFile);
+    return await ref.getDownloadURL();
+  }
+  catch(e){
+    print("Error uploading image: $e");
+    rethrow;
+  }
+  }
+
+  // Save contribution to Firestore
+  Future<void> _saveContribution() async {
+    if (_formKey.currentState!.validate()){
+      List<String> imageUrls = [];
+      for (File image in _selectedImages){
+        final url = await _uploadImage(image);
+        imageUrls.add(url);
+      }
+      try {
+        await FirebaseFirestore.instance.collection('contributions').add({
+          'name': nameController.text,
+          'description': descController.text,
+          'area': selectedArea,
+          'isbn': isbnController.text,
+          'condition': selectedCondition,
+          'university': selectedUniversity,
+          'images': imageUrls,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contribution saved successfully')),
+        );
+        // Reset form fields
+        _formKey.currentState!.reset();
+        setState(() {
+          _selectedImages = [];
+          selectedArea = null;
+          selectedCondition = null;
+          selectedUniversity = null;
+        });
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error saving contribution: $e')),
+        );
+      }
+    }
+  }
 
   Widget _buildAreaSelector() {
     return Padding(
@@ -92,6 +165,37 @@ class _NewContributionState extends State<Newcontribution> {
                       icon: const Icon(Icons.photo_camera),
                       label: const Text("Add Photos"),
                     ),
+                    if (_selectedImages.isNotEmpty)
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: _selectedImages.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 1,
+                        ),
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              Image.file(_selectedImages[index], fit: BoxFit.cover),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: IconButton(
+                                  icon: Icon(Icons.cancel, color: theme.colorScheme.primary),
+                                  onPressed: () {
+                                    setState(() {
+                                      _selectedImages.removeAt(index);
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     const SizedBox(height: 20),
                   ],
                 ),
@@ -110,7 +214,83 @@ class _NewContributionState extends State<Newcontribution> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // Save contribution logic
+                    try {
+                      final existingBook =
+                          await FirebaseFirestore.instance
+                              .collection('book')
+                              .where('isbn', isEqualTo: isbnController.text)
+                              .limit(1)
+                              .get();
+
+                      DocumentReference bookRef;
+                      if (existingBook.docs.isEmpty) {
+                        final newBook = await FirebaseFirestore.instance
+                            .collection('book')
+                            .add({
+                              'name': nameController.text,
+                              'author': authorController.text,
+                              'publisher': pubController.text,
+                              'description': descController.text,
+                              'isbn': isbnController.text,
+                            });
+                        bookRef = newBook;
+                      } else {
+                        bookRef = existingBook.docs.first.reference;
+                      }
+                      // has to be revised
+                      final currentUser = FirebaseAuth.instance.currentUser;
+                      if (currentUser == null) {
+                        throw Exception("User not authenticated");
+                      }
+                      /*final ImagePicker _picker = ImagePicker();
+                      List<XFile> _selectedImages = [];
+
+                      final storage = FirebaseStorage.instance;
+                      List<String>  imageUrls = [];
+
+                      for (var image in _selectedImages) {
+                        final ref = storage.ref().child('images/${image.name}');
+                        await ref.putFile(File(image.path));
+                        final url = await ref.getDownloadURL();
+                        imageUrls.add(url);
+                      }
+
+                      Future<void> _pickImages() async {
+                        final List<XFile>? images = await _picker.pickMultiImage();
+                        if (images != null && images.length + _selectedImages.length <= 20){
+                          setState(() {
+                            _selectedImages.addAll(images);
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('You can only upload up to 20 images.')),
+                          );
+                        }
+                      }*/
+
+                      // institution has to be a reference because there is a class for it in the db
+                      await FirebaseFirestore.instance
+                          .collection('contribution')
+                          .add({
+                            'idBook': bookRef,
+                            'condition': selectedCondition,
+                            'institution': selectedUniversity,
+                            'iduser': currentUser.uid,
+                            'timestamp': FieldValue.serverTimestamp(),
+                          });
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Contribution submitted successfully!'),
+                        ),
+                      );
+                      // Save contribution logic
+                      Navigator.pop(context);
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to submit: $e')),
+                      );
+                    }
                   }
                 },
                 child: const Text("Submit Contribution"),
