@@ -6,18 +6,18 @@ part of 'transaction.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_transactions _$transactionsFromJson(Map<String, dynamic> json) =>
-    _transactions(
-      idcontribution: (json['idcontribution'] as num).toInt(),
-      iduser1: (json['iduser1'] as num).toInt(),
-      iduser2: (json['iduser2'] as num).toInt(),
-      date: DateTime.parse(json['date'] as String),
+_Transactions _$TransactionsFromJson(Map<String, dynamic> json) =>
+    _Transactions(
+      IdContribution: (json['IdContribution'] as num).toInt(),
+      IdUser1: (json['IdUser1'] as num).toInt(),
+      IdUser2: (json['IdUser2'] as num).toInt(),
+      Date: DateTime.parse(json['Date'] as String),
     );
 
-Map<String, dynamic> _$transactionsToJson(_transactions instance) =>
+Map<String, dynamic> _$TransactionsToJson(_Transactions instance) =>
     <String, dynamic>{
-      'idcontribution': instance.idcontribution,
-      'iduser1': instance.iduser1,
-      'iduser2': instance.iduser2,
-      'date': instance.date.toIso8601String(),
+      'IdContribution': instance.IdContribution,
+      'IdUser1': instance.IdUser1,
+      'IdUser2': instance.IdUser2,
+      'Date': instance.Date.toIso8601String(),
     };

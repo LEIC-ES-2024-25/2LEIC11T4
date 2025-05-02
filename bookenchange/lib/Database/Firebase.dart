@@ -9,10 +9,11 @@ class Firebase {
 
 
 
-  Future<book?> getBookByISBN(String isbn) async {
+  Future<Book?> getBookByISBN(String isbn) async {
     final doc = await FirebaseFirestore.instance.collection('books').doc(isbn).get();
     if (doc.exists) {
-      return book.fromFirestore(doc);
+      final data = doc.data() as Map<String, dynamic>;
+      return Book.fromJson(data);
     } else {
       return null;
     }

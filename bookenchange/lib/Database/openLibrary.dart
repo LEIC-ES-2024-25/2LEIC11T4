@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:bookenchange/Domain/Models/Book/book.dart';
 
 class openLibrary{
-  Future<book> fetchBookByISBN(String isbn) async {
+  Future<Book> fetchBookByISBN(String isbn) async {
     final url = Uri.parse('https://openlibrary.org/isbn/$isbn.json');
 
     final response = await http.get(url);
@@ -14,10 +14,10 @@ class openLibrary{
 
     final data = json.decode(response.body);
 
-    return book(
+    return Book(
       ISBN: isbn,
       name: data['title'] ?? 'Unknown',
-      author: (data['authors'] != null && data['authors'] is List)
+      authors: (data['authors'] != null && data['authors'] is List)
           ? data['authors'][0]['name'] ?? 'Unknown'
           : 'Unknown',
       Publisher: (data['publishers'] != null && data['publishers'] is List)

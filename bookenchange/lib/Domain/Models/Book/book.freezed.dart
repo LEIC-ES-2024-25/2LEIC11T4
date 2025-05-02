@@ -14,42 +14,42 @@ part of 'book.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$book {
+mixin _$Book {
 
- String get ISBN; String get name; String get author; String get Publisher; int get idAreaOfStudy;
-/// Create a copy of book
+ String get ISBN; String get name; List<String> get authors; String get Publisher;
+/// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$bookCopyWith<book> get copyWith => _$bookCopyWithImpl<book>(this as book, _$identity);
+$BookCopyWith<Book> get copyWith => _$BookCopyWithImpl<Book>(this as Book, _$identity);
 
-  /// Serializes this book to a JSON map.
+  /// Serializes this Book to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&(identical(other.author, author) || other.author == author)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher)&&(identical(other.idAreaOfStudy, idAreaOfStudy) || other.idAreaOfStudy == idAreaOfStudy));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.authors, authors)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,ISBN,name,author,Publisher,idAreaOfStudy);
+int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquality().hash(authors),Publisher);
 
 @override
 String toString() {
-  return 'book(ISBN: $ISBN, name: $name, author: $author, Publisher: $Publisher, idAreaOfStudy: $idAreaOfStudy)';
+  return 'Book(ISBN: $ISBN, name: $name, authors: $authors, Publisher: $Publisher)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $bookCopyWith<$Res>  {
-  factory $bookCopyWith(book value, $Res Function(book) _then) = _$bookCopyWithImpl;
+abstract mixin class $BookCopyWith<$Res>  {
+  factory $BookCopyWith(Book value, $Res Function(Book) _then) = _$BookCopyWithImpl;
 @useResult
 $Res call({
- String ISBN, String name, String author, String Publisher, int idAreaOfStudy
+ String ISBN, String name, List<String> authors, String Publisher
 });
 
 
@@ -57,23 +57,22 @@ $Res call({
 
 }
 /// @nodoc
-class _$bookCopyWithImpl<$Res>
-    implements $bookCopyWith<$Res> {
-  _$bookCopyWithImpl(this._self, this._then);
+class _$BookCopyWithImpl<$Res>
+    implements $BookCopyWith<$Res> {
+  _$BookCopyWithImpl(this._self, this._then);
 
-  final book _self;
-  final $Res Function(book) _then;
+  final Book _self;
+  final $Res Function(Book) _then;
 
-/// Create a copy of book
+/// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? ISBN = null,Object? name = null,Object? author = null,Object? Publisher = null,Object? idAreaOfStudy = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? Publisher = null,}) {
   return _then(_self.copyWith(
 ISBN: null == ISBN ? _self.ISBN : ISBN // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
-as String,Publisher: null == Publisher ? _self.Publisher : Publisher // ignore: cast_nullable_to_non_nullable
-as String,idAreaOfStudy: null == idAreaOfStudy ? _self.idAreaOfStudy : idAreaOfStudy // ignore: cast_nullable_to_non_nullable
-as int,
+as String,authors: null == authors ? _self.authors : authors // ignore: cast_nullable_to_non_nullable
+as List<String>,Publisher: null == Publisher ? _self.Publisher : Publisher // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -83,50 +82,55 @@ as int,
 /// @nodoc
 @JsonSerializable()
 
-class _book implements book {
-  const _book({required this.ISBN, required this.name, required this.author, required this.Publisher, required this.idAreaOfStudy});
-  factory _book.fromJson(Map<String, dynamic> json) => _$bookFromJson(json);
+class _Book implements Book {
+  const _Book({required this.ISBN, required this.name, required final  List<String> authors, required this.Publisher}): _authors = authors;
+  factory _Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
 
 @override final  String ISBN;
 @override final  String name;
-@override final  String author;
-@override final  String Publisher;
-@override final  int idAreaOfStudy;
+ final  List<String> _authors;
+@override List<String> get authors {
+  if (_authors is EqualUnmodifiableListView) return _authors;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_authors);
+}
 
-/// Create a copy of book
+@override final  String Publisher;
+
+/// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$bookCopyWith<_book> get copyWith => __$bookCopyWithImpl<_book>(this, _$identity);
+_$BookCopyWith<_Book> get copyWith => __$BookCopyWithImpl<_Book>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$bookToJson(this, );
+  return _$BookToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&(identical(other.author, author) || other.author == author)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher)&&(identical(other.idAreaOfStudy, idAreaOfStudy) || other.idAreaOfStudy == idAreaOfStudy));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._authors, _authors)&&(identical(other.Publisher, Publisher) || other.Publisher == Publisher));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,ISBN,name,author,Publisher,idAreaOfStudy);
+int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquality().hash(_authors),Publisher);
 
 @override
 String toString() {
-  return 'book(ISBN: $ISBN, name: $name, author: $author, Publisher: $Publisher, idAreaOfStudy: $idAreaOfStudy)';
+  return 'Book(ISBN: $ISBN, name: $name, authors: $authors, Publisher: $Publisher)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$bookCopyWith<$Res> implements $bookCopyWith<$Res> {
-  factory _$bookCopyWith(_book value, $Res Function(_book) _then) = __$bookCopyWithImpl;
+abstract mixin class _$BookCopyWith<$Res> implements $BookCopyWith<$Res> {
+  factory _$BookCopyWith(_Book value, $Res Function(_Book) _then) = __$BookCopyWithImpl;
 @override @useResult
 $Res call({
- String ISBN, String name, String author, String Publisher, int idAreaOfStudy
+ String ISBN, String name, List<String> authors, String Publisher
 });
 
 
@@ -134,23 +138,22 @@ $Res call({
 
 }
 /// @nodoc
-class __$bookCopyWithImpl<$Res>
-    implements _$bookCopyWith<$Res> {
-  __$bookCopyWithImpl(this._self, this._then);
+class __$BookCopyWithImpl<$Res>
+    implements _$BookCopyWith<$Res> {
+  __$BookCopyWithImpl(this._self, this._then);
 
-  final _book _self;
-  final $Res Function(_book) _then;
+  final _Book _self;
+  final $Res Function(_Book) _then;
 
-/// Create a copy of book
+/// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? ISBN = null,Object? name = null,Object? author = null,Object? Publisher = null,Object? idAreaOfStudy = null,}) {
-  return _then(_book(
+@override @pragma('vm:prefer-inline') $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? Publisher = null,}) {
+  return _then(_Book(
 ISBN: null == ISBN ? _self.ISBN : ISBN // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
-as String,Publisher: null == Publisher ? _self.Publisher : Publisher // ignore: cast_nullable_to_non_nullable
-as String,idAreaOfStudy: null == idAreaOfStudy ? _self.idAreaOfStudy : idAreaOfStudy // ignore: cast_nullable_to_non_nullable
-as int,
+as String,authors: null == authors ? _self._authors : authors // ignore: cast_nullable_to_non_nullable
+as List<String>,Publisher: null == Publisher ? _self.Publisher : Publisher // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

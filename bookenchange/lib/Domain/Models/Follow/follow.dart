@@ -4,13 +4,8 @@ part 'follow.freezed.dart';
 part 'follow.g.dart';
 
 @freezed
-class follow with _$follow {
-  const factory follow({required int iduser1, required int iduser2}) = _follow;
+abstract class Follow with _$Follow {
+  const factory Follow({required int IdUser1, required int IdUser2}) = _Follow;
 
-  factory follow.fromJson(Map<String, Object?> json) => _$followFromJson(json);
-
-  factory follow.fromFirestore(doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return follow.fromJson(data);
-  }
+  factory Follow.fromJson(Map<String, Object?> json) => _$FollowFromJson(json);
 }

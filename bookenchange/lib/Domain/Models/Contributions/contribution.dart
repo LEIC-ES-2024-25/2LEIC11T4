@@ -6,20 +6,17 @@ part 'contribution.g.dart';
 enum Condition { newCondition, usedCondition, damagedCondition }
 
 @freezed
-class Contribution with _$Contribution {
+abstract class Contribution with _$Contribution {
   const factory Contribution({
-    required int id,
     required int iduser,
     required int idBook,
+    required String description,
+    required String condition,
+    required String area,
+    required String university,
     required List<String> images,
-    required Condition condition,
   }) = _Contribution;
 
   factory Contribution.fromJson(Map<String, Object?> json) =>
       _$ContributionFromJson(json);
-
-  factory Contribution.fromFirestore(doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return Contribution.fromJson(data);
-  }
 }

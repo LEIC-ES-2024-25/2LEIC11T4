@@ -4,17 +4,16 @@ part 'users.freezed.dart';
 part 'users.g.dart';
 
 @freezed
-class users with _$users {
-  const factory users({
-    required int id,
-    required String name,
-    required String institution,
-  }) = _users;
+abstract class Users with _$Users {
+  const factory Users({
+    required String First_name,
+    required String Last_name,
+    required String username,
+    required String institutionid,
+    required String degreeid,
+    required int yearofStudy,
+    final String? profileImageUrl,
+  }) = _Users;
 
-  factory users.fromJson(Map<String, Object?> json) => _$usersFromJson(json);
-
-  factory users.fromFirestore(doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return users.fromJson(data);
-  }
+  factory Users.fromJson(Map<String, Object?> json) => _$UsersFromJson(json);
 }

@@ -4,19 +4,14 @@ part 'transaction.freezed.dart';
 part 'transaction.g.dart';
 
 @freezed
-class transactions with _$transactions {
-  const factory transactions({
-    required int idcontribution,
-    required int iduser1,
-    required int iduser2,
-    required DateTime date,
-  }) = _transactions;
+abstract class Transactions with _$Transactions {
+  const factory Transactions({
+    required int IdContribution,
+    required int IdUser1,
+    required int IdUser2,
+    required DateTime Date,
+  }) = _Transactions;
 
-  factory transactions.fromJson(Map<String, Object?> json) =>
-      _$transactionsFromJson(json);
-
-  factory transactions.fromFirestore(doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return transactions.fromJson(data);
-  }
+  factory Transactions.fromJson(Map<String, Object?> json) =>
+      _$TransactionsFromJson(json);
 }

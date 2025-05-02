@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'areaofStudiesPage.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -46,10 +47,51 @@ class _NewContributionState extends State<Newcontribution> {
     }
   }
   Future<String> _uploadImage(File imageFile) async {
+    try{
     final fileName = 'contributions/${DateTime.now().millisecondsSinceEpoch}.jpg';
     final ref = FirebaseStorage.instance.ref().child(fileName);
     await ref.putFile(imageFile);
     return await ref.getDownloadURL();
+  }
+  catch(e){
+    print("Error uploading image: $e");
+    rethrow;
+  }
+  }
+
+  // Save contribution to Firestore
+  Future<void> _saveContribution() async {
+    if (_formKey.currentState!.validate()){
+      List<String> imageUrls = [];
+      for (File image in _selectedImages){
+        final url = await _uploadImage(image);
+        imageUrls.add(url);
+      }
+      try {
+        await FirebaseFirestore.instance.collection('contributions').add({
+          'name': nameController.text,
+          'description': descController.text,
+          'area': selectedArea,
+          'isbn': isbnController.text,
+          'condition': selectedCondition,
+          'university': selectedUniversity,
+          'images': imageUrls,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contribution saved successfully')),
+        );
+        // Reset form fields
+        _formKey.currentState!.reset();
+        setState(() {
+          _selectedImages = [];
+          selectedArea = null;
+          selectedCondition = null;
+          selectedUniversity = null;
+        });
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error saving contribution: $e')),
+        );
+      }
+    }
   }
 
   Widget _buildAreaSelector() {
