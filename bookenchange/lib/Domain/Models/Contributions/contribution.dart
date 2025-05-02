@@ -10,8 +10,11 @@ abstract class Contribution with _$Contribution {
   const factory Contribution({
     required int iduser,
     required int idBook,
+    required String description,
+    required Condition condition, // Changed from String to Condition
+    required String area,
+    required String university,
     required List<String> images,
-    required Condition condition,
   }) = _Contribution;
 
   factory Contribution.fromJson(Map<String, Object?> json) =>
