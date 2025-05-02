@@ -69,6 +69,8 @@
   "@new_password": {},
   "submit": "Submeter",
   "@submit": {},
-  "isbn":"ISBN"
+  "isbn":"ISBN",
+  "authors":"Autores",
+  "publishers":"Editoras"
 
 }

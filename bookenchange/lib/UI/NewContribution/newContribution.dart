@@ -27,7 +27,6 @@ class _newContributionState extends State<newContribution> {
   Book? bookInfo;
   Future<void> uploadImages() async {
     final status = await Permission.photos.request();
-
     if (status.isPermanentlyDenied || status.isDenied) {
       await openAppSettings(); // Open app settings using permission_handler
     } else {
@@ -138,20 +137,32 @@ class _newContributionState extends State<newContribution> {
               bookInfo != null
                   ? ExpansionTile(
                     title: Text(
+                          S.of(context).book_tittle,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                    subtitle: Text(
                       bookInfo!.name,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     children: [
                       ListTile(
                         title: Text(
-                          bookInfo!.authors.join(','),
+                          S.of(context).authors,
                           style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        subtitle: Text(
+                          bookInfo!.authors.join(','),
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
                       ListTile(
-                        title: Text(
-                          bookInfo!.publishers.join(','),
+                        title:Text(
+                          S.of(context).publishers,
                           style: Theme.of(context).textTheme.bodyLarge,
+                        ) ,
+                        subtitle: Text(
+                          bookInfo!.publishers.join(','),
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
                     ],

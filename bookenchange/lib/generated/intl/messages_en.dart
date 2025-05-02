@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Email in use already",
     ),
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
+    "authors": MessageLookupByLibrary.simpleMessage("Authors"),
     "book_tittle": MessageLookupByLibrary.simpleMessage("Book Tittle"),
     "change_password": MessageLookupByLibrary.simpleMessage("Change Password"),
     "change_password_failed": MessageLookupByLibrary.simpleMessage(
@@ -71,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Previous Password",
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "publishers": MessageLookupByLibrary.simpleMessage("Publishers"),
     "remember": MessageLookupByLibrary.simpleMessage("Remember me"),
     "save": MessageLookupByLibrary.simpleMessage("Save profile"),
     "send": MessageLookupByLibrary.simpleMessage("Send recovery email"),

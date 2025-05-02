@@ -394,6 +394,16 @@ class S {
   String get isbn {
     return Intl.message('ISBN', name: 'isbn', desc: '', args: []);
   }
+
+  /// `Authors`
+  String get authors {
+    return Intl.message('Authors', name: 'authors', desc: '', args: []);
+  }
+
+  /// `Publishers`
+  String get publishers {
+    return Intl.message('Publishers', name: 'publishers', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

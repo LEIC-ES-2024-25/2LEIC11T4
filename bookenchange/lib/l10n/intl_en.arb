@@ -68,5 +68,8 @@
   "@new_password": {},
   "submit": "Submit",
   "@submit": {},
-  "isbn":"ISBN"
+  "isbn":"ISBN",
+  "authors":"Authors",
+  "publishers":"Publishers"
+
 }
