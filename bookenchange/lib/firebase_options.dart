@@ -46,7 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1025025923598',
     projectId: 'books-d12d3',
     authDomain: 'books-d12d3.firebaseapp.com',
-    storageBucket: 'books-d12d3.firebasestorage.app',
+    storageBucket: 'books-d12d3.firebasestorage.com',
     measurementId: 'G-4555HGDZM9',
   );
 

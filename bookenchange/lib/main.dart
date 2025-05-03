@@ -1,16 +1,31 @@
+import 'package:bookenchange/UI/Login/logIn.dart';
+import 'package:bookenchange/UI/Settings/settingsPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
-import 'Data/theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'Domain/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'UI/Homepage/homePage.dart';
 import 'firebase_options.dart';
-import 'UI/settingsPage.dart';
-import 'Logic/book-list.dart';
-import 'Logic/top-bar.dart';
+import 'generated/l10n.dart';
+import 'package:bookenchange/Logic/Authentication.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final prefs = await SharedPreferences.getInstance();
+  final bool rememberMe = prefs.getBool('remember_me') ?? false;
+  if (!rememberMe) {
+    await FirebaseAuth.instance.signOut();
+  }
+
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug, // ou .playIntegrity
+    appleProvider: AppleProvider.debug,
   );
+
   runApp(const MyApp());
 }
 
@@ -20,74 +35,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final Auth auth = Auth.instance;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Book Donation',
       theme: ligthTheme,
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-
-  final List<Widget> widgetOptions = const [
-    BookListPage(),
-    SettingsPage(),
-    Text('New Contribution')
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TopBar(),
-      body: widgetOptions[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
-        unselectedItemColor: Theme.of(context).colorScheme.secondary,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.message,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            label: 'New Contribution',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      localizationsDelegates: const [
+        S.delegate, // This should be the localization delegate you generated
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      home: auth.currentUser != null ? MyHomePage() : Login(auth: auth),
     );
   }
 }

@@ -4,7 +4,6 @@
    * [Product Vision](#product-vision)
    * [Features](#features)
    * [Dependencies](#dependencies)
-   * [Elevator Pitch](#elevator-pitch)
      
 2.[Requirements](#requirements)
    * [User Stories and acceptance tests](#user-stories-and-acceptance-tests)
@@ -18,6 +17,11 @@
 
 4.[Project management](#project-management)
   * [Sprint 0](#sprint-0)
+    * [Sprint 1 planning](#sprint-1-planning)
+  * [Sprint 1](#sprint-1)
+    * [Sprint review](#sprint-review)
+    * [Sprint retrospective](#sprint-retrospective)
+    * [Sprint 2 planning](#sprint-2-planning)
 
 5.[Authors](#authors)
    
@@ -53,10 +57,6 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
    -Open Library api
    
 ---
-### Elevator Pitch
-   
-   
----
 ## Requirements
 
 ### User stories and acceptance tests
@@ -76,19 +76,50 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
   <sub><a href="https://www.figma.com/design/EUMLSq9YuJ0Qritrlqfrv1/Untitled?node-id=0-1&t=Qm7Pd6iXrawCXlXV-1"> Design</a></sub>
 ---
 ### Domain model
+![Screenshot from 2025-03-28 14-30-10](https://github.com/user-attachments/assets/576a90f5-9044-4411-b26c-4a7e238af27e)
+
 ---
 
 ## Architecture and Design
 
 ### Logical architecture
+![Copy of BookDonation-Package Diagram drawio(4)](https://github.com/user-attachments/assets/7159070e-53cb-4b33-8a1a-bda45e192a4d)
+
+
 ---
 ### Physical architecture
+* Deployment Diagram
+![BookDonation-Deployment Diagram drawio](https://github.com/user-attachments/assets/614cf684-c69c-4494-93c8-83accf77994c)
+
+* Components Diagram
+![Copy of BookDonation-Components Diagram drawio(1)](https://github.com/user-attachments/assets/c9403abe-5a5e-48eb-8eba-e0c5f8af287f)
+
+
 ---
 ### Vertical prototype
+
 ---
 ## Project management
 
 ### Sprint 0
+
+#### Sprint 1 planning
+
+- We divided the user story New Contribution into multiple tasks,where each on was separated in terms of logic and ui.
+![github com_orgs_LEIC-ES-2024-25_projects_75_views_1 (1)](https://github.com/user-attachments/assets/16f2d2ae-25fb-489c-b2cd-f60136b7447b) 
+
+### Sprint 1
+![github com_orgs_LEIC-ES-2024-25_projects_75_views_1 (2)](https://github.com/user-attachments/assets/a453afde-187a-4866-bf78-9572a06d50cf)
+
+#### Sprint review
+- During this sprint, we successfully developed several of the planned tasks. Notably, we completed the UI for the New Contribution page. However, since the logic was not yet implemented and the feature could not be used meaningfully by the user, we could not consider the user story as fully delivered. As a result, there was no tangible value added to the application during this sprint.
+#### Sprint retrospective
+- One of the main challenges we encountered was a lack of consideration for dependencies between UI and logic tasks during sprint planning. This oversight led to the development of several tasks that were not immediately useful on their own and could not be tested end-to-end. In hindsight, a better understanding and mapping of these dependencies would have allowed us to prioritize tasks more effectively and deliver user value incrementally.
+
+#### Sprint 2 planning 
+- For this sprint, we’ve focused on addressing the gaps from Sprint 1. We assigned tasks aimed at completing the logic for the New Contribution feature and integrating it with the OpenLibrary API to ensure it becomes fully functional. Additionally, we planned work on new user stories such as Sign Up, Log In, Profile Editing and Chat, in order to expand the core functionality of the application. These tasks were prioritized to ensure end-to-end value delivery and to enable meaningful user interaction within the app.
+![github com_orgs_LEIC-ES-2024-25_projects_75_views_1](https://github.com/user-attachments/assets/c82eedfd-9123-4758-9ee5-617486f8876d)
+
 ---
  ## Authors
  Project developed by Belém Bilhoto, Guilherme Linhares, João Marques, José Reis and Sofia Cruz
