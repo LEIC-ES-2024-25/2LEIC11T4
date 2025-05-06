@@ -181,27 +181,24 @@ class _editProfileState extends State<editProfile> {
                       Padding(
                         padding: EdgeInsets.only(bottom: 10),
                         child: FilledButton(
-                          onPressed:
-                              () async => {
-                                if (formKey.currentState!.validate())
-                                  {
-                                    await firebase.addUsers(
-                                      firstname.text.trim(),
-                                      lastname.text.trim(),
-                                      username.text.trim(),
-                                      universityCollege!,
-                                      degree!,
-                                      year!,
-                                      File(pickedFiles!.path),
-                                    ),
-                                    Navigator.push(
-                                      context,
-                                      CustomPageRoute(
-                                        destination: Navigation.home,
-                                      ),
-                                    ),
-                                  },
-                              },
+                          onPressed:  () async {
+                            if (formKey.currentState!.validate()) {
+                              await firebase.saveOrUpdateUser(
+                                firstname: firstname.text.trim(),
+                                lastname: lastname.text.trim(),
+                                username: username.text.trim(),
+                                institution: universityCollege!,
+                                degree: degree!,
+                                yearofStudy: year!,
+                                file: pickedFiles, // optional, only if changed
+                              );
+
+                                Navigator.push(
+                                  context,
+                                  CustomPageRoute(destination: Navigation.home),
+                              );
+                            }
+                          },    
                           style: FilledButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),

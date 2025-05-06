@@ -119,6 +119,45 @@ class Firebase {
         );
   }
 
+  Future<void> saveOrUpdateUser({
+    required String firstname,
+    required String lastname,
+    required String username,
+    required String institution,
+    required String degree,
+    required int yearofStudy,
+    File? file, // optional during update
+  }) async {
+    final userId = auth.userid;
+    String? image;
+
+    if (file != null) {
+      await uploadProfilePhotos(userId, file);
+      image = await getDownloadURL(userId);
+    }
+
+    final String institutionId = await getInstitution(institution);
+    final String degreeId = await getdegree(degree);
+
+    final userRef = db.collection('users').doc(userId);
+
+    final userData = Users(
+      First_name: firstname,
+      Last_name: lastname,
+      username: username,
+      institutionid: institutionId,
+      degreeid: degreeId,
+      yearofStudy: yearofStudy,
+      profileImageUrl: image, // Can be null on update
+    ).toJson();
+
+  // Remove null values (like profileImageUrl if not updated)
+    userData.removeWhere((key, value) => value == null);
+
+    await userRef.set(userData, SetOptions(merge: true));
+  }
+
+
   Future<void> uploadProfilePhotos(String? userid, File file) async {
     await storageRef.child('users/$userid').putFile(file);
   }
