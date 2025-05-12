@@ -157,6 +157,15 @@ class Firebase {
     await userRef.set(userData, SetOptions(merge: true));
   }
 
+  Future<void> deleteUserData(String uid) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+      // You could also delete user uploads from Firebase Storage here if applicable
+    } catch (e) {
+      throw Exception('Failed to delete user data: $e');
+    }
+  }
+
 
   Future<void> uploadProfilePhotos(String? userid, File file) async {
     await storageRef.child('users/$userid').putFile(file);
