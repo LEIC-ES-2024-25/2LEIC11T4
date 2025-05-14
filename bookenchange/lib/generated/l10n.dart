@@ -404,6 +404,8 @@ class S {
   String get publishers {
     return Intl.message('Publishers', name: 'publishers', desc: '', args: []);
   }
+
+
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

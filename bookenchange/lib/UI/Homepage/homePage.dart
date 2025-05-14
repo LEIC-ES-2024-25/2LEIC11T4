@@ -81,8 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             GestureDetector(
               onTap: () {
-                // TODO: Navigate to the profile page when implemented
-                // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+                Navigator.push(
+                  context,
+                  CustomPageRoute(destination: Navigation.profile),
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 16.0),
