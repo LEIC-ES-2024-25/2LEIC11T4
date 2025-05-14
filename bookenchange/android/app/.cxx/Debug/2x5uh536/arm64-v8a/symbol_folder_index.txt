@@ -1,0 +1,1 @@
+/home/jose-b-reis/repos/2LEIC11T4/bookenchange/build/app/intermediates/cxx/Debug/2x5uh536/obj/arm64-v8a

@@ -17,6 +17,7 @@ class _LoginState extends State<Login> {
   final password = TextEditingController();
   bool value = false;
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,21 +37,21 @@ class _LoginState extends State<Login> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Padding(padding: EdgeInsets.all(10)),
+                    const SizedBox(height: 10),
                     Center(
                       child: Text(
                         S.of(context).login,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
-                    Padding(padding: EdgeInsets.all(5)),
+                    const SizedBox(height: 5),
                     loginTextFields(
                       controller: username,
                       label: S.of(context).email_hint,
                       obscureText: false,
                       hint: "johndoe@gmail.com",
                     ),
-                    Padding(padding: EdgeInsets.all(5)),
+                    const SizedBox(height: 5),
                     loginTextFields(
                       controller: password,
                       label: S.of(context).password_hint,
@@ -61,34 +62,35 @@ class _LoginState extends State<Login> {
                         S.of(context).remember,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
-                      value: value,
+                      value: true,
+                      groupValue: value,
                       onChanged: (bool? newValue) {
                         setState(() {
-                          value = !value;
+                          value = newValue ?? false;
                         });
                       },
                       toggleable: true,
-                      groupValue: true,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 40, right: 40, top: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           FilledButton(
-                            onPressed:
-                                () => {
-                                  FocusScope.of(context).unfocus(),
-                                  widget.auth.signup(
-                                    context,
-                                    username,
-                                    password,
-                                    value,
-                                    formKey,
-                                  ),
-                                },
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                FocusScope.of(context).unfocus();
+                                widget.auth.signup(
+                                  context,
+                                  username,
+                                  password,
+                                  value,
+                                  formKey,
+                                );
+                              }
+                            },
                             style: FilledButton.styleFrom(
-                              minimumSize: Size(100, 50),
+                              minimumSize: const Size(100, 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -100,19 +102,20 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           FilledButton(
-                            onPressed:
-                                () => {
-                                  FocusScope.of(context).unfocus(),
-                                  widget.auth.signin(
-                                    context,
-                                    username,
-                                    password,
-                                    value,
-                                    formKey,
-                                  ),
-                                },
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                FocusScope.of(context).unfocus();
+                                widget.auth.signin(
+                                  context,
+                                  username,
+                                  password,
+                                  value,
+                                  formKey,
+                                );
+                              }
+                            },
                             style: FilledButton.styleFrom(
-                              minimumSize: Size(100, 50),
+                              minimumSize: const Size(100, 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -129,13 +132,14 @@ class _LoginState extends State<Login> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: TextButton(
-                        onPressed:
-                            () => Navigator.push(
-                              context,
-                              CustomPageRoute(
-                                destination: Navigation.forgotPass,
-                              ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            CustomPageRoute(
+                              destination: Navigation.forgotPass,
                             ),
+                          );
+                        },
                         child: Text(
                           S.of(context).forgot_password,
                           style: Theme.of(context).textTheme.bodyMedium,

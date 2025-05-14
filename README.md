@@ -22,8 +22,14 @@
     * [Sprint review](#sprint-review)
     * [Sprint retrospective](#sprint-retrospective)
     * [Sprint 2 planning](#sprint-2-planning)
+  * [Sprint 2](#sprint-2)
+    * [Sprint review](#sprint-review)
+    * [Sprint retrospective](#sprint-retrospective)
+    * [Sprint 3 planning](#sprint-3-planning)
+      
+5.[Happiness meter](#happiness-meter)
 
-5.[Authors](#authors)
+6.[Authors](#authors)
    
 ---
 
@@ -131,7 +137,9 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
   
 #### Sprint 3 planning
 - As this is the final sprint and it requires delivering all user value proposed, we will have to focus on finishing the logic we worked on and testing all the features. We will have to finish the contribution cards, the user settings and the chat.
-  
+---
+## Happiness meter
+[2LEIC11T4.xlsx](https://github.com/user-attachments/files/20041230/2LEIC11T4.xlsx)
 ---
  ## Authors
  Project developed by Belém Bilhoto, Guilherme Linhares, João Marques, José Reis and Sofia Cruz
