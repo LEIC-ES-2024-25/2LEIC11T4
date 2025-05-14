@@ -78,6 +78,29 @@ class _MyHomePageState extends State<MyHomePage> {
               onChanged: filterContributions,
             ),
           ),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                // TODO: Navigate to the profile page when implemented
+                // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white, // Same color as the search bar
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.person,
+                    color: Theme.of(context).colorScheme.primary, // Same color as the AppBar
+                    size: 30.0,
+                  ), // Padding inside the circle
+                ),
+              ),
+            ),
+          ],
         ),
         body: contributions.isEmpty
             ? Center(
