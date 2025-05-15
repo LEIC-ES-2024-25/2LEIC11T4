@@ -205,10 +205,10 @@ class S {
     );
   }
 
-  /// `Add up to 3 photos`
+  /// `Add up to 5 photos`
   String get add_photo {
     return Intl.message(
-      'Add up to 3 photos',
+      'Add up to 5 photos',
       name: 'add_photo',
       desc: '',
       args: [],
@@ -403,6 +403,31 @@ class S {
   /// `Publishers`
   String get publishers {
     return Intl.message('Publishers', name: 'publishers', desc: '', args: []);
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Area of study`
+  String get area_of_study {
+    return Intl.message(
+      'Area of study',
+      name: 'area_of_study',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book conditions`
+  String get conditions {
+    return Intl.message(
+      'Book conditions',
+      name: 'conditions',
+      desc: '',
+      args: [],
+    );
   }
 }
 

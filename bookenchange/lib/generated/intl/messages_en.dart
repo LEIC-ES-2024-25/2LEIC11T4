@@ -23,18 +23,21 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add_new": MessageLookupByLibrary.simpleMessage("Add new option"),
-    "add_photo": MessageLookupByLibrary.simpleMessage("Add up to 3 photos"),
+    "add_photo": MessageLookupByLibrary.simpleMessage("Add up to 5 photos"),
     "already_in_use": MessageLookupByLibrary.simpleMessage(
       "Email in use already",
     ),
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
+    "area_of_study": MessageLookupByLibrary.simpleMessage("Area of study"),
     "authors": MessageLookupByLibrary.simpleMessage("Authors"),
     "book_tittle": MessageLookupByLibrary.simpleMessage("Book Tittle"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "change_password": MessageLookupByLibrary.simpleMessage("Change Password"),
     "change_password_failed": MessageLookupByLibrary.simpleMessage(
       "Change password failed",
     ),
     "chat": MessageLookupByLibrary.simpleMessage("Chat"),
+    "conditions": MessageLookupByLibrary.simpleMessage("Book conditions"),
     "current_year": MessageLookupByLibrary.simpleMessage(
       "Current year of studies",
     ),

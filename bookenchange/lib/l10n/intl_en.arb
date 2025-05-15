@@ -70,6 +70,8 @@
   "@submit": {},
   "isbn":"ISBN",
   "authors":"Authors",
-  "publishers":"Publishers"
-
+  "publishers":"Publishers",
+  "cancel":"Cancel",
+  "area_of_study": "Area of study",
+  "conditions": "Book conditions"
 }

@@ -22,9 +22,139 @@ class _newContributionState extends State<newContribution> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   final TextEditingController isbnController = TextEditingController();
+
+  String? selectedDegree;
+  String? selectedCondition;
+  String? selectedInstitution;
+  List<String> degrees = [
+    'LEIC',
+    'LEEC',
+    'LEM',
+    'LEGI',
+    'LEME',
+    'LEA',
+  ];
+  List<String> institutions = [
+    'FEUP',
+    'FCUP',
+    'FMUP',
+    'FLUP',
+    'FEP',
+    'FBAUP',
+    'FMDUP',
+    'FAUP',
+    'FCNAUP',
+    'FDUP'
+  ];
+
+  final List<String> conditions = ['New', 'Used', 'Damaged'];
   final firebase = Firebase.instance;
   List<File> pickedFiles = [];
   Book? bookInfo;
+
+  Widget _buildDropdownWithoutAddOption(String label, List<String> items, String? selectedValue, Function(String?) onChanged) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: DropdownButtonFormField<String>(
+        value: selectedValue,
+        decoration: InputDecoration(
+          labelText: label,
+          border: const OutlineInputBorder(),
+        ),
+        items: items.map((item) {
+          return DropdownMenuItem<String>(
+            value: item,
+            child: Text(item),
+          );
+        }).toList(),
+        onChanged: onChanged,
+        validator: (value) => value == null ? S.of(context).not_null : null,
+      ),
+    );
+  }
+  Widget _buildDropdown(String label, List<String> items, String? selectedValue, Function(String?) onChanged) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: DropdownButtonFormField<String>(
+        value: selectedValue,
+        decoration: InputDecoration(
+          labelText: label,
+          border: const OutlineInputBorder(),
+        ),
+        items: [
+          ...items.map((item) {
+            return DropdownMenuItem<String>(
+              value: item,
+              child: Text(item),
+            );
+          }).toList(),
+          DropdownMenuItem<String>(
+            value: 'add_new',
+            child: Text(S.of(context).add_new),
+          ),
+        ],
+        onChanged: (value) {
+          if (value == 'add_new') {
+            _addNewOption(
+              context,
+              label,
+              items,
+                  (newOption) => onChanged(newOption),
+            );
+          } else {
+            onChanged(value);
+          }
+        },
+        validator: (value) => value == null ? S.of(context).not_null : null,
+      ),
+    );
+  }
+  void _addNewOption(BuildContext context, String title, List<String> list, Function(String) onAdd) {
+    final TextEditingController controller = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text(title),
+              content: TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                  labelText: S.of(context).value,
+                  border: const OutlineInputBorder(),
+                  errorText: controller.text.trim().isEmpty ? S.of(context).not_null : null,
+                ),
+                onChanged: (_) {
+                  setState(() {}); // Update the dialog state to show/hide error
+                },
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(S.of(context).cancel),
+                ),
+                TextButton(
+                  onPressed: controller.text.trim().isEmpty
+                      ? null
+                      : () {
+                    final newOption = controller.text.trim();
+                    setState(() {
+                      list.add(newOption);
+                    });
+                    onAdd(newOption);
+                    Navigator.pop(context);
+                  },
+                  child: Text(S.of(context).add_new),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   Future<void> uploadImages() async {
     final status = await Permission.photos.request();
     if (status.isPermanentlyDenied || status.isDenied) {
@@ -122,6 +252,7 @@ class _newContributionState extends State<newContribution> {
                   labelText: S.of(context).isbn,
                   hintText: "e.g 0596156715",
                   border: const OutlineInputBorder(),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   suffixIcon: IconButton(
                     onPressed: () async {
                       final result = await firebase.getBookByISBN(
@@ -175,12 +306,53 @@ class _newContributionState extends State<newContribution> {
                   : SizedBox.shrink(),
               //dropdown with condition
               //searchdropdown areaof study
-            ],
+
+              _buildDropdown(
+                S.of(context).degree,
+                degrees,
+                selectedDegree,
+                    (value) {
+                  if (value == S.of(context).add_new) {
+                    _addNewOption(
+                      context,
+                      S.of(context).degree,
+                      degrees,
+                          (newArea) => setState(() => selectedDegree = newArea),
+                    );
+                  } else {
+                    setState(() => selectedDegree = value);
+                  }
+                },
+              ),
+
+              // Dropdown for College
+              _buildDropdown(
+                S.of(context).university_college,
+                institutions,
+                selectedInstitution,
+                    (value) {
+                  if (value == S.of(context).add_new) {
+                    _addNewOption(
+                      context,
+                      S.of(context).university_college,
+                      institutions,
+                          (newCollege) => setState(() => selectedInstitution = newCollege),
+                    );
+                  } else {
+                    setState(() => selectedInstitution = value);
+                  }
+                },
+              ),
+              _buildDropdownWithoutAddOption(S.of(context).conditions, conditions.where((item) => item != 'add_new').toList(), selectedCondition, (value) {
+                setState(() => selectedCondition = value);
+              },),
+      ],
           ),
-        ),
-      ),
+    ),
+    ),
     );
   }
+
 
   @override
   void dispose() {

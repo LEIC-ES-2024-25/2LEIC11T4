@@ -71,6 +71,8 @@
   "@submit": {},
   "isbn":"ISBN",
   "authors":"Autores",
-  "publishers":"Editoras"
-
+  "publishers":"Editoras",
+  "cancel": "Cancelar",
+  "area_of_study": "Área de estudo",
+  "conditions": "Estado do livro"
 }
