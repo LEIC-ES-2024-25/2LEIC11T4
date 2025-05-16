@@ -25,15 +25,6 @@ class _MyHomePageState extends State<MyHomePage> {
     fetchContributions();
   }
 
-  void filterContributions(String query) {
-    setState(() {
-      filteredContributions = contributions
-          .where((contribution) =>
-          contribution.description.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    });
-  }
-
   Future<void> fetchContributions() async {
     final snapshot = await firebase.db.collection('contributions').get();
     final List<ModelContribution.Contribution> fetchedContributions = snapshot.docs
@@ -42,6 +33,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       contributions = fetchedContributions;
+      filteredContributions = fetchedContributions;
+    });
+  }
+
+  void filterContributions(String query) {
+    setState(() {
+      filteredContributions = contributions
+          .where((contribution) =>
+          contribution.description.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -65,13 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             child: TextField(
               controller: searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search contributions...',
                 hintStyle: TextStyle(color: Colors.grey),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
               onChanged: filterContributions,
             ),
           ),
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Padding(
                 padding: const EdgeInsets.only(right: 16.0),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
@@ -101,30 +102,27 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-        body: contributions.isEmpty
-            ? Center(
-          child: Text(
-            'No contributions available',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-        )
-            : Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: contributions.length,
-                itemBuilder: (context, index) {
-                  final contribution = contributions[index];
-                  return UIContribution.Contribution(
-                    images: contribution.images,
-                    name: contribution.description,
-                    condition: contribution.condition,
-                    institution: contribution.university,
-                  );
-                },
-              ),
+        body: RefreshIndicator(
+          onRefresh: fetchContributions,
+          child: filteredContributions.isEmpty
+              ? Center(
+            child: Text(
+              'No contributions available',
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
-          ],
+          )
+              : ListView.builder(
+            itemCount: filteredContributions.length,
+            itemBuilder: (context, index) {
+              final contribution = filteredContributions[index];
+              return UIContribution.Contribution(
+                images: contribution.images,
+                name: contribution.description,
+                condition: contribution.condition,
+                institution: contribution.university,
+              );
+            },
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
