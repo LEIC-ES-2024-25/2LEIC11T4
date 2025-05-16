@@ -3,6 +3,7 @@ import 'package:bookenchange/UI/NewContribution/newContribution.dart';
 import 'package:bookenchange/UI/Homepage/contributionCard.dart' as UIContribution;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:bookenchange/generated/l10n.dart';
 
 class PreviousContributionsPage extends StatefulWidget {
   const PreviousContributionsPage({super.key});
@@ -40,15 +41,31 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
   @override
   Widget build(BuildContext context) {
     final userName = FirebaseAuth.instance.currentUser?.displayName ?? "User";
+    print('Username : $userName');
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            S.of(context).previous_contributions,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+            onPressed: () => Navigator.pop(context),
+          ),
+          centerTitle: true,
+        ),
         body: isLoading
             ? const Center(child: CircularProgressIndicator())
             : contributions.isEmpty
             ? Center(
           child: Text(
-            "There are no contributions for $userName",
+            "There are no contributions from user yet.",
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         )
