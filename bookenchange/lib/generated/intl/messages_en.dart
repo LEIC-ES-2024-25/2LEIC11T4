@@ -23,27 +23,45 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add_new": MessageLookupByLibrary.simpleMessage("Add new option"),
-    "add_photo": MessageLookupByLibrary.simpleMessage("Add up to 3 photos"),
+    "add_photo": MessageLookupByLibrary.simpleMessage("Add up to 5 photos"),
     "already_in_use": MessageLookupByLibrary.simpleMessage(
       "Email in use already",
     ),
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
+    "area_of_study": MessageLookupByLibrary.simpleMessage("Area of study"),
     "authors": MessageLookupByLibrary.simpleMessage("Authors"),
     "book_tittle": MessageLookupByLibrary.simpleMessage("Book Tittle"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "change_password": MessageLookupByLibrary.simpleMessage("Change Password"),
     "change_password_failed": MessageLookupByLibrary.simpleMessage(
       "Change password failed",
     ),
     "chat": MessageLookupByLibrary.simpleMessage("Chat"),
+    "conditions": MessageLookupByLibrary.simpleMessage("Book conditions"),
     "current_year": MessageLookupByLibrary.simpleMessage(
       "Current year of studies",
     ),
     "degree": MessageLookupByLibrary.simpleMessage("Degree"),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
+    "description_hint": MessageLookupByLibrary.simpleMessage(
+      "Book about algorithms, 2nd edition",
+    ),
     "email_hint": MessageLookupByLibrary.simpleMessage(""),
+    "error_submitting": MessageLookupByLibrary.simpleMessage(
+      "There was an error",
+    ),
+    "fill_all_fields": MessageLookupByLibrary.simpleMessage(
+      "Please fill all fields",
+    ),
     "first_name": MessageLookupByLibrary.simpleMessage("First name"),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "Forgot Password ?",
+    ),
+    "image_upload_error": MessageLookupByLibrary.simpleMessage(
+      "There was an error uploading the image",
+    ),
+    "invalid_condition": MessageLookupByLibrary.simpleMessage(
+      "Invalid condition",
     ),
     "isbn": MessageLookupByLibrary.simpleMessage("ISBN"),
     "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
@@ -92,6 +110,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in failed",
     ),
     "submit": MessageLookupByLibrary.simpleMessage("Submit"),
+    "submited_successfully": MessageLookupByLibrary.simpleMessage(
+      "Submited successfully",
+    ),
     "university_college": MessageLookupByLibrary.simpleMessage(
       "University/College",
     ),
