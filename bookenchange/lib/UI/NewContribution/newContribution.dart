@@ -27,8 +27,8 @@ class _newContributionState extends State<newContribution> {
   final _formKey = GlobalKey<FormState>();
 
   String? selectedCondition;
-  String? selectedArea;
-  String? selectedUniversity;
+  String? selectedDescription;
+  String? selectedISBN;
   Book? bookInfo;
   final firebase = Firebase.instance;
 
@@ -76,6 +76,7 @@ class _newContributionState extends State<newContribution> {
   Future<void> _saveContribution() async {
     final firebaseService = Firebase();
     final dataBook = await firebaseService.getFireBaseBook(isbnController.text);
+    //final dataUser = await firebaseService.getUserData();
 
     if (_formKey.currentState!.validate()){
       List<String> imageUrls = [];
@@ -85,26 +86,28 @@ class _newContributionState extends State<newContribution> {
       }
       try {
         await FirebaseFirestore.instance.collection('contributions').add({
-          //'userId': data['userId'],
+          //'userId': dataUser['userId'],
           'name': dataBook['bookName'],
           'description': descController.text,
-          'area': selectedArea,
+          //'area': dataUser['degree'],
           'isbn': isbnController.text,
           'bookId': dataBook['bookId'],
           'condition': selectedCondition,
-          //'institution': data['institution'],
+          //'institution': dataUser['institution'],
           'images': imageUrls,
         });
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contribution saved successfully')),
         );
+
         // Reset form fields
         _formKey.currentState!.reset();
+        descController.clear();
+        isbnController.clear();
         setState(() {
           _selectedImages = [];
-          selectedArea = null;
           selectedCondition = null;
-          selectedUniversity = null;
         });
+        Navigator.pop(context);
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error saving contribution: $e')),
         );
@@ -270,11 +273,13 @@ class _newContributionState extends State<newContribution> {
                 },
                 child: const Text("Submit Contribution"),
               ),
+
     ]
         ),
           ),
     )
     );
+
   }
 
 
