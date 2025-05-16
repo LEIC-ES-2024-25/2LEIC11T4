@@ -95,9 +95,9 @@ class S {
     return Intl.message('Login', name: 'login', desc: '', args: []);
   }
 
-  /// ``
+  /// `Email`
   String get email_hint {
-    return Intl.message('', name: 'email_hint', desc: '', args: []);
+    return Intl.message('Email', name: 'email_hint', desc: '', args: []);
   }
 
   /// ``
@@ -404,8 +404,6 @@ class S {
   String get publishers {
     return Intl.message('Publishers', name: 'publishers', desc: '', args: []);
   }
-
-
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

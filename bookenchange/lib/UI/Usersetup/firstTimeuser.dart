@@ -23,12 +23,20 @@ class _editProfileState extends State<editProfile> {
   final lastname = TextEditingController();
   final username = TextEditingController();
   final email = TextEditingController();
+
   String? universityCollege;
   String? degree;
   int? year;
   final formKey = GlobalKey<FormState>();
   File? pickedFiles;
   String? previousImg;
+
+  @override
+void initState() {
+  super.initState();
+  final user = Firebase.instance.auth.currentUser;
+  email.text = user?.email ?? '';
+}
 
   Future<void> uploadImages() async {
     final status = await Permission.photos.request();
@@ -53,6 +61,7 @@ class _editProfileState extends State<editProfile> {
       }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -133,18 +142,23 @@ class _editProfileState extends State<editProfile> {
                       normalField(
                         controller: firstname,
                         name: S.of(context).first_name,
+                        
                       ),
                       normalField(
                         controller: lastname,
                         name: S.of(context).last_name,
+                        
                       ),
                       normalField(
                         controller: username,
                         name: S.of(context).username,
+                        
                       ),
                       normalField(
                         controller: email,
                         name: S.of(context).email_hint,
+                        enabled: false,
+                        
                       ),
                       dropdownSearch(
                         get: firebase.getAllInstitutions,
@@ -183,21 +197,35 @@ class _editProfileState extends State<editProfile> {
                         child: FilledButton(
                           onPressed:  () async {
                             if (formKey.currentState!.validate()) {
-                              await firebase.saveOrUpdateUser(
-                                firstname: firstname.text.trim(),
-                                lastname: lastname.text.trim(),
-                                username: username.text.trim(),
-                                institution: universityCollege!,
-                                degree: degree!,
-                                yearofStudy: year!,
-                                file: pickedFiles, // optional, only if changed
-                              );
+                              try {
+                                    await firebase.saveOrUpdateUser(
+                                    firstname: firstname.text.trim(),
+                                    lastname: lastname.text.trim(),
+                                    username: username.text.trim(),
+                                    institution: universityCollege!,
+                                    degree: degree!,
+                                    yearofStudy: year!,
+                                    file: pickedFiles,
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text("Profile updated successfully!")),
+                                  );
+                                  Navigator.push(
+                                    context,
+                                    CustomPageRoute(destination: Navigation.home),
+                                  );
+                                  } catch (e) {
+                                    // Check if it's a username conflict
+                                    final errorMessage = e.toString().contains("Username already taken")
+                                      ? "This username is already in use. Please choose another."
+                                      : "An error occurred while updating the profile.";
 
-                                Navigator.push(
-                                  context,
-                                  CustomPageRoute(destination: Navigation.home),
-                              );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(errorMessage)),
+                                    );
+                                  }
                             }
+                          
                           },    
                           style: FilledButton.styleFrom(
                             shape: RoundedRectangleBorder(

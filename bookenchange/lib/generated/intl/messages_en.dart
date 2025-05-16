@@ -40,7 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "degree": MessageLookupByLibrary.simpleMessage("Degree"),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
-    "email_hint": MessageLookupByLibrary.simpleMessage(""),
+    "email_hint": MessageLookupByLibrary.simpleMessage("Email"),
     "first_name": MessageLookupByLibrary.simpleMessage("First name"),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "Forgot Password ?",
