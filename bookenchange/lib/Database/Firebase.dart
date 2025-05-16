@@ -133,21 +133,6 @@ class Firebase {
         );
   }
 
-  Future<Map<String, dynamic>> getUserData() async {
-    final userId = auth.userid;
-    final doc = await db.collection('users').doc(userId).get();
-    if (doc.exists) {
-      final degree= await getdegree(doc['degreeid']);
-      final institution= await getInstitution(doc['institutionid']);
-      return {
-        'userId': userId,
-        'degree': degree,
-        'institution': institution
-      };
-    } else {
-      throw Exception('User not found');
-    }
-  }
 
   Future<void> uploadProfilePhotos(String? userid, File file) async {
     await storageRef.child('users/$userid').putFile(file);
@@ -159,3 +144,24 @@ class Firebase {
 
 }
 
+
+class FirebaseService {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<Map<String, dynamic>> getUserData() async {
+    final currentUser = _auth.currentUser;
+
+    if (currentUser == null) {
+      throw Exception("User not authenticated");
+    }
+
+    final userDoc = await _firestore.collection('users').doc(currentUser.uid).get();
+
+    if (!userDoc.exists) {
+      throw Exception("User data not found");
+    }
+
+    return userDoc.data()!;
+  }
+}

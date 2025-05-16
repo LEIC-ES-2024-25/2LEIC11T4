@@ -76,7 +76,8 @@ class _newContributionState extends State<newContribution> {
   Future<void> _saveContribution() async {
     final firebaseService = Firebase();
     final dataBook = await firebaseService.getFireBaseBook(isbnController.text);
-    //final dataUser = await firebaseService.getUserData();
+    final firebaseUser = FirebaseService();
+    final dataUser = await firebaseUser.getUserData();
 
     if (_formKey.currentState!.validate()){
       List<String> imageUrls = [];
@@ -86,14 +87,14 @@ class _newContributionState extends State<newContribution> {
       }
       try {
         await FirebaseFirestore.instance.collection('contributions').add({
-          //'userId': dataUser['userId'],
+          'userId': dataUser['userId'],
           'name': dataBook['bookName'],
           'description': descController.text,
-          //'area': dataUser['degree'],
+          'area': dataUser['degree'],
           'isbn': isbnController.text,
           'bookId': dataBook['bookId'],
           'condition': selectedCondition,
-          //'institution': dataUser['institution'],
+          'institution': dataUser['institution'],
           'images': imageUrls,
         });
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contribution saved successfully')),
