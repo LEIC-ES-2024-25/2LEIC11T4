@@ -41,10 +41,25 @@ class MessageLookup extends MessageLookupByLibrary {
     "current_year": MessageLookupByLibrary.simpleMessage("Ano curricular"),
     "degree": MessageLookupByLibrary.simpleMessage("Curso"),
     "description": MessageLookupByLibrary.simpleMessage("Descrição"),
+    "description_hint": MessageLookupByLibrary.simpleMessage(
+      "ex. Livro de Algoritmos, 2ª Edição",
+    ),
     "email_hint": MessageLookupByLibrary.simpleMessage("Email"),
+    "error_submitting": MessageLookupByLibrary.simpleMessage(
+      "Erro ao submeter",
+    ),
+    "fill_all_fields": MessageLookupByLibrary.simpleMessage(
+      "preencha todos os campos",
+    ),
     "first_name": MessageLookupByLibrary.simpleMessage("Primeiro nome"),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "Esqueci-me da palavra-passe?",
+    ),
+    "image_upload_error": MessageLookupByLibrary.simpleMessage(
+      "Erro ao fazer upload da imagem",
+    ),
+    "invalid_condition": MessageLookupByLibrary.simpleMessage(
+      "Condição inválida",
     ),
     "isbn": MessageLookupByLibrary.simpleMessage("ISBN"),
     "last_name": MessageLookupByLibrary.simpleMessage("Último nome"),
@@ -97,6 +112,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in failed",
     ),
     "submit": MessageLookupByLibrary.simpleMessage("Submeter"),
+    "submited_successfully": MessageLookupByLibrary.simpleMessage(
+      "Submetido com sucesso",
+    ),
     "university_college": MessageLookupByLibrary.simpleMessage(
       "Universidade/Instituto superior",
     ),

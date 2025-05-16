@@ -429,6 +429,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Submited successfully`
+  String get submited_successfully {
+    return Intl.message(
+      'Submited successfully',
+      name: 'submited_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There was an error`
+  String get error_submitting {
+    return Intl.message(
+      'There was an error',
+      name: 'error_submitting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill all fields`
+  String get fill_all_fields {
+    return Intl.message(
+      'Please fill all fields',
+      name: 'fill_all_fields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There was an error uploading the image`
+  String get image_upload_error {
+    return Intl.message(
+      'There was an error uploading the image',
+      name: 'image_upload_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid condition`
+  String get invalid_condition {
+    return Intl.message(
+      'Invalid condition',
+      name: 'invalid_condition',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book about algorithms, 2nd edition`
+  String get description_hint {
+    return Intl.message(
+      'Book about algorithms, 2nd edition',
+      name: 'description_hint',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

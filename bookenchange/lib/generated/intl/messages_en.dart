@@ -43,10 +43,25 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "degree": MessageLookupByLibrary.simpleMessage("Degree"),
     "description": MessageLookupByLibrary.simpleMessage("Description"),
+    "description_hint": MessageLookupByLibrary.simpleMessage(
+      "Book about algorithms, 2nd edition",
+    ),
     "email_hint": MessageLookupByLibrary.simpleMessage(""),
+    "error_submitting": MessageLookupByLibrary.simpleMessage(
+      "There was an error",
+    ),
+    "fill_all_fields": MessageLookupByLibrary.simpleMessage(
+      "Please fill all fields",
+    ),
     "first_name": MessageLookupByLibrary.simpleMessage("First name"),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "Forgot Password ?",
+    ),
+    "image_upload_error": MessageLookupByLibrary.simpleMessage(
+      "There was an error uploading the image",
+    ),
+    "invalid_condition": MessageLookupByLibrary.simpleMessage(
+      "Invalid condition",
     ),
     "isbn": MessageLookupByLibrary.simpleMessage("ISBN"),
     "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
@@ -95,6 +110,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in failed",
     ),
     "submit": MessageLookupByLibrary.simpleMessage("Submit"),
+    "submited_successfully": MessageLookupByLibrary.simpleMessage(
+      "Submited successfully",
+    ),
     "university_college": MessageLookupByLibrary.simpleMessage(
       "University/College",
     ),

@@ -16,8 +16,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Contribution {
 
- int get iduser; int get idBook; String get description; Condition get condition;// Changed from String to Condition
- String get area; String get university; List<String> get images;
+ String get uid; String get isbn; String get condition;// Changed from String to Condition
+ String get degree; String get institution; List<String> get images;
 /// Create a copy of Contribution
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,16 +30,16 @@ $ContributionCopyWith<Contribution> get copyWith => _$ContributionCopyWithImpl<C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Contribution&&(identical(other.iduser, iduser) || other.iduser == iduser)&&(identical(other.idBook, idBook) || other.idBook == idBook)&&(identical(other.description, description) || other.description == description)&&(identical(other.condition, condition) || other.condition == condition)&&(identical(other.area, area) || other.area == area)&&(identical(other.university, university) || other.university == university)&&const DeepCollectionEquality().equals(other.images, images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Contribution&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.isbn, isbn) || other.isbn == isbn)&&(identical(other.condition, condition) || other.condition == condition)&&(identical(other.degree, degree) || other.degree == degree)&&(identical(other.institution, institution) || other.institution == institution)&&const DeepCollectionEquality().equals(other.images, images));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,iduser,idBook,description,condition,area,university,const DeepCollectionEquality().hash(images));
+int get hashCode => Object.hash(runtimeType,uid,isbn,condition,degree,institution,const DeepCollectionEquality().hash(images));
 
 @override
 String toString() {
-  return 'Contribution(iduser: $iduser, idBook: $idBook, description: $description, condition: $condition, area: $area, university: $university, images: $images)';
+  return 'Contribution(uid: $uid, isbn: $isbn, condition: $condition, degree: $degree, institution: $institution, images: $images)';
 }
 
 
@@ -50,7 +50,7 @@ abstract mixin class $ContributionCopyWith<$Res>  {
   factory $ContributionCopyWith(Contribution value, $Res Function(Contribution) _then) = _$ContributionCopyWithImpl;
 @useResult
 $Res call({
- int iduser, int idBook, String description, Condition condition, String area, String university, List<String> images
+ String uid, String isbn, String condition, String degree, String institution, List<String> images
 });
 
 
@@ -67,14 +67,13 @@ class _$ContributionCopyWithImpl<$Res>
 
 /// Create a copy of Contribution
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? iduser = null,Object? idBook = null,Object? description = null,Object? condition = null,Object? area = null,Object? university = null,Object? images = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? uid = null,Object? isbn = null,Object? condition = null,Object? degree = null,Object? institution = null,Object? images = null,}) {
   return _then(_self.copyWith(
-iduser: null == iduser ? _self.iduser : iduser // ignore: cast_nullable_to_non_nullable
-as int,idBook: null == idBook ? _self.idBook : idBook // ignore: cast_nullable_to_non_nullable
-as int,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
+as String,isbn: null == isbn ? _self.isbn : isbn // ignore: cast_nullable_to_non_nullable
 as String,condition: null == condition ? _self.condition : condition // ignore: cast_nullable_to_non_nullable
-as Condition,area: null == area ? _self.area : area // ignore: cast_nullable_to_non_nullable
-as String,university: null == university ? _self.university : university // ignore: cast_nullable_to_non_nullable
+as String,degree: null == degree ? _self.degree : degree // ignore: cast_nullable_to_non_nullable
+as String,institution: null == institution ? _self.institution : institution // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self.images : images // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
@@ -87,16 +86,15 @@ as List<String>,
 @JsonSerializable()
 
 class _Contribution implements Contribution {
-  const _Contribution({required this.iduser, required this.idBook, required this.description, required this.condition, required this.area, required this.university, required final  List<String> images}): _images = images;
+  const _Contribution({required this.uid, required this.isbn, required this.condition, required this.degree, required this.institution, required final  List<String> images}): _images = images;
   factory _Contribution.fromJson(Map<String, dynamic> json) => _$ContributionFromJson(json);
 
-@override final  int iduser;
-@override final  int idBook;
-@override final  String description;
-@override final  Condition condition;
+@override final  String uid;
+@override final  String isbn;
+@override final  String condition;
 // Changed from String to Condition
-@override final  String area;
-@override final  String university;
+@override final  String degree;
+@override final  String institution;
  final  List<String> _images;
 @override List<String> get images {
   if (_images is EqualUnmodifiableListView) return _images;
@@ -118,16 +116,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Contribution&&(identical(other.iduser, iduser) || other.iduser == iduser)&&(identical(other.idBook, idBook) || other.idBook == idBook)&&(identical(other.description, description) || other.description == description)&&(identical(other.condition, condition) || other.condition == condition)&&(identical(other.area, area) || other.area == area)&&(identical(other.university, university) || other.university == university)&&const DeepCollectionEquality().equals(other._images, _images));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Contribution&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.isbn, isbn) || other.isbn == isbn)&&(identical(other.condition, condition) || other.condition == condition)&&(identical(other.degree, degree) || other.degree == degree)&&(identical(other.institution, institution) || other.institution == institution)&&const DeepCollectionEquality().equals(other._images, _images));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,iduser,idBook,description,condition,area,university,const DeepCollectionEquality().hash(_images));
+int get hashCode => Object.hash(runtimeType,uid,isbn,condition,degree,institution,const DeepCollectionEquality().hash(_images));
 
 @override
 String toString() {
-  return 'Contribution(iduser: $iduser, idBook: $idBook, description: $description, condition: $condition, area: $area, university: $university, images: $images)';
+  return 'Contribution(uid: $uid, isbn: $isbn, condition: $condition, degree: $degree, institution: $institution, images: $images)';
 }
 
 
@@ -138,7 +136,7 @@ abstract mixin class _$ContributionCopyWith<$Res> implements $ContributionCopyWi
   factory _$ContributionCopyWith(_Contribution value, $Res Function(_Contribution) _then) = __$ContributionCopyWithImpl;
 @override @useResult
 $Res call({
- int iduser, int idBook, String description, Condition condition, String area, String university, List<String> images
+ String uid, String isbn, String condition, String degree, String institution, List<String> images
 });
 
 
@@ -155,14 +153,13 @@ class __$ContributionCopyWithImpl<$Res>
 
 /// Create a copy of Contribution
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? iduser = null,Object? idBook = null,Object? description = null,Object? condition = null,Object? area = null,Object? university = null,Object? images = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? uid = null,Object? isbn = null,Object? condition = null,Object? degree = null,Object? institution = null,Object? images = null,}) {
   return _then(_Contribution(
-iduser: null == iduser ? _self.iduser : iduser // ignore: cast_nullable_to_non_nullable
-as int,idBook: null == idBook ? _self.idBook : idBook // ignore: cast_nullable_to_non_nullable
-as int,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
+as String,isbn: null == isbn ? _self.isbn : isbn // ignore: cast_nullable_to_non_nullable
 as String,condition: null == condition ? _self.condition : condition // ignore: cast_nullable_to_non_nullable
-as Condition,area: null == area ? _self.area : area // ignore: cast_nullable_to_non_nullable
-as String,university: null == university ? _self.university : university // ignore: cast_nullable_to_non_nullable
+as String,degree: null == degree ? _self.degree : degree // ignore: cast_nullable_to_non_nullable
+as String,institution: null == institution ? _self.institution : institution // ignore: cast_nullable_to_non_nullable
 as String,images: null == images ? _self._images : images // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));

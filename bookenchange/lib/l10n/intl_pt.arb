@@ -74,5 +74,11 @@
   "publishers":"Editoras",
   "cancel": "Cancelar",
   "area_of_study": "Área de estudo",
-  "conditions": "Estado do livro"
+  "conditions": "Estado do livro",
+  "submited_successfully": "Submetido com sucesso",
+  "error_submitting": "Erro ao submeter",
+  "fill_all_fields": "preencha todos os campos",
+"image_upload_error": "Erro ao fazer upload da imagem",
+"invalid_condition": "Condição inválida",
+"description_hint": "ex. Livro de Algoritmos, 2ª Edição"
 }
