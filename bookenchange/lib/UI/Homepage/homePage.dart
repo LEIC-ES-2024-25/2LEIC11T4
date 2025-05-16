@@ -19,7 +19,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ModelContribution.Contribution> filteredContributions = [];
   final TextEditingController searchController = TextEditingController();
 
-
   @override
   void initState() {
     super.initState();
@@ -41,17 +40,15 @@ class _MyHomePageState extends State<MyHomePage> {
         .map((doc) => ModelContribution.Contribution.fromJson(doc.data()))
         .toList();
 
-    // Debug line to print fetched contributions
-    print('Fetched Contributions: $fetchedContributions');
-
     setState(() {
       contributions = fetchedContributions;
     });
-    @override
-    void dispose() {
-      searchController.dispose();
-      super.dispose();
-    }
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -64,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(20), // Rounded corners
+              borderRadius: BorderRadius.circular(20),
             ),
             child: TextField(
               controller: searchController,
@@ -90,15 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.only(right: 16.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white, // Same color as the search bar
+                    color: Colors.white,
                     shape: BoxShape.circle,
                   ),
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.person,
-                    color: Theme.of(context).colorScheme.primary, // Same color as the AppBar
+                    color: Theme.of(context).colorScheme.primary,
                     size: 30.0,
-                  ), // Padding inside the circle
+                  ),
                 ),
               ),
             ),
@@ -111,17 +108,23 @@ class _MyHomePageState extends State<MyHomePage> {
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         )
-            : ListView.builder(
-          itemCount: contributions.length,
-          itemBuilder: (context, index) {
-            final contribution = contributions[index];
-            return UIContribution.Contribution(
-              images: contribution.images,
-              name: contribution.description,
-              condition: contribution.condition,
-              institution: contribution.university,
-            );
-          },
+            : Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: contributions.length,
+                itemBuilder: (context, index) {
+                  final contribution = contributions[index];
+                  return UIContribution.Contribution(
+                    images: contribution.images,
+                    name: contribution.description,
+                    condition: contribution.condition,
+                    institution: contribution.university,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).colorScheme.primary,

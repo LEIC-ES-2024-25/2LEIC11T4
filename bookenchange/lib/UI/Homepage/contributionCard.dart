@@ -18,17 +18,20 @@ class Contribution extends StatelessWidget {
     return SizedBox(
       child: Column(
         children: [
-          ListView.builder(
-            itemCount: images.length,
-            itemBuilder: (context, index) {
-              return Image.network(
-                images[index],
-                fit: BoxFit.cover,
-                width: 50,
-                height: 50,
-              );
-            },
-            scrollDirection: Axis.horizontal,
+          SizedBox(
+            height: 50, // Explicit height for the ListView
+            child: ListView.builder(
+              itemCount: images.length,
+              itemBuilder: (context, index) {
+                return Image.network(
+                  images[index],
+                  fit: BoxFit.cover,
+                  width: 50,
+                  height: 50,
+                );
+              },
+              scrollDirection: Axis.horizontal,
+            ),
           ),
           Text(name, style: Theme.of(context).textTheme.bodySmall),
           Text(condition.name, style: Theme.of(context).textTheme.bodySmall),
