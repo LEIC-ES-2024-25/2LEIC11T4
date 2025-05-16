@@ -40,9 +40,6 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userName = FirebaseAuth.instance.currentUser?.displayName ?? "User";
-    print('Username : $userName');
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -69,15 +66,22 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         )
-            : ListView.builder(
+            : GridView.builder(
+          padding: const EdgeInsets.all(8.0),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+            childAspectRatio: 3 / 4,
+          ),
           itemCount: contributions.length,
           itemBuilder: (context, index) {
             final contribution = contributions[index];
             return UIContribution.Contribution(
-              images: contribution['images'] ?? [],
+              image: (contribution['images'] as List<dynamic>?)
+                  ?.first ??
+                  'https://via.placeholder.com/150', // Fallback image
               name: contribution['description'] ?? '',
-              condition: contribution['condition'] ?? '',
-              institution: contribution['institution'] ?? '',
             );
           },
         ),

@@ -111,15 +111,22 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           )
-              : ListView.builder(
+              : GridView.builder(
+            padding: const EdgeInsets.all(8.0),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              childAspectRatio: 3 / 4, // Adjusts the card's height-to-width ratio
+            ),
             itemCount: filteredContributions.length,
             itemBuilder: (context, index) {
               final contribution = filteredContributions[index];
               return UIContribution.Contribution(
-                images: contribution.images,
+                image: contribution.images.isNotEmpty
+                    ? contribution.images.first
+                    : 'https://via.placeholder.com/150', // Fallback image
                 name: contribution.description,
-                condition: contribution.condition,
-                institution: contribution.university,
               );
             },
           ),

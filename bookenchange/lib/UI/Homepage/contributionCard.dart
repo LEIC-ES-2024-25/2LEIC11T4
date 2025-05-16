@@ -3,40 +3,46 @@ import 'package:flutter/material.dart';
 class Contribution extends StatelessWidget {
   const Contribution({
     super.key,
-    required this.images,
+    required this.image,
     required this.name,
-    required this.condition,
-    required this.institution,
   });
-  final List<String> images;
+
+  final String image;
   final String name;
-  final Enum condition;
-  final String institution;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 50, // Explicit height for the ListView
-            child: ListView.builder(
-              itemCount: images.length,
-              itemBuilder: (context, index) {
-                return Image.network(
-                  images[index],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10), // Rounded corners for the entire card
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        elevation: 4,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ), // Rounded top corners for the image
+                child: Image.network(
+                  image,
                   fit: BoxFit.cover,
-                  width: 50,
-                  height: 50,
-                );
-              },
-              scrollDirection: Axis.horizontal,
+                  width: double.infinity,
+                ),
+              ),
             ),
-          ),
-          Text(name, style: Theme.of(context).textTheme.bodySmall),
-          Text(condition.name, style: Theme.of(context).textTheme.bodySmall),
-          Text(institution, style: Theme.of(context).textTheme.bodySmall),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                name,
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
