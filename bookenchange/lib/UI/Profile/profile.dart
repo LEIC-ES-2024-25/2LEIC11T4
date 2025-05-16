@@ -53,6 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
         username.text = data['username'] ?? '';
         universityCollege = data['institutionid'];
         degree = data['degreeid'];
+        emailController.text = firebase.auth.currentUser?.email ?? '';
         final rawYear = data['yearofStudy'];
         if (rawYear is int) {
           year = rawYear;
@@ -89,7 +90,6 @@ class _ProfilePageState extends State<ProfilePage> {
       firstname.clear();
       lastname.clear();
       username.clear();
-      emailController.clear();
       universityCollege = null;
       degree = null;
       year = null;
@@ -178,18 +178,24 @@ class _ProfilePageState extends State<ProfilePage> {
                       normalField(
                         controller: firstname,
                         name: S.of(context).first_name,
+                        
                       ),
                       normalField(
                         controller: lastname,
                         name: S.of(context).last_name,
+                        
                       ),
                       normalField(
                         controller: username,
                         name: S.of(context).username,
+                        
                       ),
                        normalField(
                         controller: emailController,
-                        name: S.of(context).email_hint,
+                        name: S.of(context).email_hint, 
+                        enabled: false,
+                       
+                        
                       ),
                       dropdownSearch(
                         get: firebase.getAllInstitutions,
@@ -239,7 +245,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             FilledButton(
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  await firebase.saveOrUpdateUser(
+                                  try {
+                                    await firebase.saveOrUpdateUser(
                                     firstname: firstname.text.trim(),
                                     lastname: lastname.text.trim(),
                                     username: username.text.trim(),
@@ -251,6 +258,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text("Profile updated successfully!")),
                                   );
+                                  } catch (e) {
+                                    // Check if it's a username conflict
+                                    final errorMessage = e.toString().contains("Username already taken")
+                                      ? "This username is already in use. Please choose another."
+                                      : "An error occurred while updating the profile.";
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(errorMessage)),
+                                    );
+                                  }
                                 }
                               },
                               style: FilledButton.styleFrom(

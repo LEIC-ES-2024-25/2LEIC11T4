@@ -119,6 +119,23 @@ class Firebase {
         );
   }
 
+  Future<bool> isUsernameTaken(String username, {String? excludeUserId}) async {
+    final query = db
+        .collection('users')
+        .where('username', isEqualTo: username);
+
+    final results = await query.get();
+
+    for (final doc in results.docs) {
+      if (excludeUserId == null || doc.id != excludeUserId) {
+        return true; // Username is taken by someone else
+      }
+    }
+
+    return false; // Username is available
+  }
+
+
   Future<void> saveOrUpdateUser({
     required String firstname,
     required String lastname,
@@ -129,6 +146,13 @@ class Firebase {
     File? file, // optional during update
   }) async {
     final userId = auth.userid;
+
+    final isTaken = await isUsernameTaken(username, excludeUserId: userId);
+    if (isTaken) {
+      throw Exception("Username already taken");
+    }
+
+
     String? image;
 
     if (file != null) {
