@@ -70,6 +70,14 @@
   "@submit": {},
   "isbn":"ISBN",
   "authors":"Authors",
-  "publishers":"Publishers"
-
+  "publishers":"Publishers",
+  "cancel":"Cancel",
+  "area_of_study": "Area of study",
+  "conditions": "Book conditions",
+  "submited_successfully": "Submited successfully",
+  "error_submitting": "There was an error",
+  "fill_all_fields": "Please fill all fields",
+  "image_upload_error": "There was an error uploading the image",
+  "invalid_condition": "Invalid condition",
+  "description_hint": "Book about algorithms, 2nd edition"
 }
