@@ -5,7 +5,7 @@ part 'degree.g.dart';
 
 @freezed
 abstract class Degree with _$Degree {
-  const factory Degree({required String degree}) = _Degree;
+  const factory Degree({required String name}) = _Degree;
 
   factory Degree.fromJson(Map<String, dynamic> json) => _$DegreeFromJson(json);
 }
