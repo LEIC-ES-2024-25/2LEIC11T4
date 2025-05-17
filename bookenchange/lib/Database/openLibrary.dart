@@ -52,8 +52,8 @@ class openLibrary {
 
   return Book(
     ISBN: isbn,
-    name: title,
     bookId: bookId,
+    name: title,
     authors: authors,
     publishers: publishers,
   );
