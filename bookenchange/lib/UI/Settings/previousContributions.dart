@@ -1,6 +1,7 @@
 import 'package:bookenchange/Database/Firebase.dart';
 import 'package:bookenchange/UI/NewContribution/newContribution.dart';
-import 'package:bookenchange/UI/Homepage/contributionCard.dart' as UIContribution;
+import 'package:bookenchange/Domain/Models/Contributions/contribution.dart';
+import 'package:bookenchange/UI/Homepage/contributionCard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
@@ -16,26 +17,53 @@ class PreviousContributionsPage extends StatefulWidget {
 class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
   final Firebase firebase = Firebase.instance;
   List<Map<String, dynamic>> contributions = [];
+  List<Map<String, dynamic>> filteredContributions = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    fetchUserContributions();
+    fetchContributions();
   }
 
-  Future<void> fetchUserContributions() async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid != null) {
-      final snapshot = await firebase.db
-          .collection('contributions')
-          .where('iduser', isEqualTo: uid)
+  Future<void> fetchContributions() async {
+    final snapshot = await firebase.db.collection('contributions').get();
+    final List<Contribution> fetchedContributions = [];
+
+    for (var doc in snapshot.docs) {
+      final contributionData = doc.data();
+      final contribution = Contribution.fromJson(contributionData);
+
+      // Fetch book name
+      final bookSnapshot = await firebase.db
+          .collection('books')
+          .doc(contribution.idbook.toString())
           .get();
-      setState(() {
-        contributions = snapshot.docs.map((doc) => doc.data()).toList();
-        isLoading = false;
-      });
+      final bookName = bookSnapshot.exists && bookSnapshot.data() != null
+          ? (bookSnapshot.data()?['name'] as String? ?? 'Unknown Book')
+          : 'Unknown Book';
+
+      // Fetch user name
+      final userSnapshot = await firebase.db
+          .collection('users')
+          .doc(contribution.iduser.toString())
+          .get();
+      final username = userSnapshot.exists && userSnapshot.data() != null
+          ? (userSnapshot.data()?['username'] as String? ?? 'Unknown User')
+          : 'Unknown User';
+
+      // Add the contribution with additional data
+      fetchedContributions.add(contribution.copyWith(
+        bookName: bookName,
+        username: username,
+      ));
     }
+
+    setState(() {
+      contributions = List<Contribution>.from(fetchedContributions).cast<Map<String, dynamic>>();
+      filteredContributions = List<Contribution>.from(fetchedContributions).cast<Map<String, dynamic>>();
+      isLoading = false;
+    });
   }
 
   @override
@@ -77,11 +105,12 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
           itemCount: contributions.length,
           itemBuilder: (context, index) {
             final contribution = contributions[index];
-            return UIContribution.Contribution(
+            return ContributionCard(
               image: (contribution['images'] as List<dynamic>?)
                   ?.first ??
-                  'https://via.placeholder.com/150', // Fallback image
-              name: contribution['description'] ?? '',
+                  'https://via.placeholder.com/150',
+              bookName: contribution['bookName'] ?? 'Unknown Book',
+              username: contribution['username'] ?? 'Unknown User',
             );
           },
         ),

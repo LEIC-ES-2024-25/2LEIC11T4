@@ -1,20 +1,53 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'contribution.freezed.dart';
 part 'contribution.g.dart';
 
-enum Condition { newCondition, usedCondition, damagedCondition }
+@JsonSerializable()
+class Contribution {
+  final int? iduser;
+  final int? idbook;
+  final String description;
+  final Condition condition;
+  final List<String> images;
+  final String? bookName; // Optional field
+  final String? username; // Optional field
 
-@freezed
-abstract class Contribution with _$Contribution {
-  const factory Contribution({
-    required int iduser,
-    required int idbook,
-    required String description,
-    required Condition condition, // Changed from String to Condition
-    required List<String> images,
-  }) = _Contribution;
+  Contribution({
+    required this.iduser,
+    required this.idbook,
+    required this.description,
+    required this.condition,
+    required this.images,
+    this.bookName,
+    this.username,
+  });
 
-  factory Contribution.fromJson(Map<String, Object?> json) =>
+  factory Contribution.fromJson(Map<String, dynamic> json) =>
       _$ContributionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ContributionToJson(this);
+
+  Contribution copyWith({
+    String? bookName,
+    String? username,
+  }) {
+    return Contribution(
+      iduser: iduser,
+      idbook: idbook,
+      description: description,
+      condition: condition,
+      images: images,
+      bookName: bookName ?? this.bookName,
+      username: username ?? this.username,
+    );
+  }
+}
+
+enum Condition {
+  @JsonValue('New')
+  newCondition,
+  @JsonValue('Used - Good')
+  usedCondition,
+  @JsonValue('Used - Acceptable')
+  damagedCondition,
 }

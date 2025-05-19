@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/Domain/Models/Contributions/contribution.dart' as ModelContribution;
-import 'package:bookenchange/UI/Homepage/contributionCard.dart' as UIContribution;
+import 'package:bookenchange/Domain/Models/Contributions/contribution.dart';
+import 'package:bookenchange/UI/Homepage/contributionCard.dart';
 import 'package:bookenchange/generated/l10n.dart';
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
@@ -15,8 +15,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final Firebase firebase = Firebase.instance;
-  List<ModelContribution.Contribution> contributions = [];
-  List<ModelContribution.Contribution> filteredContributions = [];
+  List<Contribution> contributions = [];
+  List<Contribution> filteredContributions = [];
   final TextEditingController searchController = TextEditingController();
 
   @override
@@ -27,9 +27,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> fetchContributions() async {
     final snapshot = await firebase.db.collection('contributions').get();
-    final List<ModelContribution.Contribution> fetchedContributions = snapshot.docs
-        .map((doc) => ModelContribution.Contribution.fromJson(doc.data()))
-        .toList();
+    final List<Contribution> fetchedContributions = [];
+
+    for (var doc in snapshot.docs) {
+      final contributionData = doc.data();
+      final contribution = Contribution.fromJson(contributionData);
+
+      // Fetch book name
+      final bookSnapshot = await firebase.db
+          .collection('books')
+          .doc(contribution.idbook.toString())
+          .get();
+      final bookName = bookSnapshot.exists && bookSnapshot.data() != null
+          ? (bookSnapshot.data()?['name'] as String? ?? 'Unknown Book')
+          : 'Unknown Book';
+
+      // Fetch user name
+      final userSnapshot = await firebase.db
+          .collection('users')
+          .doc(contribution.iduser.toString())
+          .get();
+      final username = userSnapshot.exists && userSnapshot.data() != null
+          ? (userSnapshot.data()?['username'] as String? ?? 'Unknown User')
+          : 'Unknown User';
+      // Add the contribution with additional data
+      fetchedContributions.add(contribution.copyWith(
+        bookName: bookName,
+        username: username,
+      ));
+    }
 
     setState(() {
       contributions = fetchedContributions;
@@ -41,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       filteredContributions = contributions
           .where((contribution) =>
-          contribution.description.toLowerCase().contains(query.toLowerCase()))
+      contribution.bookName?.toLowerCase().contains(query.toLowerCase()) ?? false)
           .toList();
     });
   }
@@ -117,16 +143,17 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisCount: 2,
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
-              childAspectRatio: 3 / 4, // Adjusts the card's height-to-width ratio
+              childAspectRatio: 3 / 4,
             ),
             itemCount: filteredContributions.length,
             itemBuilder: (context, index) {
               final contribution = filteredContributions[index];
-              return UIContribution.Contribution(
+              return ContributionCard(
                 image: contribution.images.isNotEmpty
                     ? contribution.images.first
-                    : 'https://via.placeholder.com/150', // Fallback image
-                name: contribution.description,
+                    : 'https://via.placeholder.com/150',
+                bookName: contribution.bookName ?? 'Unknown Book',
+                username: contribution.username ?? 'Unknown User',
               );
             },
           ),

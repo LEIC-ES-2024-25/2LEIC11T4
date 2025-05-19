@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
-class Contribution extends StatelessWidget {
-  const Contribution({
+class ContributionCard extends StatelessWidget {
+  const ContributionCard({
     super.key,
     required this.image,
-    required this.name,
+    required this.bookName,
+    required this.username,
   });
 
   final String image;
-  final String name;
+  final String bookName;
+  final String username;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10), // Rounded corners for the entire card
+      borderRadius: BorderRadius.circular(10),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 4,
@@ -25,7 +27,7 @@ class Contribution extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
-                ), // Rounded top corners for the image
+                ),
                 child: Image.network(
                   image,
                   fit: BoxFit.cover,
@@ -36,8 +38,16 @@ class Contribution extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                name,
+                bookName,
                 style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                username,
+                style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
             ),
