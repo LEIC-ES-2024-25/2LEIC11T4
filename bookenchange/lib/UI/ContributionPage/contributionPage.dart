@@ -1,15 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class BookPostApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ContributionPage(contributionId: 'exampleContributionId'), // Pass a valid contribution ID
-    );
-  }
-}
-
 class ContributionPage extends StatelessWidget {
   final String contributionId;
 
@@ -21,11 +12,21 @@ class ContributionPage extends StatelessWidget {
         .doc(contributionId)
         .get();
 
-    if (!doc.exists) {
-      throw Exception('Contribution not found');
+    if (!doc.exists) throw Exception('Contribution not found');
+
+    final data = doc.data()!;
+    if (data['iduser'] != null) {
+      final userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(data['iduser'])
+          .get();
+
+      if (userDoc.exists) {
+        data['profileImageUrl'] = userDoc.data()?['profileImageUrl'];
+      }
     }
 
-    return doc.data()!;
+    return data;
   }
 
   @override
@@ -55,44 +56,50 @@ class ContributionPage extends StatelessWidget {
           final username = data['username'] ?? 'Unknown User';
           final title = data['name'] ?? 'No Title';
           final description = data['description'] ?? 'No Description';
+          final isbn = data['isbn'] ?? 'Unknown';
+          final condition = data['condition'] ?? 'Unknown';
           final imageUrl = (data['images'] as List<dynamic>?)?.first ??
+              'https://via.placeholder.com/150';
+          final profileImageUrl = data['profileImageUrl'] ??
               'https://via.placeholder.com/150';
 
           return SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                // Book Cover
-                Container(
-                  margin: const EdgeInsets.all(16),
-                  height: 300,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade300),
-                  ),
+                // Book Image
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
                   child: Image.network(
                     imageUrl,
+                    height: 320,
+                    width: double.infinity,
                     fit: BoxFit.cover,
                   ),
                 ),
+                const SizedBox(height: 16),
 
-                // Username and Ask Button
+                // Profile and Ask Button
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  color: const Color(0xFF819DD4),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF819DD4),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   child: Row(
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.white,
-                        child: Icon(Icons.person, color: Color(0xFF819DD4)),
+                        backgroundImage: NetworkImage(profileImageUrl),
                       ),
-                      const SizedBox(width: 10),
-                      Text(
-                        'username: $username',
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: 16),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          username,
+                          style: const TextStyle(color: Colors.white, fontSize: 16),
+                        ),
                       ),
-                      const Spacer(),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
@@ -101,48 +108,36 @@ class ContributionPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          // handle ASK action
+                        },
                         child: const Text('ASK'),
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(height: 16),
 
-                // Title Section
+                // Book Info Card
                 Container(
-                  color: const Color(0xFF819DD4),
-                  padding: const EdgeInsets.all(16),
                   width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Title',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
-                      const SizedBox(height: 8),
-                      Text(title, style: const TextStyle(color: Colors.black)),
-                    ],
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE6EAF4),
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                ),
-
-                const SizedBox(height: 8),
-
-                // Description Section
-                Container(
-                  color: const Color(0xFF819DD4),
-                  padding: const EdgeInsets.all(16),
-                  width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      InfoRow(label: 'Title', value: title),
+                      InfoRow(label: 'Condition', value: condition),
+                      InfoRow(label: 'ISBN', value: isbn),
+                      const SizedBox(height: 12),
                       const Text('Description:',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
-                      const SizedBox(height: 8),
-                      Text(description,
-                          style: const TextStyle(color: Colors.black)),
+                              fontWeight: FontWeight.bold, fontSize: 16)),
+                      const SizedBox(height: 6),
+                      Text(description),
                     ],
                   ),
                 ),
@@ -150,6 +145,30 @@ class ContributionPage extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class InfoRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const InfoRow({super.key, required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        children: [
+          Text('$label: ',
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.black)),
+          Expanded(
+            child: Text(value, style: const TextStyle(color: Colors.black)),
+          ),
+        ],
       ),
     );
   }
