@@ -4,6 +4,7 @@ part 'contribution.g.dart';
 
 @JsonSerializable()
 class Contribution {
+  final String? id;
   final String? iduser;
   final String? idbook;
   final String description;
@@ -13,6 +14,7 @@ class Contribution {
   final String? username; // Optional field
 
   Contribution({
+    required this.id,
     required this.iduser,
     required this.idbook,
     required this.description,
@@ -28,10 +30,12 @@ class Contribution {
   Map<String, dynamic> toJson() => _$ContributionToJson(this);
 
   Contribution copyWith({
+    String? id,
     String? bookName,
     String? username,
   }) {
     return Contribution(
+      id : id ?? this.id,
       iduser: iduser,
       idbook: idbook,
       description: description,

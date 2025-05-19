@@ -11,6 +11,7 @@ Contribution _$ContributionFromJson(Map<String, dynamic> json) {
       'Raw JSON data for Contribution: $json'); // Debug print for raw JSON input
 
   return Contribution(
+    id: json['id'] as String?,
     iduser: json['iduser'] as String?,
     idbook: json['idbook'] as String?,
     description: json['description'] as String,
@@ -23,6 +24,7 @@ Contribution _$ContributionFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ContributionToJson(Contribution instance) {
   final json = <String, dynamic>{
+    'id': instance.id,
     'iduser': instance.iduser,
     'idbook': instance.idbook,
     'description': instance.description,

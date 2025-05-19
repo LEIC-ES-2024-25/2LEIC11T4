@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:bookenchange/Domain/Models/Book/book.dart';
+import 'package:uuid/uuid.dart';
 
 class newContribution extends StatefulWidget {
   @override
@@ -70,6 +71,7 @@ class _newContributionState extends State<newContribution> {
   Future<void> _saveContribution() async {
     final firebaseService = Firebase();
     final dataBook = await firebaseService.getFireBaseBook(isbnController.text);
+    final uuid = Uuid(); // Initialize UUID generator
 
     if (_formKey.currentState!.validate()) {
       List<String> imageUrls = [];
@@ -86,15 +88,19 @@ class _newContributionState extends State<newContribution> {
               ? userDoc.data()!['username'] as String?
               : 'Unknown User';
 
-          await FirebaseFirestore.instance.collection('contributions').add({
-            'iduser': userId, // Associate the user ID
+          // Generate a random ID for the contribution
+          final contributionId = uuid.v4();
+
+          await FirebaseFirestore.instance.collection('contributions').doc(contributionId).set({
+            'id': contributionId, // Add the generated ID
+            'iduser': userId,
             'name': dataBook['bookName'],
             'description': descController.text,
             'isbn': isbnController.text,
             'bookId': dataBook['bookId'],
             'condition': selectedCondition,
             'images': imageUrls,
-            'username': username, // Include the username
+            'username': username,
           });
 
           ScaffoldMessenger.of(context).showSnackBar(

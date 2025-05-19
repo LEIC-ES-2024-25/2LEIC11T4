@@ -71,8 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
         contributionData['bookName'] = bookName;
         contributionData['username'] = username;
 
-        // Convert to Contribution object
-        final contribution = Contribution.fromJson(contributionData);
+        // Convert to Contribution object and include the document ID
+        final contribution = Contribution.fromJson(contributionData).copyWith(id: doc.id);
         fetchedContributions.add(contribution);
       }
 
@@ -161,15 +161,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           )
               : GridView.builder(
-            padding: const EdgeInsets.all(8.0),
+            itemCount: filteredContributions.length, // Ensure this matches the list length
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               childAspectRatio: 3 / 4,
             ),
-            itemCount: filteredContributions.length,
             itemBuilder: (context, index) {
+              if (index >= filteredContributions.length) {
+                return const SizedBox(); // Prevent out-of-range access
+              }
               final contribution = filteredContributions[index];
               return ContributionCard(
                 image: contribution.images.isNotEmpty
@@ -177,6 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     : 'https://via.placeholder.com/150',
                 bookName: contribution.bookName ?? 'Unknown Book',
                 username: contribution.username ?? 'Unknown User',
+                contributionId: contribution.id ?? '',
               );
             },
           ),

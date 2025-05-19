@@ -106,11 +106,10 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
           itemBuilder: (context, index) {
             final contribution = contributions[index];
             return ContributionCard(
-              image: (contribution['images'] as List<dynamic>?)
-                  ?.first ??
-                  'https://via.placeholder.com/150',
+              image: (contribution['images'] as List<dynamic>?)?.first ?? 'https://via.placeholder.com/150',
               bookName: contribution['bookName'] ?? 'Unknown Book',
               username: contribution['username'] ?? 'Unknown User',
+              contributionId: contribution['id'] ?? '', // Pass the contribution ID
             );
           },
         ),
