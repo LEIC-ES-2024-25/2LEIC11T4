@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../Profile/profileView.dart';
+
 class ContributionPage extends StatefulWidget {
   final String contributionId;
 
@@ -97,8 +99,7 @@ class _ContributionPageState extends State<ContributionPage> {
         children: [
           _buildImageCarousel(images),
           const SizedBox(height: 16),
-          _buildProfileSection(username, profileImageUrl),
-          const SizedBox(height: 16),
+          _buildProfileSection(username, profileImageUrl, data['iduser'] ?? ''),          const SizedBox(height: 16),
           _buildBookInfoCard(title, condition, isbn, description),
         ],
       ),
@@ -165,41 +166,51 @@ class _ContributionPageState extends State<ContributionPage> {
       ],
     );
   }
-  Widget _buildProfileSection(String username, String profileImageUrl) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: const Color(0xFF819DD4),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 20,
-            backgroundColor: Colors.white,
-            backgroundImage: NetworkImage(profileImageUrl),
+  Widget _buildProfileSection(String username, String profileImageUrl, String userId) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfileView(userId: userId),
           ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              username,
-              style: const TextStyle(color: Colors.white, fontSize: 16),
-            ),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: const Color(0xFF819DD4),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 20,
               backgroundColor: Colors.white,
-              foregroundColor: const Color(0xFF819DD4),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+              backgroundImage: NetworkImage(profileImageUrl),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                username,
+                style: const TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
-            onPressed: () {
-              // handle ASK action
-            },
-            child: const Text('ASK'),
-          ),
-        ],
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: const Color(0xFF819DD4),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              onPressed: () {
+                // handle ASK action
+              },
+              child: const Text('ASK'),
+            ),
+          ],
+        ),
       ),
     );
   }
