@@ -125,10 +125,20 @@ class _ContributionPageState extends State<ContributionPage> {
               },
               itemCount: images.length,
               itemBuilder: (context, index) {
-                return Image.network(
-                  images[index],
-                  fit: BoxFit.cover,
-                  width: double.infinity,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FullScreenImageViewer(imageUrl: images[index]),
+                      ),
+                    );
+                  },
+                  child: Image.network(
+                    images[index],
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
                 );
               },
             ),
@@ -146,7 +156,7 @@ class _ContributionPageState extends State<ContributionPage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: _currentImageIndex == index
-                    ? Color(0xFF819DD4)
+                    ? const Color(0xFF819DD4)
                     : Colors.black26,
               ),
             );
@@ -155,7 +165,6 @@ class _ContributionPageState extends State<ContributionPage> {
       ],
     );
   }
-
   Widget _buildProfileSection(String username, String profileImageUrl) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -242,6 +251,28 @@ class InfoRow extends StatelessWidget {
             child: Text(value, style: const TextStyle(color: Colors.black)),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class FullScreenImageViewer extends StatelessWidget {
+  final String imageUrl;
+
+  const FullScreenImageViewer({super.key, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Center(
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.contain,
+          ),
+        ),
       ),
     );
   }
