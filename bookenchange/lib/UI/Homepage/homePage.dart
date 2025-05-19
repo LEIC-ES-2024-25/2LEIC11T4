@@ -26,41 +26,63 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> fetchContributions() async {
-    final snapshot = await firebase.db.collection('contributions').get();
-    final List<Contribution> fetchedContributions = [];
+    try {
+      final snapshot = await firebase.db.collection('contributions').get();
+      final List<Contribution> fetchedContributions = [];
 
-    for (var doc in snapshot.docs) {
-      final contributionData = doc.data();
-      final contribution = Contribution.fromJson(contributionData);
+      for (var doc in snapshot.docs) {
+        final Map<String, dynamic> contributionData = doc.data();
 
-      // Fetch book name
-      final bookSnapshot = await firebase.db
-          .collection('books')
-          .doc(contribution.idbook.toString())
-          .get();
-      final bookName = bookSnapshot.exists && bookSnapshot.data() != null
-          ? (bookSnapshot.data()?['name'] as String? ?? 'Unknown Book')
-          : 'Unknown Book';
+        // Fetch book name using idbook
+        String bookName = 'Unknown Book';
+        if (contributionData['idbook'] != null) {
+          try {
+            final bookSnapshot = await firebase.db
+                .collection('books')
+                .doc(contributionData['idbook'].toString())
+                .get();
 
-      // Fetch user name
-      final userSnapshot = await firebase.db
-          .collection('users')
-          .doc(contribution.iduser.toString())
-          .get();
-      final username = userSnapshot.exists && userSnapshot.data() != null
-          ? (userSnapshot.data()?['username'] as String? ?? 'Unknown User')
-          : 'Unknown User';
-      // Add the contribution with additional data
-      fetchedContributions.add(contribution.copyWith(
-        bookName: bookName,
-        username: username,
-      ));
+            if (bookSnapshot.exists) {
+              bookName = bookSnapshot.data()?['name'] as String? ?? 'Unknown Book';
+            }
+          } catch (e) {
+            debugPrint('Error fetching book for idbook ${contributionData['idbook']}: $e');
+          }
+        }
+
+        // Fetch username using iduser
+        String username = 'Unknown User';
+        if (contributionData['iduser'] != null) {
+          try {
+            final userSnapshot = await firebase.db
+                .collection('users')
+                .doc(contributionData['iduser'].toString())
+                .get();
+
+            if (userSnapshot.exists) {
+              username = userSnapshot.data()?['username'] as String? ?? 'Unknown User';
+            }
+          } catch (e) {
+            debugPrint('Error fetching user for iduser ${contributionData['iduser']}: $e');
+          }
+        }
+
+        // Add additional fields to the contribution data
+        contributionData['bookName'] = bookName;
+        contributionData['username'] = username;
+
+        // Convert to Contribution object
+        final contribution = Contribution.fromJson(contributionData);
+        fetchedContributions.add(contribution);
+      }
+
+      setState(() {
+        contributions = fetchedContributions;
+        filteredContributions = fetchedContributions;
+      });
+    } catch (e) {
+      debugPrint('Error fetching contributions: $e');
     }
-
-    setState(() {
-      contributions = fetchedContributions;
-      filteredContributions = fetchedContributions;
-    });
   }
 
   void filterContributions(String query) {

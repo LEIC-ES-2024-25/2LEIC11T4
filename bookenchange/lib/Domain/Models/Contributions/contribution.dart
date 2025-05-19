@@ -4,8 +4,8 @@ part 'contribution.g.dart';
 
 @JsonSerializable()
 class Contribution {
-  final int? iduser;
-  final int? idbook;
+  final String? iduser;
+  final String? idbook;
   final String description;
   final Condition condition;
   final List<String> images;
