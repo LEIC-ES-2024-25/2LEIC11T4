@@ -23,25 +23,43 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add_new": MessageLookupByLibrary.simpleMessage("Adicionar opção"),
-    "add_photo": MessageLookupByLibrary.simpleMessage("Adicione até 3 fotos"),
+    "add_photo": MessageLookupByLibrary.simpleMessage("Adicione até 5 fotos"),
     "already_in_use": MessageLookupByLibrary.simpleMessage(
       "Já existe um usuário com esse email",
     ),
     "appName": MessageLookupByLibrary.simpleMessage("BookDonation"),
+    "area_of_study": MessageLookupByLibrary.simpleMessage("Área de estudo"),
     "authors": MessageLookupByLibrary.simpleMessage("Autores"),
     "book_tittle": MessageLookupByLibrary.simpleMessage("Título do livro"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
     "change_password": MessageLookupByLibrary.simpleMessage("Mudar Senha"),
     "change_password_failed": MessageLookupByLibrary.simpleMessage(
       "Falha ao alterar a palavra-passe",
     ),
     "chat": MessageLookupByLibrary.simpleMessage("Mensagens"),
+    "conditions": MessageLookupByLibrary.simpleMessage("Estado do livro"),
     "current_year": MessageLookupByLibrary.simpleMessage("Ano curricular"),
     "degree": MessageLookupByLibrary.simpleMessage("Curso"),
     "description": MessageLookupByLibrary.simpleMessage("Descrição"),
+    "description_hint": MessageLookupByLibrary.simpleMessage(
+      "ex. Livro de Algoritmos, 2ª Edição",
+    ),
     "email_hint": MessageLookupByLibrary.simpleMessage("Email"),
+    "error_submitting": MessageLookupByLibrary.simpleMessage(
+      "Erro ao submeter",
+    ),
+    "fill_all_fields": MessageLookupByLibrary.simpleMessage(
+      "preencha todos os campos",
+    ),
     "first_name": MessageLookupByLibrary.simpleMessage("Primeiro nome"),
     "forgot_password": MessageLookupByLibrary.simpleMessage(
       "Esqueci-me da palavra-passe?",
+    ),
+    "image_upload_error": MessageLookupByLibrary.simpleMessage(
+      "Erro ao fazer upload da imagem",
+    ),
+    "invalid_condition": MessageLookupByLibrary.simpleMessage(
+      "Condição inválida",
     ),
     "isbn": MessageLookupByLibrary.simpleMessage("ISBN"),
     "last_name": MessageLookupByLibrary.simpleMessage("Último nome"),
@@ -94,6 +112,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in failed",
     ),
     "submit": MessageLookupByLibrary.simpleMessage("Submeter"),
+    "submited_successfully": MessageLookupByLibrary.simpleMessage(
+      "Submetido com sucesso",
+    ),
     "university_college": MessageLookupByLibrary.simpleMessage(
       "Universidade/Instituto superior",
     ),

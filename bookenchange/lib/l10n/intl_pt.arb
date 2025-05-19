@@ -36,7 +36,7 @@
   "@sign_up_unsuccesful": {},
   "weak_password": "Palavra-passe fraca",
   "already_in_use": "Já existe um usuário com esse email",
-  "add_photo": "Adicione até 3 fotos",
+  "add_photo": "Adicione até 5 fotos",
   "photo": "Adicionar fotos",
   "not_null": "Este campo é obrigatório",
   "book_tittle": "Título do livro",
@@ -69,8 +69,16 @@
   "@new_password": {},
   "submit": "Submeter",
   "@submit": {},
-  "isbn":"ISBN",
-  "authors":"Autores",
-  "publishers":"Editoras"
-
+   "isbn":"ISBN",
+   "authors":"Autores",
+   "publishers":"Editoras",
+   "cancel": "Cancelar",
+   "area_of_study": "Área de estudo",
+   "conditions": "Estado do livro",
+   "submited_successfully": "Submetido com sucesso",
+   "error_submitting": "Erro ao submeter",
+   "fill_all_fields": "preencha todos os campos",
+ "image_upload_error": "Erro ao fazer upload da imagem",
+ "invalid_condition": "Condição inválida",
+ "description_hint": "ex. Livro de Algoritmos, 2ª Edição"
 }

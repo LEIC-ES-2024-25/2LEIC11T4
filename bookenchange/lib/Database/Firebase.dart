@@ -8,6 +8,7 @@ import 'package:bookenchange/Domain/Models/Users/users.dart';
 import 'package:bookenchange/Domain/Models/institution/institution.dart';
 import 'package:bookenchange/Logic/Authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class Firebase {
@@ -23,15 +24,28 @@ class Firebase {
   static Firebase get instance => _instance;
   //search book by isbn if not yet present in the firebase  it should make a call to api
   Future<Book> getBookByISBN(String isbn) async {
-    final doc = await db.collection('books').doc(isbn).get();
-    final Book result;
-    if (doc.exists && doc.data() != null) {
-      result = Book.fromJson(doc.data()!);
-      return result;
+    final fetchedBook = await api.fetchBookByISBN(isbn);
+    final bookId = fetchedBook.bookId;
+
+    final querySnapshot = await db.collection('books').where("bookId", isEqualTo: bookId).get();
+    if (querySnapshot.docs.isNotEmpty) {
+      return Book.fromJson(querySnapshot.docs.first.data());
     }
-    result = await api.fetchBookByISBN(isbn);
-    await db.collection('books').add(result.toJson());
-    return result;
+
+    await db.collection('books').doc(bookId).set(fetchedBook.toJson());
+    final bookName = fetchedBook.name;
+
+    return fetchedBook;
+  }
+
+  Future<Map<String, String>> getFireBaseBook(String isbn) async {
+    final fetchedBook = await api.fetchBookByISBN(isbn);
+    final bookId = fetchedBook.bookId;
+    final bookName = fetchedBook.name;
+    return {
+      'bookId': bookId,
+      'bookName': bookName,
+    };
   }
 
   /*Future<String> searchauthor(String authorcode) async {
@@ -81,13 +95,13 @@ class Firebase {
   Future<List<String>> getAllDegrees() async {
     final snapshot = await db.collection('degree').get();
     return snapshot.docs
-        .map((doc) => Degree.fromJson(doc.data()).degree)
+        .map((doc) => Degree.fromJson(doc.data()).name)
         .toList();
   }
 
   //add degree
   Future<void> addDegree(String deg) async {
-    await db.collection('degree').add(Degree(degree: deg).toJson());
+    await db.collection('degree').add(Degree(name: deg).toJson());
   }
 
   //add user
@@ -198,4 +212,27 @@ class Firebase {
   Future<String> getDownloadURL(String? userid) async {
     return await storageRef.child('users/$userid').getDownloadURL();
   }
+
 }
+
+
+/* class FirebaseService {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<Map<String, dynamic>> getUserData() async {
+    final currentUser = _auth.currentUser;
+
+    if (currentUser == null) {
+      throw Exception("User not authenticated");
+    }
+
+    final userDoc = await _firestore.collection('users').doc(currentUser.uid).get();
+
+    if (!userDoc.exists) {
+      throw Exception("User data not found");
+    }
+
+    return userDoc.data()!;
+  }
+}*/
