@@ -1,9 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/UI/NewContribution/newContribution.dart';
 import 'package:bookenchange/Domain/Models/Contributions/contribution.dart';
 import 'package:bookenchange/UI/Homepage/contributionCard.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
 
 class PreviousContributionsPage extends StatefulWidget {
@@ -16,8 +14,8 @@ class PreviousContributionsPage extends StatefulWidget {
 
 class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
   final Firebase firebase = Firebase.instance;
-  List<Map<String, dynamic>> contributions = [];
-  List<Map<String, dynamic>> filteredContributions = [];
+  List<Contribution> contributions = [];
+  List<Contribution> filteredContributions = [];
   bool isLoading = true;
 
   @override
@@ -27,43 +25,30 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
   }
 
   Future<void> fetchContributions() async {
-    final snapshot = await firebase.db.collection('contributions').get();
-    final List<Contribution> fetchedContributions = [];
-
-    for (var doc in snapshot.docs) {
-      final contributionData = doc.data();
-      final contribution = Contribution.fromJson(contributionData);
-
-      // Fetch book name
-      final bookSnapshot = await firebase.db
-          .collection('books')
-          .doc(contribution.idbook.toString())
+    try {
+      final userId = firebase.auth.userid;
+      final snapshot = await firebase.db
+          .collection('contributions')
+          .where('iduser', isEqualTo: userId)
           .get();
-      final bookName = bookSnapshot.exists && bookSnapshot.data() != null
-          ? (bookSnapshot.data()?['name'] as String? ?? 'Unknown Book')
-          : 'Unknown Book';
 
-      // Fetch user name
-      final userSnapshot = await firebase.db
-          .collection('users')
-          .doc(contribution.iduser.toString())
-          .get();
-      final username = userSnapshot.exists && userSnapshot.data() != null
-          ? (userSnapshot.data()?['username'] as String? ?? 'Unknown User')
-          : 'Unknown User';
+      final List<Contribution> fetchedContributions = snapshot.docs
+          .map((doc) => Contribution.fromJson(doc.data()))
+          .toList();
 
-      // Add the contribution with additional data
-      fetchedContributions.add(contribution.copyWith(
-        bookName: bookName,
-        username: username,
-      ));
+      setState(() {
+        contributions = fetchedContributions;
+        filteredContributions = fetchedContributions;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error fetching contributions: $e')),
+      );
     }
-
-    setState(() {
-      contributions = List<Contribution>.from(fetchedContributions).cast<Map<String, dynamic>>();
-      filteredContributions = List<Contribution>.from(fetchedContributions).cast<Map<String, dynamic>>();
-      isLoading = false;
-    });
   }
 
   @override
@@ -87,7 +72,7 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
         ),
         body: isLoading
             ? const Center(child: CircularProgressIndicator())
-            : contributions.isEmpty
+            : filteredContributions.isEmpty
             ? Center(
           child: Text(
             "There are no contributions from user yet.",
@@ -102,26 +87,18 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
             mainAxisSpacing: 8.0,
             childAspectRatio: 3 / 4,
           ),
-          itemCount: contributions.length,
+          itemCount: filteredContributions.length,
           itemBuilder: (context, index) {
-            final contribution = contributions[index];
+            final contribution = filteredContributions[index];
             return ContributionCard(
-              image: (contribution['images'] as List<dynamic>?)?.first ?? 'https://via.placeholder.com/150',
-              bookName: contribution['bookName'] ?? 'Unknown Book',
-              username: contribution['username'] ?? 'Unknown User',
-              contributionId: contribution['id'] ?? '', // Pass the contribution ID
+              image: contribution.images.isNotEmpty
+                  ? contribution.images.first
+                  : 'https://via.placeholder.com/150',
+              bookName: contribution.bookName ?? 'Unknown Book',
+              username: contribution.username ?? 'Unknown User',
+              contributionId: contribution.id ?? '',
             );
           },
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const newContribution()),
-            );
-          },
-          child: const Icon(Icons.add),
-          backgroundColor: Theme.of(context).colorScheme.primary,
         ),
       ),
     );
