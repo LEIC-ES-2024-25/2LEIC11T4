@@ -95,13 +95,13 @@ class Firebase {
   Future<List<String>> getAllDegrees() async {
     final snapshot = await db.collection('degree').get();
     return snapshot.docs
-        .map((doc) => Degree.fromJson(doc.data()).name)
+        .map((doc) => Degree.fromJson(doc.data()).degree)
         .toList();
   }
 
   //add degree
   Future<void> addDegree(String deg) async {
-    await db.collection('degree').add(Degree(name: deg).toJson());
+    await db.collection('degree').add(Degree(degree: deg).toJson());
   }
 
   //add user
