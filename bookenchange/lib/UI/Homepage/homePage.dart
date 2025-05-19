@@ -105,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).colorScheme.primary,
           toolbarHeight: 80.0,
           title: Container(

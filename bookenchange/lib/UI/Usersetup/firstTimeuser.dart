@@ -210,7 +210,7 @@ void initState() {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text("Profile updated successfully!")),
                                   );
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     CustomPageRoute(destination: Navigation.home),
                                   );

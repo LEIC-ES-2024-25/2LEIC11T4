@@ -100,9 +100,9 @@ class S {
     return Intl.message('Email', name: 'email_hint', desc: '', args: []);
   }
 
-  /// ``
+  /// `Password`
   String get password_hint {
-    return Intl.message('', name: 'password_hint', desc: '', args: []);
+    return Intl.message('Password', name: 'password_hint', desc: '', args: []);
   }
 
   /// `Forgot Password ?`
