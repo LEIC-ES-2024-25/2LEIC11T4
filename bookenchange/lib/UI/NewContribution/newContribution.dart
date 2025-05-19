@@ -115,23 +115,27 @@ class _newContributionState extends State<newContribution> {
                   ),
                 ),
               ),
-              normalField(
+
+              TextField(
                 controller: isbnController,
-                label: S.of(context).isbn,
-                hint: "e.g 0596156715",
-              ),
-              IconButton(
-                onPressed: () async {
-                  final result = await firebase.getBookByISBN(
-                    isbnController.text.trim(),
-                  );
-                  setState(() {
-                    bookInfo = result;
-                  });
-                },
-                icon: Icon(
-                  Icons.search,
-                  color: Theme.of(context).indicatorColor,
+                decoration: InputDecoration(
+                  labelText: S.of(context).isbn,
+                  hintText: "e.g 0596156715",
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    onPressed: () async {
+                      final result = await firebase.getBookByISBN(
+                        isbnController.text.trim(),
+                      );
+                      setState(() {
+                        bookInfo = result;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      color: Theme.of(context).indicatorColor,
+                    ),
+                  ),
                 ),
               ),
               bookInfo != null
@@ -165,6 +169,7 @@ class _newContributionState extends State<newContribution> {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
+
                     ],
                   )
                   : SizedBox.shrink(),
