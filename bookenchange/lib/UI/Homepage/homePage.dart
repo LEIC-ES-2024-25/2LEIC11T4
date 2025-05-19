@@ -18,11 +18,29 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Contribution> contributions = [];
   List<Contribution> filteredContributions = [];
   final TextEditingController searchController = TextEditingController();
+  String? profileImageUrl;
 
   @override
   void initState() {
     super.initState();
     fetchContributions();
+    fetchUserProfileImage();
+  }
+
+  Future<void> fetchUserProfileImage() async {
+    try {
+      final userId = firebase.auth.userid;
+      if (userId != null) {
+        final userDoc = await firebase.db.collection('users').doc(userId).get();
+        if (userDoc.exists) {
+          setState(() {
+            profileImageUrl = userDoc.data()?['profileImageUrl'];
+          });
+        }
+      }
+    } catch (e) {
+      debugPrint('Error fetching user profile image: $e');
+    }
   }
 
   Future<void> fetchContributions() async {
@@ -135,17 +153,19 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 16.0),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
+                child: CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.white,
+                  backgroundImage: profileImageUrl != null
+                      ? NetworkImage(profileImageUrl!)
+                      : null,
+                  child: profileImageUrl == null
+                      ? Icon(
                     Icons.person,
                     color: Theme.of(context).colorScheme.primary,
                     size: 30.0,
-                  ),
+                  )
+                      : null,
                 ),
               ),
             ),
@@ -161,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           )
               : GridView.builder(
-            itemCount: filteredContributions.length, // Ensure this matches the list length
+            itemCount: filteredContributions.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 8.0,
@@ -169,9 +189,6 @@ class _MyHomePageState extends State<MyHomePage> {
               childAspectRatio: 3 / 4,
             ),
             itemBuilder: (context, index) {
-              if (index >= filteredContributions.length) {
-                return const SizedBox(); // Prevent out-of-range access
-              }
               final contribution = filteredContributions[index];
               return ContributionCard(
                 image: contribution.images.isNotEmpty
