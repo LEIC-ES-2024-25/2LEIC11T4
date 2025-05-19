@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:bookenchange/generated/l10n.dart';
 import 'package:file_picker/file_picker.dart' as picker;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -192,10 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                        normalField(
                         controller: emailController,
-                        name: S.of(context).email_hint, 
-                        enabled: false,
-                       
-                        
+                        name: S.of(context).email_hint,  
                       ),
                       dropdownSearch(
                         get: firebase.getAllInstitutions,
@@ -245,7 +243,32 @@ class _ProfilePageState extends State<ProfilePage> {
                             FilledButton(
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
+                                  
+                                  final currentEmail = firebase.auth.currentUser?.email;
+                                  final newEmail = emailController.text.trim();
                                   try {
+                                    
+                                    // If email was changed, attempt to update it in Firebase Auth
+                                    if (newEmail != currentEmail) {
+                                     try {
+                                        await firebase.auth.currentUser?.verifyBeforeUpdateEmail(newEmail);
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Verification email sent to $newEmail. Please verify it.'),
+                                            backgroundColor: Colors.green,
+                                          ),
+                                        );
+                                     } on FirebaseAuthException catch (e) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Error updating email: ${e.message ?? e.code}'),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
+                                      
+                                     }
+                                    
+                                    } 
                                     await firebase.saveOrUpdateUser(
                                     firstname: firstname.text.trim(),
                                     lastname: lastname.text.trim(),
@@ -258,14 +281,31 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text("Profile updated successfully!")),
                                   );
-                                  } catch (e) {
-                                    // Check if it's a username conflict
-                                    final errorMessage = e.toString().contains("Username already taken")
-                                      ? "This username is already in use. Please choose another."
-                                      : "An error occurred while updating the profile.";
+                                  } on FirebaseAuthException catch (e) {
+                                    debugPrint('FirebaseAuthException code=${e.code}, message=${e.message}');
+                                    String errorMessage;
+                                    switch(e.code) {
+                                      case 'requires-recent-login':
+                                        errorMessage = 'Please sig in again to update your email.';
+                                        break;
+                                      case 'invalid-email':
+                                        errorMessage = 'The email address is badly formatted.';
+                                        break;
+                                      case 'email-already-in-use':
+                                        errorMessage = 'The email address is already in use by another account.';
+                                        break;
+                                      case 'operation-not-allowed':
+                                        errorMessage = 'Email/password accounts are not enabled.';
+                                        break;
+                                      default:
+                                        errorMessage = 'Auth error: ${e.message}';
+                                    }
 
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(errorMessage)),
+                                      SnackBar(
+                                        content: Text(errorMessage),
+                                        backgroundColor: Colors.red,
+                                      ),
                                     );
                                   }
                                 }

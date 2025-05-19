@@ -57,7 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "password_changed_successfully": MessageLookupByLibrary.simpleMessage(
       "Password changed successfully",
     ),
-    "password_hint": MessageLookupByLibrary.simpleMessage(""),
+    "password_hint": MessageLookupByLibrary.simpleMessage("Password"),
     "password_too_short": MessageLookupByLibrary.simpleMessage(
       "Password must be at least 6 characters long",
     ),
