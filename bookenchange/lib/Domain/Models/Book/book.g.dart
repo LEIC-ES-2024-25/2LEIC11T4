@@ -8,6 +8,7 @@ part of 'book.dart';
 
 _Book _$BookFromJson(Map<String, dynamic> json) => _Book(
   ISBN: json['ISBN'] as String,
+  bookId: json['bookId'] as String,
   name: json['name'] as String,
   authors: (json['authors'] as List<dynamic>).map((e) => e as String?).toList(),
   publishers:
@@ -16,6 +17,7 @@ _Book _$BookFromJson(Map<String, dynamic> json) => _Book(
 
 Map<String, dynamic> _$BookToJson(_Book instance) => <String, dynamic>{
   'ISBN': instance.ISBN,
+  'bookId': instance.bookId,
   'name': instance.name,
   'authors': instance.authors,
   'publishers': instance.publishers,

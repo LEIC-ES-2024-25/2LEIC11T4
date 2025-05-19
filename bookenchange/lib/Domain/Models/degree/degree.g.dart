@@ -7,8 +7,8 @@ part of 'degree.dart';
 // **************************************************************************
 
 _Degree _$DegreeFromJson(Map<String, dynamic> json) =>
-    _Degree(degree: json['degree'] as String);
+    _Degree(name: json['name'] as String);
 
 Map<String, dynamic> _$DegreeToJson(_Degree instance) => <String, dynamic>{
-  'degree': instance.degree,
+  'name': instance.name,
 };

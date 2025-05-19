@@ -1,3 +1,4 @@
+import 'package:bookenchange/Database/Firebase.dart';
 import 'package:bookenchange/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,7 +38,10 @@ class SettingsPage extends StatelessWidget {
   Future<void> _deleteAccount(BuildContext context) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
+
       if (user != null) {
+        final uid = user.uid;
+        await Firebase.instance.deleteUserData(uid);
         await user.delete();
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('remember_me', false);

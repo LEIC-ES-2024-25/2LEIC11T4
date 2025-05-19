@@ -6,31 +6,36 @@ part of 'contribution.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_Contribution _$ContributionFromJson(Map<String, dynamic> json) =>
-    _Contribution(
-      iduser: (json['iduser'] as num).toInt(),
-      idBook: (json['idBook'] as num).toInt(),
-      description: json['description'] as String,
-      condition: $enumDecode(_$ConditionEnumMap, json['condition']),
-      area: json['area'] as String,
-      university: json['university'] as String,
-      images:
-          (json['images'] as List<dynamic>).map((e) => e as String).toList(),
-    );
+Contribution _$ContributionFromJson(Map<String, dynamic> json) {
+  print(
+      'Raw JSON data for Contribution: $json'); // Debug print for raw JSON input
 
-Map<String, dynamic> _$ContributionToJson(_Contribution instance) =>
-    <String, dynamic>{
-      'iduser': instance.iduser,
-      'idBook': instance.idBook,
-      'description': instance.description,
-      'condition': _$ConditionEnumMap[instance.condition]!,
-      'area': instance.area,
-      'university': instance.university,
-      'images': instance.images,
-    };
+  return Contribution(
+    iduser: json['iduser'] as String?,
+    idbook: json['idbook'] as String?,
+    description: json['description'] as String,
+    condition: $enumDecode(_$ConditionEnumMap, json['condition']),
+    images: (json['images'] as List<dynamic>).map((e) => e as String).toList(),
+    bookName: json['name'] as String?,
+    username: json['username'] as String?,
+  );
+}
 
+Map<String, dynamic> _$ContributionToJson(Contribution instance) {
+  final json = <String, dynamic>{
+    'iduser': instance.iduser,
+    'idbook': instance.idbook,
+    'description': instance.description,
+    'condition': _$ConditionEnumMap[instance.condition]!,
+    'images': instance.images,
+    'bookName': instance.bookName,
+    'username': instance.username,
+  };
+  print('Serialized JSON for Contribution: $json'); // Debug print for serialized JSON output
+  return json;
+}
 const _$ConditionEnumMap = {
-  Condition.newCondition: 'newCondition',
-  Condition.usedCondition: 'usedCondition',
-  Condition.damagedCondition: 'damagedCondition',
+  Condition.newCondition: 'New',
+  Condition.usedCondition: 'Used - Good',
+  Condition.damagedCondition: 'Used - Acceptable',
 };

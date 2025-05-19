@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:bookenchange/Domain/Models/Author/author.dart';
 import 'package:http/http.dart' as http;
 import 'package:bookenchange/Domain/Models/Book/book.dart';
 
@@ -16,6 +15,14 @@ class openLibrary {
 
   // Title
   final title = data['title'] ?? 'Unknown';
+
+  // Key
+  final works = data['works'];
+  if (works == null || works.isEmpty) {
+    throw Exception('No work associated with this ISBN');
+  }
+  final workKey = works[0]['key'];
+  final bookId = workKey.split('/').last;
 
 
   List<String> authors = [];
@@ -45,6 +52,7 @@ class openLibrary {
 
   return Book(
     ISBN: isbn,
+    bookId: bookId,
     name: title,
     authors: authors,
     publishers: publishers,

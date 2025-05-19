@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Degree {
 
- String get degree;
+ String get name;
 /// Create a copy of Degree
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $DegreeCopyWith<Degree> get copyWith => _$DegreeCopyWithImpl<Degree>(this as Deg
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Degree&&(identical(other.degree, degree) || other.degree == degree));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Degree&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,degree);
+int get hashCode => Object.hash(runtimeType,name);
 
 @override
 String toString() {
-  return 'Degree(degree: $degree)';
+  return 'Degree(name: $name)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $DegreeCopyWith<$Res>  {
   factory $DegreeCopyWith(Degree value, $Res Function(Degree) _then) = _$DegreeCopyWithImpl;
 @useResult
 $Res call({
- String degree
+ String name
 });
 
 
@@ -66,9 +66,9 @@ class _$DegreeCopyWithImpl<$Res>
 
 /// Create a copy of Degree
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? degree = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,}) {
   return _then(_self.copyWith(
-degree: null == degree ? _self.degree : degree // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -80,10 +80,10 @@ as String,
 @JsonSerializable()
 
 class _Degree implements Degree {
-  const _Degree({required this.degree});
+  const _Degree({required this.name});
   factory _Degree.fromJson(Map<String, dynamic> json) => _$DegreeFromJson(json);
 
-@override final  String degree;
+@override final  String name;
 
 /// Create a copy of Degree
 /// with the given fields replaced by the non-null parameter values.
@@ -98,16 +98,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Degree&&(identical(other.degree, degree) || other.degree == degree));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Degree&&(identical(other.name, name) || other.name == name));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,degree);
+int get hashCode => Object.hash(runtimeType,name);
 
 @override
 String toString() {
-  return 'Degree(degree: $degree)';
+  return 'Degree(name: $name)';
 }
 
 
@@ -118,7 +118,7 @@ abstract mixin class _$DegreeCopyWith<$Res> implements $DegreeCopyWith<$Res> {
   factory _$DegreeCopyWith(_Degree value, $Res Function(_Degree) _then) = __$DegreeCopyWithImpl;
 @override @useResult
 $Res call({
- String degree
+ String name
 });
 
 
@@ -135,9 +135,9 @@ class __$DegreeCopyWithImpl<$Res>
 
 /// Create a copy of Degree
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? degree = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,}) {
   return _then(_Degree(
-degree: null == degree ? _self.degree : degree // ignore: cast_nullable_to_non_nullable
+name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
