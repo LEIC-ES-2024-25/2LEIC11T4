@@ -3,6 +3,8 @@ import 'package:bookenchange/Database/Firebase.dart';
 import 'package:bookenchange/Domain/Models/Contributions/contribution.dart';
 import 'package:bookenchange/UI/Homepage/contributionCard.dart';
 
+import '../ContributionPage/contributionPage.dart';
+
 class ProfileView extends StatefulWidget {
   final String userId;
 
@@ -16,6 +18,7 @@ class _ProfileViewState extends State<ProfileView> {
   final Firebase firebase = Firebase.instance;
   Map<String, dynamic>? userData;
   List<Contribution> userContributions = [];
+  List<Contribution> filteredContributions = [];
   bool isLoading = true;
 
   @override
@@ -46,7 +49,7 @@ class _ProfileViewState extends State<ProfileView> {
           .get();
 
       final contributions = snapshot.docs
-          .map((doc) => Contribution.fromJson(doc.data()))
+          .map((doc) => Contribution.fromJson(doc.data()).copyWith(id: doc.id))
           .toList();
 
       setState(() {
@@ -59,6 +62,15 @@ class _ProfileViewState extends State<ProfileView> {
         isLoading = false;
       });
     }
+  }
+
+  void filterContributions(String query) {
+    setState(() {
+      filteredContributions = userContributions
+          .where((contribution) =>
+      contribution.bookName?.toLowerCase().contains(query.toLowerCase()) ?? false)
+          .toList();
+    });
   }
 
   @override
@@ -74,92 +86,112 @@ class _ProfileViewState extends State<ProfileView> {
           ? const Center(child: CircularProgressIndicator())
           : userData == null
           ? const Center(child: Text('User data not found'))
-          : SingleChildScrollView(
-        child: Column(
-          children: [
-            // User Top Bar
-            Container(
-              padding: const EdgeInsets.all(16),
-              color: theme.colorScheme.primary,
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: userData?['profileImageUrl'] != null
-                        ? NetworkImage(userData!['profileImageUrl'])
-                        : null,
-                    child: userData?['profileImageUrl'] == null
-                        ? Icon(Icons.person, size: 40, color: theme.colorScheme.onPrimary)
-                        : null,
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${userData?['First_name'] ?? ''} ${userData?['Last_name'] ?? ''}',
-                          style: theme.textTheme.titleLarge?.copyWith(
-                            color: theme.colorScheme.onPrimary,
-                          ),
-                        ),
-                        Text( 'Username: ${
-                            userData?['username'] ?? 'Unknown Username'}',
-                            style: theme.textTheme.bodyLarge?.copyWith(
-                            color: theme.colorScheme.onPrimary,
-                          ),
-                        ),
-                        Text('Institution: ${
-                          userData?['institutionid'] ?? 'Unknown University'}',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onPrimary,
-                          ),
-                        ),
-                        Text('Degree: ${
-                          userData?['degreeid'] ?? 'Unknown Degree'}',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onPrimary,
-                          ),
-                        ),
-                      ],
+          : RefreshIndicator(
+        onRefresh: fetchUserContributions,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // User Top Bar
+              Container(
+                padding: const EdgeInsets.all(16),
+                color: theme.colorScheme.primary,
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: userData?['profileImageUrl'] != null
+                          ? NetworkImage(userData!['profileImageUrl'])
+                          : null,
+                      child: userData?['profileImageUrl'] == null
+                          ? Icon(Icons.person,
+                          size: 40,
+                          color: theme.colorScheme.onPrimary)
+                          : null,
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${userData?['First_name'] ?? ''} ${userData?['Last_name'] ?? ''}',
+                            style: theme.textTheme.titleLarge?.copyWith(
+                              color: theme.colorScheme.onPrimary,
+                            ),
+                          ),
+                          Text(
+                            'Username: ${userData?['username'] ?? 'Unknown Username'}',
+                            style: theme.textTheme.bodyLarge?.copyWith(
+                              color: theme.colorScheme.onPrimary,
+                            ),
+                          ),
+                          Text(
+                            'Institution: ${userData?['institutionid'] ?? 'Unknown University'}',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onPrimary,
+                            ),
+                          ),
+                          Text(
+                            'Degree: ${userData?['degreeid'] ?? 'Unknown Degree'}',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            // User Contributions
-            userContributions.isEmpty
-                ? Center(
-              child: Text(
-                'No contributions available',
-                style: theme.textTheme.bodyLarge,
+              const SizedBox(height: 16),
+              // User Contributions
+              userContributions.isEmpty
+                  ? Center(
+                child: Text(
+                  'No contributions available',
+                  style: theme.textTheme.bodyLarge,
+                ),
+              )
+                  : GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(8.0),
+                gridDelegate:
+                const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
+                  childAspectRatio: 3 / 4,
+                ),
+                itemCount: userContributions.length,
+                itemBuilder: (context, index) {
+                  final contribution = userContributions[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ContributionPage(
+                            contributionId: contribution.id ?? '',
+                          ),
+                        ),
+                      );
+                    },
+                    child: ContributionCard(
+                      image: contribution.images.isNotEmpty
+                          ? contribution.images.first
+                          : 'https://via.placeholder.com/150',
+                      bookName:
+                      contribution.bookName ?? 'Unknown Book',
+                      username:
+                      contribution.username ?? 'Unknown User',
+                      contributionId: contribution.id ?? '',
+                    ),
+                  );
+                },
               ),
-            )
-                : GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(8.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-                childAspectRatio: 3 / 4,
-              ),
-              itemCount: userContributions.length,
-              itemBuilder: (context, index) {
-                final contribution = userContributions[index];
-                return ContributionCard(
-                  image: contribution.images.isNotEmpty
-                      ? contribution.images.first
-                      : 'https://via.placeholder.com/150',
-                  bookName: contribution.bookName ?? 'Unknown Book',
-                  username: contribution.username ?? 'Unknown User',
-                  contributionId: contribution.id ?? '',
-                );
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
