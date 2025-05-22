@@ -74,13 +74,16 @@ class _ChatHubState extends State<ChatHub> {
         backgroundColor: Color(0xff809bce),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('chats').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('chats')
+            .where('participants', arrayContains: _auth.currentUser?.uid)
+            .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          if (snapshot.data!.docs.isEmpty) {
             return const Center(child: Text('No chats available'));
           }
 
@@ -119,21 +122,7 @@ class _ChatHubState extends State<ChatHub> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => FutureBuilder<DocumentSnapshot>(
-                            future: FirebaseFirestore.instance.collection('chats').doc(chat.id).get(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return const Center(child: CircularProgressIndicator());
-                              } else if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
-                                return const Center(child: Text('Error fetching chat participants'));
-                              }
-
-                              final data = snapshot.data!.data() as Map<String, dynamic>;
-                              final participants = List<String>.from(data['participants'] ?? []);
-
-                              return ChatPage(chatId: chat.id, participants: participants);
-                            },
-                          ),
+                          builder: (context) => ChatPage(chatId: chat.id, participants: List<String>.from(participants)),
                         ),
                       );
                     },
@@ -170,7 +159,7 @@ class _ChatHubState extends State<ChatHub> {
             },
           );
         },
-      ),
+      )
     );
   }
 }
