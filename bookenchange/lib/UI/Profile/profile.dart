@@ -1,10 +1,5 @@
 import 'dart:io';
-
-import 'package:bookenchange/Domain/Models/degree/degree.dart';
-import 'package:bookenchange/Domain/Models/institution/institution.dart';
-import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/UI/Usersetup/dropdownSearch.dart';
 import 'package:bookenchange/UI/Usersetup/normalDropdown.dart';
 import 'package:bookenchange/UI/Usersetup/simpleFormfields.dart';
@@ -13,6 +8,7 @@ import 'package:bookenchange/generated/l10n.dart';
 import 'package:file_picker/file_picker.dart' as picker;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -91,6 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
       firstname.clear();
       lastname.clear();
       username.clear();
+      emailController.clear();
       universityCollege = null;
       degree = null;
       year = null;
@@ -242,8 +239,27 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             FilledButton(
                               onPressed: () async {
+                                
                                 if (formKey.currentState!.validate()) {
+                                  final newUsername = username.text.trim();
+                                  final currentUsername = firebase.auth.currentUser?.displayName;
                                   
+                                  if (newUsername != currentUsername) {
+                                    final taken = await firebase.isUsernameTaken(newUsername);
+                                    if (taken) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('Username $newUsername is already taken.'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                      return;
+                                    }
+                                  }
+                            
+                                  
+
+
                                   final currentEmail = firebase.auth.currentUser?.email;
                                   final newEmail = emailController.text.trim();
                                   try {
@@ -286,8 +302,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                     String errorMessage;
                                     switch(e.code) {
                                       case 'requires-recent-login':
-                                        errorMessage = 'Please sig in again to update your email.';
-                                        break;
+                                        errorMessage = 'Please sign in again to update your email.';
+
+                                        Future.delayed(const Duration(seconds: 2), () {
+                                          firebase.logout(context);
+                                        }); 
+                                        return;
                                       case 'invalid-email':
                                         errorMessage = 'The email address is badly formatted.';
                                         break;

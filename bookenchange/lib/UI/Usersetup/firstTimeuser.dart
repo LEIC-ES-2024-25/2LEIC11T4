@@ -68,6 +68,7 @@ void initState() {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             S.of(context).profile,
             style:
