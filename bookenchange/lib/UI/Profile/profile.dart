@@ -244,7 +244,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   final newUsername = username.text.trim();
                                   final currentUsername = firebase.auth.currentUser?.displayName;
                                   
-                                  if (newUsername != currentUsername) {
+                                  if (newUsername == currentUsername) {
                                     final taken = await firebase.isUsernameTaken(newUsername);
                                     if (taken) {
                                       ScaffoldMessenger.of(context).showSnackBar(
@@ -295,7 +295,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     file: pickedFiles,
                                   );
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text("Profile updated successfully!")),
+                                    const SnackBar(content: Text("Profile updated successfully!"), backgroundColor: Colors.green,),
                                   );
                                   } on FirebaseAuthException catch (e) {
                                     debugPrint('FirebaseAuthException code=${e.code}, message=${e.message}');

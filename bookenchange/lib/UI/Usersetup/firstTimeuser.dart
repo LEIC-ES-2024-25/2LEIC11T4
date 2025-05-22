@@ -222,7 +222,7 @@ void initState() {
                                       : "An error occurred while updating the profile.";
 
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(errorMessage)),
+                                    SnackBar(content: Text(errorMessage),),
                                     );
                                   }
                             }
