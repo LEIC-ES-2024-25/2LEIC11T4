@@ -3,35 +3,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'Chat.dart';
 
-class ChatHub extends StatelessWidget {
+class ChatHub extends StatefulWidget {
   const ChatHub({super.key});
 
   @override
+  State<ChatHub> createState() => _ChatHubState();
+}
+
+class _ChatHubState extends State<ChatHub> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
   Widget build(BuildContext context) {
-    final currentUser = FirebaseAuth.instance.currentUser;
-
-    if (currentUser == null) {
-      return const Center(
-        child: Text('Error: User not logged in'),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Chats'),
+        title: const Text('Chats'),
+        backgroundColor: Color(0xff809bce),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('chats')
-            .where('participants', arrayContains: currentUser.uid)
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection('chats').snapshots(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
-          }
-
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text('No chats found'));
           }
 
           final chats = snapshot.data!.docs;
@@ -40,18 +33,65 @@ class ChatHub extends StatelessWidget {
             itemCount: chats.length,
             itemBuilder: (context, index) {
               final chat = chats[index];
-              final participants = List<String>.from(chat['participants']);
-              final otherUser = participants
-                  .firstWhere((id) => id != currentUser.uid, orElse: () => 'Unknown');
+              final participants = chat['participants'] as List<dynamic>;
 
-              return ListTile(
-                title: Text('Chat with $otherUser'),
-                subtitle: Text('Chat ID: ${chat.id}'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChatPage(chatId: chat.id),
+              final otherUserId = participants.firstWhere(
+                    (id) => id != _auth.currentUser?.uid,
+                orElse: () => null,
+              );
+
+              if (otherUserId == null) {
+                return const SizedBox.shrink();
+              }
+
+              return FutureBuilder<DocumentSnapshot>(
+                future: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(otherUserId)
+                    .get(),
+                builder: (context, userSnapshot) {
+                  if (!userSnapshot.hasData) {
+                    return const SizedBox.shrink();
+                  }
+
+                  final userData = userSnapshot.data!.data() as Map<String, dynamic>;
+                  final firstName = userData['First_name'] ?? 'Unknown';
+                  final lastName = userData['Last_name'] ?? 'User';
+                  final profileImageUrl = userData['profileImageUrl'] ??
+                      'https://via.placeholder.com/150';
+
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatPage(chatId: chat.id),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16.0),
+                      padding: const EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                        color: Color(0xff809bce),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 40,
+                            backgroundImage: NetworkImage(profileImageUrl),
+                          ),
+                          const SizedBox(width: 32),
+                          Expanded(
+                            child: Text(
+                              '$firstName $lastName',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },

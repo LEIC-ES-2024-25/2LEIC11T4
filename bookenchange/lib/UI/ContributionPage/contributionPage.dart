@@ -283,6 +283,11 @@ Future<void> _deleteContribution(String? contributionId) async {
 
                 final otherUserId = userId; // The user ID of the contribution owner
 
+                // Debug print to show the IDs
+                debugPrint('Current User ID: $currentUserId');
+                debugPrint('Other User ID: $otherUserId');
+                debugPrint('Contribution User ID: $userId');
+
                 // Generate a unique chat ID (e.g., sorted user IDs)
                 final chatId = [currentUserId, otherUserId]..sort();
                 final chatIdString = chatId.join('_');
