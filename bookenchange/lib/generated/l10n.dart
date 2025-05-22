@@ -330,10 +330,10 @@ class S {
     );
   }
 
-  /// `Wrong previous password`
+  /// `Wrong current password`
   String get wrong_previous_password {
     return Intl.message(
-      'Wrong previous password',
+      'Wrong current password',
       name: 'wrong_previous_password',
       desc: '',
       args: [],
@@ -360,10 +360,10 @@ class S {
     );
   }
 
-  /// `Previous Password`
+  /// `Current Password`
   String get previous_password {
     return Intl.message(
-      'Previous Password',
+      'Current Password',
       name: 'previous_password',
       desc: '',
       args: [],
@@ -485,6 +485,66 @@ class S {
     return Intl.message(
       'Book about algorithms, 2nd edition',
       name: 'description_hint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm New Password`
+  String get confirm_new_password {
+    return Intl.message(
+      'Confirm New Password',
+      name: 'confirm_new_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match`
+  String get passwords_do_not_match {
+    return Intl.message(
+      'Passwords do not match',
+      name: 'passwords_do_not_match',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password cannot be the same as the current password`
+  String get same_as_current_password {
+    return Intl.message(
+      'New password cannot be the same as the current password',
+      name: 'same_as_current_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User mismatch. Please log in again.`
+  String get user_mismatch {
+    return Intl.message(
+      'User mismatch. Please log in again.',
+      name: 'user_mismatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid credentials. Please try again.`
+  String get invalid_credential {
+    return Intl.message(
+      'Invalid credentials. Please try again.',
+      name: 'invalid_credential',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The new password is too weak.`
+  String get new_password_too_weak {
+    return Intl.message(
+      'The new password is too weak.',
+      name: 'new_password_too_weak',
       desc: '',
       args: [],
     );

@@ -38,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "chat": MessageLookupByLibrary.simpleMessage("Mensagens"),
     "conditions": MessageLookupByLibrary.simpleMessage("Estado do livro"),
+    "confirm_new_password": MessageLookupByLibrary.simpleMessage(
+      "Confirmar nova palavra-passe",
+    ),
     "current_year": MessageLookupByLibrary.simpleMessage("Ano curricular"),
     "degree": MessageLookupByLibrary.simpleMessage("Curso"),
     "description": MessageLookupByLibrary.simpleMessage("Descrição"),
@@ -61,6 +64,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalid_condition": MessageLookupByLibrary.simpleMessage(
       "Condição inválida",
     ),
+    "invalid_credential": MessageLookupByLibrary.simpleMessage(
+      "Credenciais inválidas. Tente novamente.",
+    ),
     "isbn": MessageLookupByLibrary.simpleMessage("ISBN"),
     "last_name": MessageLookupByLibrary.simpleMessage("Último nome"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -68,6 +74,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nova Contribuição",
     ),
     "new_password": MessageLookupByLibrary.simpleMessage("Nova Palavra-passe"),
+    "new_password_too_weak": MessageLookupByLibrary.simpleMessage(
+      "A nova palavra-passe é muito fraca.",
+    ),
     "not_found": MessageLookupByLibrary.simpleMessage(
       "Utilizador não encontrado",
     ),
@@ -80,6 +89,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "password_hint": MessageLookupByLibrary.simpleMessage("Palavra-passe"),
     "password_too_short": MessageLookupByLibrary.simpleMessage(
       "A palavra-passe deve ter pelo menos 6 caracteres",
+    ),
+    "passwords_do_not_match": MessageLookupByLibrary.simpleMessage(
+      "As palavras-passe não coincidem",
     ),
     "photo": MessageLookupByLibrary.simpleMessage("Adicionar fotos"),
     "please_enter_password": MessageLookupByLibrary.simpleMessage(
@@ -94,6 +106,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile": MessageLookupByLibrary.simpleMessage("Perfil"),
     "publishers": MessageLookupByLibrary.simpleMessage("Editoras"),
     "remember": MessageLookupByLibrary.simpleMessage("Mantenha sessão aberta"),
+    "same_as_current_password": MessageLookupByLibrary.simpleMessage(
+      "A nova palavra-passe não pode ser igual à anterior",
+    ),
     "save": MessageLookupByLibrary.simpleMessage("Guardar perfil"),
     "send": MessageLookupByLibrary.simpleMessage("Enviar email de recuperação"),
     "settings": MessageLookupByLibrary.simpleMessage("Definições"),
@@ -117,6 +132,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "university_college": MessageLookupByLibrary.simpleMessage(
       "Universidade/Instituto superior",
+    ),
+    "user_mismatch": MessageLookupByLibrary.simpleMessage(
+      "Utilizador incorreto. Por favor, inicie sessão novamente.",
     ),
     "username": MessageLookupByLibrary.simpleMessage("Nome de utilizador"),
     "value": MessageLookupByLibrary.simpleMessage("Valor"),
