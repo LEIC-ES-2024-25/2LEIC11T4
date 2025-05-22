@@ -26,6 +26,10 @@
     * [Sprint review](#sprint-review)
     * [Sprint retrospective](#sprint-retrospective)
     * [Sprint 3 planning](#sprint-3-planning)
+  * [Sprint 3](#sprint-3)
+    *[sprint-review](#sprint-review)
+    *[Sprint retrospective](#sprint-retrospective)
+    
       
 5.[Happiness meter](#happiness-meter)
 
