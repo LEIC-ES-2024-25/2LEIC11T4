@@ -199,7 +199,7 @@ class Firebase {
         String errorMessage = 'Error deleting account.';
         if (e.code == 'requires-recent-login') {
           errorMessage =
-              'This operation is sensitive and requires recent authentication. Please log in again before deleting your account.';
+              'This operation is sensitive and requires recent authentication. Redirecting to login screen...';
 
           Future.delayed(const Duration(seconds: 2), () {
             Firebase.instance.logout(context);
