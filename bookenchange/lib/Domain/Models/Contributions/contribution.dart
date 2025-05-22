@@ -3,18 +3,30 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'contribution.freezed.dart';
 part 'contribution.g.dart';
 
-enum Condition { newCondition, usedCondition, damagedCondition }
+enum Condition {
+  @JsonValue('New')
+  newCondition,
+
+  @JsonValue('Used - Good')
+  usedCondition,
+
+  @JsonValue('Used - Acceptable')
+  damagedCondition,
+}
 
 @freezed
 abstract class Contribution with _$Contribution {
   const factory Contribution({
-    required int iduser,
-    required int idbook,
+    String? id,
+    String? iduser,
+    String? idbook,
     required String description,
-    required Condition condition, // Changed from String to Condition
+    required Condition condition,
     required List<String> images,
+
+    @JsonKey(name: 'name') String? bookName, // 🔥 Map Firestore field "name" to Dart's "bookName"
+    String? username,
   }) = _Contribution;
 
-  factory Contribution.fromJson(Map<String, Object?> json) =>
-      _$ContributionFromJson(json);
+  factory Contribution.fromJson(Map<String, dynamic> json) => _$ContributionFromJson(json);
 }

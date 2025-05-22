@@ -80,5 +80,24 @@
    "fill_all_fields": "preencha todos os campos",
  "image_upload_error": "Erro ao fazer upload da imagem",
  "invalid_condition": "Condição inválida",
- "description_hint": "ex. Livro de Algoritmos, 2ª Edição"
+ "description_hint": "ex. Livro de Algoritmos, 2ª Edição",
+
+   "confirm_new_password": "Confirmar nova palavra-passe",
+  "@confirm_new_password": {},
+
+  "passwords_do_not_match": "As palavras-passe não coincidem",
+  "@passwords_do_not_match": {},
+
+  "same_as_current_password": "A nova palavra-passe não pode ser igual à anterior",
+  "@same_as_current_password": {},
+
+  "user_mismatch": "Utilizador incorreto. Por favor, inicie sessão novamente.",
+  "@user_mismatch": {},
+
+  "invalid_credential": "Credenciais inválidas. Tente novamente.",
+  "@invalid_credential": {},
+
+  "new_password_too_weak": "A nova palavra-passe é muito fraca.",
+  "@new_password_too_weak": {}
+
 }

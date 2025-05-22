@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Book {
 
- String get ISBN; String get name; List<String?> get authors; List<String> get publishers; dynamic get bookId;
+ String get ISBN; String get bookId; String get name; List<String?> get authors; List<String> get publishers;
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $BookCopyWith<Book> get copyWith => _$BookCopyWithImpl<Book>(this as Book, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.authors, authors)&&const DeepCollectionEquality().equals(other.publishers, publishers)&&const DeepCollectionEquality().equals(other.bookId, bookId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.bookId, bookId) || other.bookId == bookId)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.authors, authors)&&const DeepCollectionEquality().equals(other.publishers, publishers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquality().hash(authors),const DeepCollectionEquality().hash(publishers),const DeepCollectionEquality().hash(bookId));
+int get hashCode => Object.hash(runtimeType,ISBN,bookId,name,const DeepCollectionEquality().hash(authors),const DeepCollectionEquality().hash(publishers));
 
 @override
 String toString() {
-  return 'Book(ISBN: $ISBN, name: $name, authors: $authors, publishers: $publishers, bookId: $bookId)';
+  return 'Book(ISBN: $ISBN, bookId: $bookId, name: $name, authors: $authors, publishers: $publishers)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $BookCopyWith<$Res>  {
   factory $BookCopyWith(Book value, $Res Function(Book) _then) = _$BookCopyWithImpl;
 @useResult
 $Res call({
- String ISBN, String name, List<String?> authors, List<String> publishers, dynamic bookId
+ String ISBN, String bookId, String name, List<String?> authors, List<String> publishers
 });
 
 
@@ -66,14 +66,14 @@ class _$BookCopyWithImpl<$Res>
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? publishers = null,Object? bookId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? ISBN = null,Object? bookId = null,Object? name = null,Object? authors = null,Object? publishers = null,}) {
   return _then(_self.copyWith(
 ISBN: null == ISBN ? _self.ISBN : ISBN // ignore: cast_nullable_to_non_nullable
+as String,bookId: null == bookId ? _self.bookId : bookId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,authors: null == authors ? _self.authors : authors // ignore: cast_nullable_to_non_nullable
 as List<String?>,publishers: null == publishers ? _self.publishers : publishers // ignore: cast_nullable_to_non_nullable
-as List<String>,bookId: freezed == bookId ? _self.bookId : bookId // ignore: cast_nullable_to_non_nullable
-as dynamic,
+as List<String>,
   ));
 }
 
@@ -84,10 +84,11 @@ as dynamic,
 @JsonSerializable()
 
 class _Book implements Book {
-  const _Book({required this.ISBN, required this.name, required final  List<String?> authors, required final  List<String> publishers, required this.bookId}): _authors = authors,_publishers = publishers;
+  const _Book({required this.ISBN, required this.bookId, required this.name, required final  List<String?> authors, required final  List<String> publishers}): _authors = authors,_publishers = publishers;
   factory _Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
 
 @override final  String ISBN;
+@override final  String bookId;
 @override final  String name;
  final  List<String?> _authors;
 @override List<String?> get authors {
@@ -103,7 +104,6 @@ class _Book implements Book {
   return EqualUnmodifiableListView(_publishers);
 }
 
-@override final  dynamic bookId;
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
@@ -118,16 +118,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._authors, _authors)&&const DeepCollectionEquality().equals(other._publishers, _publishers)&&const DeepCollectionEquality().equals(other.bookId, bookId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Book&&(identical(other.ISBN, ISBN) || other.ISBN == ISBN)&&(identical(other.bookId, bookId) || other.bookId == bookId)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._authors, _authors)&&const DeepCollectionEquality().equals(other._publishers, _publishers));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,ISBN,name,const DeepCollectionEquality().hash(_authors),const DeepCollectionEquality().hash(_publishers),const DeepCollectionEquality().hash(bookId));
+int get hashCode => Object.hash(runtimeType,ISBN,bookId,name,const DeepCollectionEquality().hash(_authors),const DeepCollectionEquality().hash(_publishers));
 
 @override
 String toString() {
-  return 'Book(ISBN: $ISBN, name: $name, authors: $authors, publishers: $publishers, bookId: $bookId)';
+  return 'Book(ISBN: $ISBN, bookId: $bookId, name: $name, authors: $authors, publishers: $publishers)';
 }
 
 
@@ -138,7 +138,7 @@ abstract mixin class _$BookCopyWith<$Res> implements $BookCopyWith<$Res> {
   factory _$BookCopyWith(_Book value, $Res Function(_Book) _then) = __$BookCopyWithImpl;
 @override @useResult
 $Res call({
- String ISBN, String name, List<String?> authors, List<String> publishers, dynamic bookId
+ String ISBN, String bookId, String name, List<String?> authors, List<String> publishers
 });
 
 
@@ -155,14 +155,14 @@ class __$BookCopyWithImpl<$Res>
 
 /// Create a copy of Book
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? ISBN = null,Object? name = null,Object? authors = null,Object? publishers = null,Object? bookId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? ISBN = null,Object? bookId = null,Object? name = null,Object? authors = null,Object? publishers = null,}) {
   return _then(_Book(
 ISBN: null == ISBN ? _self.ISBN : ISBN // ignore: cast_nullable_to_non_nullable
+as String,bookId: null == bookId ? _self.bookId : bookId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,authors: null == authors ? _self._authors : authors // ignore: cast_nullable_to_non_nullable
 as List<String?>,publishers: null == publishers ? _self._publishers : publishers // ignore: cast_nullable_to_non_nullable
-as List<String>,bookId: freezed == bookId ? _self.bookId : bookId // ignore: cast_nullable_to_non_nullable
-as dynamic,
+as List<String>,
   ));
 }
 

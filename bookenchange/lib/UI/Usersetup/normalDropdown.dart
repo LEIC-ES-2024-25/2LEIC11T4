@@ -24,6 +24,7 @@ class _normalDropdownState extends State<normalDropdown> {
     return Padding(
       padding: EdgeInsets.all(10),
       child: DropdownButtonFormField<int>(
+        value: widget.selected,
         decoration: InputDecoration(
           labelText: widget.label,
           enabledBorder: OutlineInputBorder(

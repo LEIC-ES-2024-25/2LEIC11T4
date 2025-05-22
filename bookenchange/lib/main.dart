@@ -21,10 +21,10 @@ Future<void> main() async {
     await FirebaseAuth.instance.signOut();
   }
 
-  await FirebaseAppCheck.instance.activate(
+  /*await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug, // ou .playIntegrity
     appleProvider: AppleProvider.debug,
-  );
+  );*/
 
   runApp(const MyApp());
 }

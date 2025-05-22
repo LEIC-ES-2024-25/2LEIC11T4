@@ -38,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "chat": MessageLookupByLibrary.simpleMessage("Chat"),
     "conditions": MessageLookupByLibrary.simpleMessage("Book conditions"),
+    "confirm_new_password": MessageLookupByLibrary.simpleMessage(
+      "Confirm New Password",
+    ),
     "current_year": MessageLookupByLibrary.simpleMessage(
       "Current year of studies",
     ),
@@ -46,7 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "description_hint": MessageLookupByLibrary.simpleMessage(
       "Book about algorithms, 2nd edition",
     ),
-    "email_hint": MessageLookupByLibrary.simpleMessage(""),
+    "email_hint": MessageLookupByLibrary.simpleMessage("Email"),
     "error_submitting": MessageLookupByLibrary.simpleMessage(
       "There was an error",
     ),
@@ -63,6 +66,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "invalid_condition": MessageLookupByLibrary.simpleMessage(
       "Invalid condition",
     ),
+    "invalid_credential": MessageLookupByLibrary.simpleMessage(
+      "Invalid credentials. Please try again.",
+    ),
     "isbn": MessageLookupByLibrary.simpleMessage("ISBN"),
     "last_name": MessageLookupByLibrary.simpleMessage("Last name"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
@@ -70,14 +76,20 @@ class MessageLookup extends MessageLookupByLibrary {
       "New Contribution",
     ),
     "new_password": MessageLookupByLibrary.simpleMessage("New Password"),
+    "new_password_too_weak": MessageLookupByLibrary.simpleMessage(
+      "The new password is too weak.",
+    ),
     "not_found": MessageLookupByLibrary.simpleMessage("User not found"),
     "not_null": MessageLookupByLibrary.simpleMessage("Field can\'t be null"),
     "password_changed_successfully": MessageLookupByLibrary.simpleMessage(
       "Password changed successfully",
     ),
-    "password_hint": MessageLookupByLibrary.simpleMessage(""),
+    "password_hint": MessageLookupByLibrary.simpleMessage("Password"),
     "password_too_short": MessageLookupByLibrary.simpleMessage(
       "Password must be at least 6 characters long",
+    ),
+    "passwords_do_not_match": MessageLookupByLibrary.simpleMessage(
+      "Passwords do not match",
     ),
     "photo": MessageLookupByLibrary.simpleMessage("Add photos"),
     "please_enter_password": MessageLookupByLibrary.simpleMessage(
@@ -87,11 +99,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Previous Contributions",
     ),
     "previous_password": MessageLookupByLibrary.simpleMessage(
-      "Previous Password",
+      "Current Password",
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "publishers": MessageLookupByLibrary.simpleMessage("Publishers"),
     "remember": MessageLookupByLibrary.simpleMessage("Remember me"),
+    "same_as_current_password": MessageLookupByLibrary.simpleMessage(
+      "New password cannot be the same as the current password",
+    ),
     "save": MessageLookupByLibrary.simpleMessage("Save profile"),
     "send": MessageLookupByLibrary.simpleMessage("Send recovery email"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
@@ -116,11 +131,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "university_college": MessageLookupByLibrary.simpleMessage(
       "University/College",
     ),
+    "user_mismatch": MessageLookupByLibrary.simpleMessage(
+      "User mismatch. Please log in again.",
+    ),
     "username": MessageLookupByLibrary.simpleMessage("Username"),
     "value": MessageLookupByLibrary.simpleMessage("Value"),
     "weak_password": MessageLookupByLibrary.simpleMessage("Weak password"),
     "wrong_previous_password": MessageLookupByLibrary.simpleMessage(
-      "Wrong previous password",
+      "Wrong current password",
     ),
   };
 }

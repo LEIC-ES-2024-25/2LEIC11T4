@@ -7,10 +7,10 @@ part 'book.g.dart';
 abstract class Book with _$Book {
   const factory Book({
     required String ISBN,
+    required String bookId,
     required String name,
     required List<String?> authors,
     required List<String> publishers,
-    required bookId,
   }) = _Book;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);

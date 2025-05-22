@@ -1,129 +1,152 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:bookenchange/Database/Firebase.dart';
+import 'package:bookenchange/Domain/Models/Contributions/contribution.dart';
+import 'package:bookenchange/UI/Homepage/contributionCard.dart';
 import 'package:bookenchange/generated/l10n.dart';
 
-class PreviousContributionsPage extends StatelessWidget {
+class PreviousContributionsPage extends StatefulWidget {
   const PreviousContributionsPage({super.key});
 
-  Future<List<Map<String, dynamic>>> _getUserContributions(String uid) async {
-    final snapshot =
-        await FirebaseFirestore.instance
-            .collection('contributions')
-            .where('iduser', isEqualTo: uid)
-            .get();
-    return snapshot.docs.map((doc) => doc.data()).toList();
+  @override
+  State<PreviousContributionsPage> createState() =>
+      _PreviousContributionsPageState();
+}
+
+class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
+  final Firebase firebase = Firebase.instance;
+  List<Contribution> contributions = [];
+  List<Contribution> filteredContributions = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchContributions();
   }
 
-  Widget _buildContributionCard(Map<String, dynamic> contributionData) {
-    return Card(
-      elevation: 2,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Contribution image (display the first image if available)
-          Expanded(
-            child:
-                (contributionData['images'] != null &&
-                        (contributionData['images'] as List).isNotEmpty)
-                    ? Image.network(
-                      (contributionData['images'] as List).first ?? '',
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                    )
-                    : const SizedBox.shrink(), // Or a placeholder if no image
-          ),
-          // Title
-          Padding(
-            padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
-            child: Text(
-              contributionData['title'] ?? '',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              maxLines: 2, // Limit title to two lines
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          // Condition
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4),
-            child: Text(
-              contributionData['condition'] ?? '',
-              style: const TextStyle(fontSize: 14),
-            ),
-          ),
-          // Institution
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-            child: Text(
-              contributionData['institution'] ?? 'Unknown',
-              style: const TextStyle(fontSize: 12, color: Colors.grey),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
+  Future<Contribution> enrichContributionData(Firebase firebase, Map<String, dynamic> contributionData, String docId) async {
+    String bookName = 'Unknown Book';
+    String username = 'Unknown User';
+
+    // Fetch book name using idbook
+    if (contributionData['bookId'] != null) {
+      try {
+        final bookSnapshot = await firebase.db
+            .collection('books')
+            .doc(contributionData['bookId'].toString())
+            .get();
+
+        if (bookSnapshot.exists) {
+          bookName = bookSnapshot.data()?['name'] as String? ?? 'Unknown Book';
+        }
+      } catch (e) {
+        debugPrint('Error fetching book for idbook ${contributionData['bookId']}: $e');
+      }
+    }
+
+    // Fetch username using iduser
+    if (contributionData['iduser'] != null) {
+      try {
+        final userSnapshot = await firebase.db
+            .collection('users')
+            .doc(contributionData['iduser'].toString())
+            .get();
+
+        if (userSnapshot.exists) {
+          username = userSnapshot.data()?['username'] as String? ?? 'Unknown User';
+        }
+      } catch (e) {
+        debugPrint('Error fetching user for iduser ${contributionData['iduser']}: $e');
+      }
+    }
+
+    // Add additional fields to the contribution data
+    contributionData['bookName'] = bookName;
+    contributionData['username'] = username;
+
+    // Convert to Contribution object and include the document ID
+    return Contribution.fromJson(contributionData).copyWith(id: docId);
+  }
+
+  Future<void> fetchContributions() async {
+    try {
+      final userId = firebase.auth.userid;
+      final snapshot = await firebase.db
+          .collection('contributions')
+          .where('iduser', isEqualTo: userId)
+          .get();
+
+      final List<Contribution> fetchedContributions = [];
+      for (var doc in snapshot.docs) {
+        final contributionData = doc.data();
+        final enrichedContribution = await enrichContributionData(firebase, contributionData, doc.id);
+        fetchedContributions.add(enrichedContribution);
+      }
+
+      setState(() {
+        contributions = fetchedContributions;
+        filteredContributions = fetchedContributions;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error fetching contributions: $e')),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) {
-      return Scaffold(
-        appBar: AppBar(title: const Text("Error")),
-        body: const Center(child: Text("No user logged in.")),
-      );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          S.of(context).previous_contributions,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).colorScheme.onPrimary,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            S.of(context).previous_contributions,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
-          onPressed: () => Navigator.pop(context),
-        ),
-        centerTitle: true,
-      ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: _getUserContributions(uid),
-        builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (!snapshot.hasData || snapshot.data == null) {
-            return const Center(child: Text("Failed to load contributions."));
-          }
-
-          final contributions = snapshot.data!;
-
-          if (contributions.isEmpty) {
-            return const Center(child: Text("No contributions found."));
-          }
-
-          return GridView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: contributions.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // 2 columns
-              mainAxisSpacing: 8, // vertical spacing
-              crossAxisSpacing: 8, // horizontal spacing
-              childAspectRatio:
-                  0.75, // Adjust to taste, slightly taller for more info
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
-            itemBuilder: (context, index) {
-              return _buildContributionCard(contributions[index]);
-            },
-          );
-        },
+            onPressed: () => Navigator.pop(context),
+          ),
+          centerTitle: true,
+        ),
+        body: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : filteredContributions.isEmpty
+            ? Center(
+          child: Text(
+            "There are no contributions from user yet.",
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        )
+            : GridView.builder(
+          padding: const EdgeInsets.all(8.0),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+            childAspectRatio: 3 / 4,
+          ),
+          itemCount: filteredContributions.length,
+          itemBuilder: (context, index) {
+            final contribution = filteredContributions[index];
+            return ContributionCard(
+              image: contribution.images.isNotEmpty
+                  ? contribution.images.first
+                  : 'https://via.placeholder.com/150',
+              bookName: contribution.bookName ?? 'Unknown Book',
+              username: contribution.username ?? 'Unknown User',
+              contributionId: contribution.id ?? '',
+            );
+          },
+        ),
       ),
     );
   }

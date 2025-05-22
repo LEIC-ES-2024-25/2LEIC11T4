@@ -7,9 +7,12 @@ import 'package:bookenchange/Domain/Models/degree/degree.dart';
 import 'package:bookenchange/Domain/Models/Users/users.dart';
 import 'package:bookenchange/Domain/Models/institution/institution.dart';
 import 'package:bookenchange/Logic/Authentication.dart';
+import 'package:bookenchange/UI/Login/logIn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Firebase {
   static final Firebase _instance = Firebase();
@@ -133,6 +136,172 @@ class Firebase {
         );
   }
 
+  Future<void> logout(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('remember_me', false);
+      if (context.mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Login(auth: Auth.instance)),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text('Error logging out: $e'),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> deleteAccount(BuildContext context) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        final uid = user.uid;
+        await Firebase.instance.deleteUserData(uid);
+        await user.delete();
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('remember_me', false);
+        if (context.mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Login(auth: Auth.instance)),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('Account deleted successfully.'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.redAccent,
+              content: Text('No user is currently logged in.'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      if (context.mounted) {
+        String errorMessage = 'Error deleting account.';
+        if (e.code == 'requires-recent-login') {
+          errorMessage =
+              'This operation is sensitive and requires recent authentication. Redirecting to login screen...';
+
+          Future.delayed(const Duration(seconds: 2), () {
+            Firebase.instance.logout(context);
+          });
+          // You might want to redirect the user to the login screen here
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(errorMessage),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(
+              'An unexpected error occurred while deleting your account.',
+            ),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<bool> isUsernameTaken(String username, {String? excludeUserId}) async {
+    final query = db
+        .collection('users')
+        .where('username', isEqualTo: username);
+
+    final results = await query.get();
+
+    for (final doc in results.docs) {
+      if (excludeUserId == null || doc.id != excludeUserId) {
+        return true; // Username is taken by someone else
+      }
+    }
+
+    return false; // Username is available
+  }
+
+
+
+
+  Future<void> saveOrUpdateUser({
+    required String firstname,
+    required String lastname,
+    required String username,
+    required String institution,
+    required String degree,
+    required int yearofStudy,
+    File? file, // optional during update
+  }) async {
+    final userId = auth.userid;
+
+    final isTaken = await isUsernameTaken(username, excludeUserId: userId);
+    if (isTaken) {
+      throw Exception("Username already taken");
+    }
+
+
+    String? image;
+
+    if (file != null) {
+      await uploadProfilePhotos(userId, file);
+      image = await getDownloadURL(userId);
+    }
+
+    final String institutionId = await getInstitution(institution);
+    final String degreeId = await getdegree(degree);
+
+    final userRef = db.collection('users').doc(userId);
+
+    final userData = Users(
+      First_name: firstname,
+      Last_name: lastname,
+      username: username,
+      institutionid: institutionId,
+      degreeid: degreeId,
+      yearofStudy: yearofStudy,
+      profileImageUrl: image, // Can be null on update
+    ).toJson();
+
+  // Remove null values (like profileImageUrl if not updated)
+    userData.removeWhere((key, value) => value == null);
+
+    await userRef.set(userData, SetOptions(merge: true));
+  }
+
+  Future<void> deleteUserData(String uid) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+      // You could also delete user uploads from Firebase Storage here if applicable
+    } catch (e) {
+      throw Exception('Failed to delete user data: $e');
+    }
+  }
+
 
   Future<void> uploadProfilePhotos(String? userid, File file) async {
     await storageRef.child('users/$userid').putFile(file);
@@ -145,7 +314,7 @@ class Firebase {
 }
 
 
-class FirebaseService {
+/* class FirebaseService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -164,4 +333,4 @@ class FirebaseService {
 
     return userDoc.data()!;
   }
-}
+}*/

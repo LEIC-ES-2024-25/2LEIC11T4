@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:bookenchange/Domain/Models/Book/book.dart';
-import 'package:bookenchange/Database/Firebase.dart';
+import 'package:uuid/uuid.dart';
 
 class newContribution extends StatefulWidget {
   @override
@@ -37,8 +37,6 @@ class _newContributionState extends State<newContribution> {
   final TextEditingController isbnController = TextEditingController();
 
   final List<String> conditions = ['New', 'Used - Good', 'Used - Acceptable'];
-  /*final List<String> areas = ['Computer Science', 'Mathematics', 'Law', 'History'];
-  final List<String> universities = ['FEUP', 'FEP', 'FLUP', 'ICBAS'];*/
   final ImagePicker _picker = ImagePicker();
   List<File> _selectedImages = [];
 
@@ -57,65 +55,77 @@ class _newContributionState extends State<newContribution> {
       });
     }
   }
+
   Future<String> _uploadImage(File imageFile) async {
-    try{
+    try {
       final fileName = 'contributions/${DateTime.now().millisecondsSinceEpoch}.jpg';
       final ref = FirebaseStorage.instance.ref().child(fileName);
       await ref.putFile(imageFile);
       return await ref.getDownloadURL();
-    }
-    catch(e){
+    } catch (e) {
       print("Error uploading image: $e");
       rethrow;
     }
   }
 
-    // Get current user
-
-  // Save contribution to Firestore
   Future<void> _saveContribution() async {
     final firebaseService = Firebase();
     final dataBook = await firebaseService.getFireBaseBook(isbnController.text);
-    final firebaseUser = FirebaseService();
-    final dataUser = await firebaseUser.getUserData();
+    final uuid = Uuid(); // Initialize UUID generator
 
-    if (_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       List<String> imageUrls = [];
-      for (File image in _selectedImages){
+      for (File image in _selectedImages) {
         final url = await _uploadImage(image);
         imageUrls.add(url);
       }
-      try {
-        await FirebaseFirestore.instance.collection('contributions').add({
-          'userId': dataUser['userId'],
-          'name': dataBook['bookName'],
-          'description': descController.text,
-          'area': dataUser['degree'],
-          'isbn': isbnController.text,
-          'bookId': dataBook['bookId'],
-          'condition': selectedCondition,
-          'institution': dataUser['institution'],
-          'images': imageUrls,
-        });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contribution saved successfully')),
-        );
 
-        // Reset form fields
-        _formKey.currentState!.reset();
-        descController.clear();
-        isbnController.clear();
-        setState(() {
-          _selectedImages = [];
-          selectedCondition = null;
-        });
-        Navigator.pop(context);
+      try {
+        final userId = FirebaseAuth.instance.currentUser?.uid;
+        if (userId != null) {
+          final userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+          final username = userDoc.exists && userDoc.data() != null
+              ? userDoc.data()!['username'] as String?
+              : 'Unknown User';
+
+          // Generate a random ID for the contribution
+          final contributionId = uuid.v4();
+
+          await FirebaseFirestore.instance.collection('contributions').doc(contributionId).set({
+            'id': contributionId, // Add the generated ID
+            'iduser': userId,
+            'name': dataBook['bookName'],
+            'description': descController.text,
+            'isbn': isbnController.text,
+            'bookId': dataBook['bookId'],
+            'condition': selectedCondition,
+            'images': imageUrls,
+            'username': username,
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Contribution saved successfully')),
+          );
+
+          // Reset form fields
+          _formKey.currentState!.reset();
+          descController.clear();
+          isbnController.clear();
+          setState(() {
+            _selectedImages = [];
+            selectedCondition = null;
+          });
+          Navigator.pop(context);
+        } else {
+          throw Exception('User not authenticated');
+        }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error saving contribution: $e')),
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error saving contribution: $e')),
         );
       }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +154,7 @@ class _newContributionState extends State<newContribution> {
               Center(
                 child: Column(
                   children: [
-                    const Text("You can add up to 5 photos"), //HAS TO BE FIXED
+                    const Text("You can add up to 5 photos"),
                     const SizedBox(height: 8),
                     ElevatedButton.icon(
                       onPressed: _pickImages,
@@ -230,59 +240,46 @@ class _newContributionState extends State<newContribution> {
                     ),
                   ),
                   ListTile(
-                    title:Text(
+                    title: Text(
                       S.of(context).publishers,
                       style: Theme.of(context).textTheme.bodyLarge,
-                    ) ,
+                    ),
                     subtitle: Text(
                       bookInfo!.publishers.join(','),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
-
                 ],
               )
                   : SizedBox.shrink(),
-              //dropdown with condition
-              //searchdropdown areaof study
-
-            const SizedBox(height: 10),
-            TextField(
-              controller: descController,
-              decoration: InputDecoration(
-                labelText: S.of(context).description,
-                hintText: S.of(context).description_hint,
-                border: const OutlineInputBorder(),
+              const SizedBox(height: 10),
+              TextField(
+                controller: descController,
+                decoration: InputDecoration(
+                  labelText: S.of(context).description,
+                  hintText: S.of(context).description_hint,
+                  border: const OutlineInputBorder(),
+                ),
+                maxLines: 5,
               ),
-              maxLines: 5,
-            ),
-          _buildDropdown("Condition", conditions, selectedCondition, (val) {
+              _buildDropdown("Condition", conditions, selectedCondition, (val) {
                 setState(() => selectedCondition = val);
               }),
               const SizedBox(height: 5),
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    // Save contribution logic
-                    List<String> imageUrls = [];
-                    for (File image in _selectedImages){
-                      final url = await _uploadImage(image);
-                      imageUrls.add(url);
-                    }
                     _saveContribution();
                   }
                 },
                 child: const Text("Submit Contribution"),
               ),
-
-    ]
-        ),
+            ],
           ),
-    )
+        ),
+      ),
     );
-
   }
-
 
   @override
   void dispose() {
@@ -290,26 +287,6 @@ class _newContributionState extends State<newContribution> {
     descController.dispose();
     isbnController.dispose();
     super.dispose();
-  }
-
-  Widget _buildTextField(TextEditingController controller, String label, String hint) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: label,
-          hintText: hint,
-          border: const OutlineInputBorder(),
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'This field cannot be empty';
-          }
-          return null;
-        },
-      ),
-    );
   }
 
   Widget _buildDropdown(String label, List<String> items, String? selectedValue, Function(String?) onChanged) {

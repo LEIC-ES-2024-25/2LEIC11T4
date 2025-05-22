@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bookenchange/generated/l10n.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});
@@ -20,22 +21,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   bool _obscureNewPassword = true;
   bool _obscureConfirmNewPassword = true;
 
-  // Define your strings directly here for testing
-  final String _passwordChangedSuccessfully = "Password changed successfully";
-  final String _changePasswordFailed = "Change password failed";
-  final String _wrongCurrentPassword = "Wrong current password";
-  final String _pleaseEnterPassword = "Please enter your password";
-  final String _passwordTooShort =
-      "Password must be at least 6 characters long";
-  final String _currentPasswordLabel = "Current Password";
-  final String _valueHint = "Value";
-  final String _newPasswordLabel = "New Password";
-  final String _submitButtonText = "Submit";
-  final String _changePasswordTitle = "Change Password";
-  final String _confirmNewPasswordLabel = "Confirm New Password";
-  final String _passwordsDoNotMatch = "Passwords do not match";
-  final String _sameAsCurrentPassword =
-      "New password cannot be the same as the current password";
 
   Future<void> _changePassword(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
@@ -46,7 +31,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,
-            content: Text(_sameAsCurrentPassword),
+            content: Text(S.of(context).same_as_current_password),
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -57,7 +42,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.redAccent,
-            content: Text(_passwordsDoNotMatch),
+            content: Text(S.of(context).passwords_do_not_match),
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -81,16 +66,16 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.green,
-              content: Text(_passwordChangedSuccessfully),
+              content: Text(S.of(context).password_changed_successfully),
               behavior: SnackBarBehavior.floating,
             ),
           );
           Navigator.pop(context); // Go back to settings after success
         }
       } on FirebaseAuthException catch (e) {
-        String errorMessage = _changePasswordFailed;
+        String errorMessage = S.of(context).change_password_failed;
         if (e.code == 'wrong-password') {
-          errorMessage = _wrongCurrentPassword;
+          errorMessage = S.of(context).wrong_previous_password;
         } else if (e.code == 'user-mismatch') {
           errorMessage = 'User mismatch. Please log in again.';
         } else if (e.code == 'invalid-credential') {
@@ -121,10 +106,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
 
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return _pleaseEnterPassword;
+      return S.of(context).please_enter_password;
     }
     if (value.length < 6) {
-      return _passwordTooShort;
+      return S.of(context).password_too_short;
     }
     return null;
   }
@@ -134,7 +119,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _changePasswordTitle,
+          S.of(context).change_password,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -170,9 +155,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     controller: _currentPasswordController,
                     obscureText: _obscurePreviousPassword,
                     decoration: InputDecoration(
-                      labelText: _currentPasswordLabel,
+                      labelText: S.of(context).previous_password,
                       border: const OutlineInputBorder(),
-                      hintText: _valueHint,
                       suffixIcon: IconButton(
                         // Eye icon for previous password
                         icon: Icon(
@@ -195,9 +179,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     controller: _newPasswordController,
                     obscureText: _obscureNewPassword,
                     decoration: InputDecoration(
-                      labelText: _newPasswordLabel,
+                      labelText: S.of(context).new_password,
                       border: const OutlineInputBorder(),
-                      hintText: _valueHint,
+
                       suffixIcon: IconButton(
                         // Eye icon for new password
                         icon: Icon(
@@ -220,9 +204,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     obscureText:
                         _obscureConfirmNewPassword, // Use the new obscure state
                     decoration: InputDecoration(
-                      labelText: _confirmNewPasswordLabel,
+                      labelText: S.of(context).confirm_new_password,
                       border: const OutlineInputBorder(),
-                      hintText: _valueHint,
                       suffixIcon: IconButton(
                         // Eye icon for confirm password
                         icon: Icon(
@@ -240,10 +223,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return _pleaseEnterPassword;
+                        return S.of(context).confirm_new_password;
                       }
                       if (value != _newPasswordController.text) {
-                        return _passwordsDoNotMatch; // Add a specific error message
+                        return S.of(context).passwords_do_not_match; // Add a specific error message
                       }
                       return null;
                     },
@@ -261,7 +244,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     child:
                         _isUpdating
                             ? const CircularProgressIndicator()
-                            : Text(_submitButtonText),
+                            : Text(S.of(context).submit),
                   ),
                 ],
               ),
