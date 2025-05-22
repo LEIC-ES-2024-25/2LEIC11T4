@@ -6,9 +6,32 @@ import 'package:bookenchange/Logic/Navigation/transitions.dart';
 
 
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+  }
+
+  class _SettingsPageState extends State<SettingsPage> {
+  String? profileImgUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserProfileImage();
+  }
+
+  Future<void> loadUserProfileImage() async {
+    final uid = Firebase.instance.auth.userid;
+    final doc = await Firebase.instance.db.collection('users').doc(uid).get();
+    final data = doc.data();
+    if (data != null && data['profileImageUrl'] != null) {
+      setState(() {
+        profileImgUrl = data['profileImageUrl'];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +86,12 @@ class SettingsPage extends StatelessWidget {
                           radius: 50,
                           backgroundColor:
                               Theme.of(context).colorScheme.secondary,
-                          child: Icon(
-                            Icons.person,
-                            size: 50,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                          backgroundImage: profileImgUrl != null && profileImgUrl!.isNotEmpty
+                              ? NetworkImage(profileImgUrl!)
+                              : null,
+                          child: profileImgUrl == null || profileImgUrl!.isEmpty
+                              ? Icon(Icons.person, size: 48, color: Theme.of(context).colorScheme.primary)
+                              : null,
                         ),
                       ],
                     ),
