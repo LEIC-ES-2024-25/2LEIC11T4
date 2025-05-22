@@ -6,6 +6,8 @@ import 'package:bookenchange/generated/l10n.dart';
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
 
+import '../ChatHub.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -233,10 +235,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
           currentIndex: 0,
           onTap: (index) {
-            Navigator.push(
-              context,
-              CustomPageRoute(destination: Navigation.values[index]),
-            );
+            if (index == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ChatHub()),
+              );
+            } else {
+              Navigator.push(
+                context,
+                CustomPageRoute(destination: Navigation.values[index]),
+              );
+            }
           },
         ),
       ),

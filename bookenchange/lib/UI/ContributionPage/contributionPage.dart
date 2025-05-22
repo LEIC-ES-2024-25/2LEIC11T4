@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:bookenchange/UI/Chat.dart';
+
 
 import '../../Database/Firebase.dart';
+import '../../Domain/Models/Chat/chat.dart';
 import '../Profile/profileView.dart';
 
 class ContributionPage extends StatefulWidget {
@@ -268,8 +271,49 @@ Future<void> _deleteContribution(String? contributionId) async {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              onPressed: () {
-                // handle ASK action
+              onPressed: () async {
+                final currentUserId = Firebase.instance.auth.userid; // Current user ID
+
+                if (currentUserId == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Error: User not logged in')),
+                  );
+                  return;
+                }
+
+                final otherUserId = userId; // The user ID of the contribution owner
+
+                // Generate a unique chat ID (e.g., sorted user IDs)
+                final chatId = [currentUserId, otherUserId]..sort();
+                final chatIdString = chatId.join('_');
+
+                // Check if the chat already exists
+                final chatDoc = await FirebaseFirestore.instance
+                    .collection('chats')
+                    .doc(chatIdString)
+                    .get();
+
+                if (!chatDoc.exists) {
+                  // Create a new chat
+                  final chat = Chat(
+                    chatId: chatIdString,
+                    participants: [currentUserId, otherUserId],
+                    createdAt: DateTime.now(),
+                  );
+
+                  await FirebaseFirestore.instance
+                      .collection('chats')
+                      .doc(chatIdString)
+                      .set(chat.toJson());
+                }
+
+                // Navigate to the ChatPage with the chatId
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPage(chatId: chatIdString),
+                  ),
+                );
               },
               child: const Text('ASK'),
             ),

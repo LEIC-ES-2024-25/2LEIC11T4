@@ -11,11 +11,13 @@ import 'package:bookenchange/UI/Settings/previousContributions.dart';
 import 'package:flutter/material.dart';
 import 'package:bookenchange/UI/Profile/profileView.dart';
 
+import '../../UI/ChatHub.dart';
+
 enum Navigation {
   home(MyHomePage()),
   settings(SettingsPage()),
   nContribution(newContribution()),
-  chat(chatPage()),
+  chatHub(ChatHub()),
   edProfile(editProfile()),
   forgotPass(forgotPassword()),
   changePass(ChangePasswordPage()),
