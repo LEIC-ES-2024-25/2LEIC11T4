@@ -68,6 +68,7 @@ void initState() {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             S.of(context).profile,
             style:
@@ -221,7 +222,7 @@ void initState() {
                                       : "An error occurred while updating the profile.";
 
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(errorMessage)),
+                                    SnackBar(content: Text(errorMessage),),
                                     );
                                   }
                             }

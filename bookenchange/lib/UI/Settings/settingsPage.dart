@@ -1,102 +1,35 @@
 import 'package:bookenchange/Database/Firebase.dart';
 import 'package:bookenchange/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
-import 'package:bookenchange/UI/Login/logIn.dart';
-import 'package:bookenchange/Logic/Authentication.dart';
 
-class SettingsPage extends StatelessWidget {
+
+
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
-  Future<void> _logout(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('remember_me', false);
-      if (context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Login(auth: Auth.instance)),
-        );
-      }
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.redAccent,
-            content: Text('Error logging out: $e'),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
-    }
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
   }
 
-  Future<void> _deleteAccount(BuildContext context) async {
-    try {
-      final user = FirebaseAuth.instance.currentUser;
+  class _SettingsPageState extends State<SettingsPage> {
+  String? profileImgUrl;
 
-      if (user != null) {
-        final uid = user.uid;
-        await Firebase.instance.deleteUserData(uid);
-        await user.delete();
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('remember_me', false);
-        if (context.mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Login(auth: Auth.instance)),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.green,
-              content: Text('Account deleted successfully.'),
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-        }
-      } else {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.redAccent,
-              content: Text('No user is currently logged in.'),
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-        }
-      }
-    } on FirebaseAuthException catch (e) {
-      if (context.mounted) {
-        String errorMessage = 'Error deleting account.';
-        if (e.code == 'requires-recent-login') {
-          errorMessage =
-              'This operation is sensitive and requires recent authentication. Please log in again before deleting your account.';
-          // You might want to redirect the user to the login screen here
-        }
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.redAccent,
-            content: Text(errorMessage),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.redAccent,
-            content: Text(
-              'An unexpected error occurred while deleting your account.',
-            ),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
-      }
+  @override
+  void initState() {
+    super.initState();
+    loadUserProfileImage();
+  }
+
+  Future<void> loadUserProfileImage() async {
+    final uid = Firebase.instance.auth.userid;
+    final doc = await Firebase.instance.db.collection('users').doc(uid).get();
+    final data = doc.data();
+    if (data != null && data['profileImageUrl'] != null) {
+      setState(() {
+        profileImgUrl = data['profileImageUrl'];
+      });
     }
   }
 
@@ -153,11 +86,12 @@ class SettingsPage extends StatelessWidget {
                           radius: 50,
                           backgroundColor:
                               Theme.of(context).colorScheme.secondary,
-                          child: Icon(
-                            Icons.person,
-                            size: 50,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                          backgroundImage: profileImgUrl != null && profileImgUrl!.isNotEmpty
+                              ? NetworkImage(profileImgUrl!)
+                              : null,
+                          child: profileImgUrl == null || profileImgUrl!.isEmpty
+                              ? Icon(Icons.person, size: 48, color: Theme.of(context).colorScheme.primary)
+                              : null,
                         ),
                       ],
                     ),
@@ -227,7 +161,7 @@ class SettingsPage extends StatelessWidget {
           onTap: () async {
             switch (title) {
               case "Log Out":
-                await _logout(context);
+                await Firebase.instance.logout(context);
                 break;
               case "Previous Contributions":
                 Navigator.push(
@@ -267,7 +201,7 @@ class SettingsPage extends StatelessWidget {
                   },
                 ).then((shouldDelete) async {
                   if (shouldDelete == true) {
-                    await _deleteAccount(context);
+                    await Firebase.instance.deleteAccount(context);
                   }
                 });
               default:

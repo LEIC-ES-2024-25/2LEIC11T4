@@ -54,13 +54,13 @@
   "@password_changed_successfully": {},
   "change_password_failed": "Change password failed",
   "@change_password_failed": {},
-  "wrong_previous_password": "Wrong previous password",
+  "wrong_previous_password": "Wrong current password",
   "@wrong_previous_password": {},
   "please_enter_password": "Please enter your password",
   "@please_enter_password": {},
   "password_too_short": "Password must be at least 6 characters long",
   "@password_too_short": {},
-  "previous_password": "Previous Password",
+  "previous_password": "Current Password",
   "@previous_password": {},
   "value": "Value",
   "@value": {},
@@ -79,5 +79,22 @@
   "fill_all_fields": "Please fill all fields",
   "image_upload_error": "There was an error uploading the image",
   "invalid_condition": "Invalid condition",
-  "description_hint": "Book about algorithms, 2nd edition"
+  "description_hint": "Book about algorithms, 2nd edition",
+   "confirm_new_password": "Confirm New Password",
+  "@confirm_new_password": {},
+
+  "passwords_do_not_match": "Passwords do not match",
+  "@passwords_do_not_match": {},
+
+  "same_as_current_password": "New password cannot be the same as the current password",
+  "@same_as_current_password": {},
+
+  "user_mismatch": "User mismatch. Please log in again.",
+  "@user_mismatch": {},
+
+  "invalid_credential": "Invalid credentials. Please try again.",
+  "@invalid_credential": {},
+
+  "new_password_too_weak": "The new password is too weak.",
+  "@new_password_too_weak": {}
 }
