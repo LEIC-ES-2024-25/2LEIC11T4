@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../Database/Firebase.dart';
 import '../Profile/profileView.dart';
 
 class ContributionPage extends StatefulWidget {
@@ -53,35 +54,98 @@ class _ContributionPageState extends State<ContributionPage> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFFDFDFD),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF819DD4),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: const Color(0xFFFDFDFD),
+    appBar: AppBar(
+      backgroundColor: const Color(0xFF819DD4),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, color: Colors.white),
+        onPressed: () => Navigator.pop(context),
+      ),
+      actions: [
+        FutureBuilder<Map<String, dynamic>>(
+          future: _contributionFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.hasData &&
+                snapshot.data?['iduser'] == Firebase.instance.auth.userid) {
+              return IconButton(
+                icon: const Icon(Icons.delete, color: Colors.white),
+                onPressed: () => _confirmDelete(context, snapshot.data?['id']),
+              );
+            }
+            return const SizedBox.shrink();
+          },
         ),
-        elevation: 0,
-      ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: _contributionFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData) {
-            return const Center(child: Text('No data found'));
-          }
+      ],
+      elevation: 0,
+    ),
+    body: FutureBuilder<Map<String, dynamic>>(
+      future: _contributionFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (!snapshot.hasData) {
+          return const Center(child: Text('No data found'));
+        }
 
-          final data = snapshot.data!;
-          return _buildContributionContent(data);
-        },
-      ),
-    );
+        final data = snapshot.data!;
+        return _buildContributionContent(data);
+      },
+    ),
+  );
+}
+
+void _confirmDelete(BuildContext context, String? contributionId) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Delete Contribution'),
+      content: const Text('Are you sure you want to delete this contribution?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context);
+            await _deleteContribution(contributionId);
+          },
+          child: const Text('Delete'),
+        ),
+      ],
+    ),
+  );
+}
+
+Future<void> _deleteContribution(String? contributionId) async {
+  if (contributionId == null) return;
+
+  try {
+    await FirebaseFirestore.instance
+        .collection('contributions')
+        .doc(contributionId)
+        .delete();
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Contribution deleted successfully')),
+      );
+      Navigator.pop(context); // Go back to the previous page
+    }
+  } catch (e) {
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error deleting contribution: $e')),
+      );
+    }
   }
+}
 
   Widget _buildContributionContent(Map<String, dynamic> data) {
     final images = (data['images'] as List<dynamic>?)?.cast<String>() ?? [];
