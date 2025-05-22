@@ -65,7 +65,21 @@ class _ChatHubState extends State<ChatHub> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChatPage(chatId: chat.id),
+                        builder: (context) => FutureBuilder<DocumentSnapshot>(
+                            future: FirebaseFirestore.instance.collection('chats').doc(chat.id).get(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const Center(child: CircularProgressIndicator());
+                              } else if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
+                                return const Center(child: Text('Error fetching chat participants'));
+                              }
+
+                              final data = snapshot.data!.data() as Map<String, dynamic>;
+                              final participants = List<String>.from(data['participants'] ?? []);
+
+                              return ChatPage(chatId: chat.id, participants: participants);
+                            },
+                          ),
                         ),
                       );
                     },

@@ -2,9 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'Profile/profileView.dart';
+
 class ChatPage extends StatefulWidget {
   final String chatId; // Unique ID for the chat
-  const ChatPage({super.key, required this.chatId});
+  final List<String> participants;
+  const ChatPage({super.key, required this.chatId, required this.participants});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -35,9 +38,56 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUserId = _auth.currentUser?.uid;
+    final otherUserId = widget.participants.firstWhere((id) => id != currentUserId, orElse: () => '');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat'),
+        backgroundColor: const Color(0xff809bce),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: FutureBuilder<DocumentSnapshot>(
+          future: FirebaseFirestore.instance
+              .collection('users')
+              .doc(otherUserId)
+              .get(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator(color: Colors.white);
+            } else if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
+              return const Text('User not found', style: TextStyle(color: Colors.white));
+            }
+
+            final userData = snapshot.data!.data() as Map<String, dynamic>;
+            final firstName = userData['First_name'] ?? 'Unknown';
+            final lastName = userData['Last_name'] ?? 'User';
+            final profileImageUrl = userData['profileImageUrl'] ?? 'https://via.placeholder.com/150';
+
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileView(userId: otherUserId),
+                  ),
+                );
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(profileImageUrl),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    '$firstName $lastName',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
       body: Column(
         children: [

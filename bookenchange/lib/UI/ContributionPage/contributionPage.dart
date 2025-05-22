@@ -316,7 +316,10 @@ Future<void> _deleteContribution(String? contributionId) async {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChatPage(chatId: chatIdString),
+                    builder: (context) => ChatPage(
+                      chatId: chatIdString,
+                      participants: [currentUserId, otherUserId], // Pass the participants list here
+                    ),
                   ),
                 );
               },
