@@ -303,6 +303,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 context,
                 CustomPageRoute(destination: Navigation.values[index]),
               );
+            };
             }
           },
         ),
