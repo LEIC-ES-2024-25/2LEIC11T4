@@ -53,18 +53,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
         // Fetch book name using idbook
         String bookName = 'Unknown Book';
-        if (contributionData['idbook'] != null) {
+        if (contributionData['bookId'] != null) {
           try {
             final bookSnapshot = await firebase.db
                 .collection('books')
-                .doc(contributionData['idbook'].toString())
+                .doc(contributionData['bookId'].toString())
                 .get();
 
             if (bookSnapshot.exists) {
               bookName = bookSnapshot.data()?['name'] as String? ?? 'Unknown Book';
             }
           } catch (e) {
-            debugPrint('Error fetching book for idbook ${contributionData['idbook']}: $e');
+            debugPrint('Error fetching book for idbook ${contributionData['bookId']}: $e');
           }
         }
 
