@@ -1,57 +1,32 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'contribution.freezed.dart';
 part 'contribution.g.dart';
-
-@JsonSerializable()
-class Contribution {
-  final String? id;
-  final String? iduser;
-  final String? idbook;
-  final String description;
-  final Condition condition;
-  final List<String> images;
-  final String? bookName; // Optional field
-  final String? username; // Optional field
-
-  Contribution({
-    required this.id,
-    required this.iduser,
-    required this.idbook,
-    required this.description,
-    required this.condition,
-    required this.images,
-    this.bookName,
-    this.username,
-  });
-
-  factory Contribution.fromJson(Map<String, dynamic> json) =>
-      _$ContributionFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ContributionToJson(this);
-
-  Contribution copyWith({
-    String? id,
-    String? bookName,
-    String? username,
-  }) {
-    return Contribution(
-      id : id ?? this.id,
-      iduser: iduser,
-      idbook: idbook,
-      description: description,
-      condition: condition,
-      images: images,
-      bookName: bookName ?? this.bookName,
-      username: username ?? this.username,
-    );
-  }
-}
 
 enum Condition {
   @JsonValue('New')
   newCondition,
+
   @JsonValue('Used - Good')
   usedCondition,
+
   @JsonValue('Used - Acceptable')
   damagedCondition,
+}
+
+@freezed
+abstract class Contribution with _$Contribution {
+  const factory Contribution({
+    String? id,
+    String? iduser,
+    String? idbook,
+    required String description,
+    required Condition condition,
+    required List<String> images,
+
+    @JsonKey(name: 'name') String? bookName, // 🔥 Map Firestore field "name" to Dart's "bookName"
+    String? username,
+  }) = _Contribution;
+
+  factory Contribution.fromJson(Map<String, dynamic> json) => _$ContributionFromJson(json);
 }

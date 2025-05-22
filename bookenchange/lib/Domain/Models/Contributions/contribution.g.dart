@@ -6,18 +6,20 @@ part of 'contribution.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Contribution _$ContributionFromJson(Map<String, dynamic> json) => Contribution(
-  id: json['id'] as String?,
-  iduser: json['iduser'] as String?,
-  idbook: json['idbook'] as String?,
-  description: json['description'] as String,
-  condition: $enumDecode(_$ConditionEnumMap, json['condition']),
-  images: (json['images'] as List<dynamic>).map((e) => e as String).toList(),
-  bookName: json['bookName'] as String?,
-  username: json['username'] as String?,
-);
+_Contribution _$ContributionFromJson(Map<String, dynamic> json) =>
+    _Contribution(
+      id: json['id'] as String?,
+      iduser: json['iduser'] as String?,
+      idbook: json['idbook'] as String?,
+      description: json['description'] as String,
+      condition: $enumDecode(_$ConditionEnumMap, json['condition']),
+      images:
+          (json['images'] as List<dynamic>).map((e) => e as String).toList(),
+      bookName: json['name'] as String?,
+      username: json['username'] as String?,
+    );
 
-Map<String, dynamic> _$ContributionToJson(Contribution instance) =>
+Map<String, dynamic> _$ContributionToJson(_Contribution instance) =>
     <String, dynamic>{
       'id': instance.id,
       'iduser': instance.iduser,
@@ -25,7 +27,7 @@ Map<String, dynamic> _$ContributionToJson(Contribution instance) =>
       'description': instance.description,
       'condition': _$ConditionEnumMap[instance.condition]!,
       'images': instance.images,
-      'bookName': instance.bookName,
+      'name': instance.bookName,
       'username': instance.username,
     };
 
