@@ -24,6 +24,50 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
     fetchContributions();
   }
 
+  Future<Contribution> enrichContributionData(Firebase firebase, Map<String, dynamic> contributionData, String docId) async {
+    String bookName = 'Unknown Book';
+    String username = 'Unknown User';
+
+    // Fetch book name using idbook
+    if (contributionData['bookId'] != null) {
+      try {
+        final bookSnapshot = await firebase.db
+            .collection('books')
+            .doc(contributionData['bookId'].toString())
+            .get();
+
+        if (bookSnapshot.exists) {
+          bookName = bookSnapshot.data()?['name'] as String? ?? 'Unknown Book';
+        }
+      } catch (e) {
+        debugPrint('Error fetching book for idbook ${contributionData['bookId']}: $e');
+      }
+    }
+
+    // Fetch username using iduser
+    if (contributionData['iduser'] != null) {
+      try {
+        final userSnapshot = await firebase.db
+            .collection('users')
+            .doc(contributionData['iduser'].toString())
+            .get();
+
+        if (userSnapshot.exists) {
+          username = userSnapshot.data()?['username'] as String? ?? 'Unknown User';
+        }
+      } catch (e) {
+        debugPrint('Error fetching user for iduser ${contributionData['iduser']}: $e');
+      }
+    }
+
+    // Add additional fields to the contribution data
+    contributionData['bookName'] = bookName;
+    contributionData['username'] = username;
+
+    // Convert to Contribution object and include the document ID
+    return Contribution.fromJson(contributionData).copyWith(id: docId);
+  }
+
   Future<void> fetchContributions() async {
     try {
       final userId = firebase.auth.userid;
@@ -32,9 +76,12 @@ class _PreviousContributionsPageState extends State<PreviousContributionsPage> {
           .where('iduser', isEqualTo: userId)
           .get();
 
-      final List<Contribution> fetchedContributions = snapshot.docs
-          .map((doc) => Contribution.fromJson(doc.data()))
-          .toList();
+      final List<Contribution> fetchedContributions = [];
+      for (var doc in snapshot.docs) {
+        final contributionData = doc.data();
+        final enrichedContribution = await enrichContributionData(firebase, contributionData, doc.id);
+        fetchedContributions.add(enrichedContribution);
+      }
 
       setState(() {
         contributions = fetchedContributions;

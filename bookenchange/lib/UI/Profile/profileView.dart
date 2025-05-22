@@ -41,6 +41,50 @@ class _ProfileViewState extends State<ProfileView> {
     }
   }
 
+  Future<Contribution> enrichContributionData(Firebase firebase, Map<String, dynamic> contributionData, String docId) async {
+    String bookName = 'Unknown Book';
+    String username = 'Unknown User';
+
+    // Fetch book name using idbook
+    if (contributionData['bookId'] != null) {
+      try {
+        final bookSnapshot = await firebase.db
+            .collection('books')
+            .doc(contributionData['bookId'].toString())
+            .get();
+
+        if (bookSnapshot.exists) {
+          bookName = bookSnapshot.data()?['name'] as String? ?? 'Unknown Book';
+        }
+      } catch (e) {
+        debugPrint('Error fetching book for idbook ${contributionData['bookId']}: $e');
+      }
+    }
+
+    // Fetch username using iduser
+    if (contributionData['iduser'] != null) {
+      try {
+        final userSnapshot = await firebase.db
+            .collection('users')
+            .doc(contributionData['iduser'].toString())
+            .get();
+
+        if (userSnapshot.exists) {
+          username = userSnapshot.data()?['username'] as String? ?? 'Unknown User';
+        }
+      } catch (e) {
+        debugPrint('Error fetching user for iduser ${contributionData['iduser']}: $e');
+      }
+    }
+
+    // Add additional fields to the contribution data
+    contributionData['bookName'] = bookName;
+    contributionData['username'] = username;
+
+    // Convert to Contribution object and include the document ID
+    return Contribution.fromJson(contributionData).copyWith(id: docId);
+  }
+
   Future<void> fetchUserContributions() async {
     try {
       final snapshot = await firebase.db
@@ -48,12 +92,15 @@ class _ProfileViewState extends State<ProfileView> {
           .where('iduser', isEqualTo: widget.userId)
           .get();
 
-      final contributions = snapshot.docs
-          .map((doc) => Contribution.fromJson(doc.data()).copyWith(id: doc.id))
-          .toList();
+      final List<Contribution> fetchedContributions = [];
+      for (var doc in snapshot.docs) {
+        final contributionData = doc.data();
+        final enrichedContribution = await enrichContributionData(firebase, contributionData, doc.id);
+        fetchedContributions.add(enrichedContribution);
+      }
 
       setState(() {
-        userContributions = contributions;
+        userContributions = fetchedContributions;
         isLoading = false;
       });
     } catch (e) {
