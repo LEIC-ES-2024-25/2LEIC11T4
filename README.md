@@ -19,16 +19,16 @@
   * [Sprint 0](#sprint-0)
     * [Sprint 1 planning](#sprint-1-planning)
   * [Sprint 1](#sprint-1)
-    * [Sprint review](#sprint-review)
-    * [Sprint retrospective](#sprint-retrospective)
+    * [Sprint review](#sprint-1-review)
+    * [Sprint retrospective](#sprint-1-retrospective)
     * [Sprint 2 planning](#sprint-2-planning)
   * [Sprint 2](#sprint-2)
-    * [Sprint review](#sprint-review)
-    * [Sprint retrospective](#sprint-retrospective)
+    * [Sprint review](#sprint-2-review)
+    * [Sprint retrospective](#sprint-2-retrospective)
     * [Sprint 3 planning](#sprint-3-planning)
   * [Sprint 3](#sprint-3)
-    *[sprint-review](#sprint-review)
-    *[Sprint retrospective](#sprint-retrospective)
+    * [sprint-review](#sprint-3-review)
+    * [Sprint retrospective](#sprint-3-retrospective)
     
       
 5.[Happiness meter](#happiness-meter)
@@ -121,9 +121,9 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 ### Sprint 1
 ![github com_orgs_LEIC-ES-2024-25_projects_75_views_1 (2)](https://github.com/user-attachments/assets/a453afde-187a-4866-bf78-9572a06d50cf)
 
-#### Sprint review
+#### Sprint 1 review
 - During this sprint, we successfully developed several of the planned tasks. Notably, we completed the UI for the New Contribution page. However, since the logic was not yet implemented and the feature could not be used meaningfully by the user, we could not consider the user story as fully delivered. As a result, there was no tangible value added to the application during this sprint.
-#### Sprint retrospective
+#### Sprint 1 retrospective
 - One of the main challenges we encountered was a lack of consideration for dependencies between UI and logic tasks during sprint planning. This oversight led to the development of several tasks that were not immediately useful on their own and could not be tested end-to-end. In hindsight, a better understanding and mapping of these dependencies would have allowed us to prioritize tasks more effectively and deliver user value incrementally.
 
 #### Sprint 2 planning 
@@ -133,14 +133,21 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 ### Sprint 2
 ![github com_orgs_LEIC-ES-2024-25_projects_75_views_1](https://github.com/user-attachments/assets/35c5ae9b-fe58-432a-9a85-095c37ee2587)
 
-#### Sprint review
+#### Sprint 2 review
 - For this sprint we proposed ourselves to work on the link between the dart code and the Firebase, in order to make the Contribution and User logic work. We were able to complete these tasks, however as there are no cards available for the user it's assumed as having no additional user value. At the stage that we are at this moment the next tasks related to this part of the project will be eased, remaining the implementation of the chat (related to the users db) and the visual cards in the main pages.
 
-#### Sprint retrospective
+#### Sprint 2 retrospective
 - We faced several difficulties, related for instance to dependencies that delayed our tasks. Still, we made efforts to individually solve those problems, according to the tasks assigned, reporting in group our solutions. We acknowledge that we should've made a more integrated test of the features in order to systematically check that they were all working.
   
 #### Sprint 3 planning
 - As this is the final sprint and it requires delivering all user value proposed, we will have to focus on finishing the logic we worked on and testing all the features. We will have to finish the contribution cards, the user settings and the chat.
+---
+### Sprint 3
+
+### Sprint 3 review
+
+### Sprint 3 retrospective
+
 ---
 ## Happiness meter
 [2LEIC11T4.xlsx](https://github.com/user-attachments/files/20041230/2LEIC11T4.xlsx)
