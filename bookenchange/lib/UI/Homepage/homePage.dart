@@ -5,6 +5,7 @@ import 'package:bookenchange/UI/Homepage/contributionCard.dart';
 import 'package:bookenchange/generated/l10n.dart';
 import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -19,12 +20,22 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Contribution> filteredContributions = [];
   final TextEditingController searchController = TextEditingController();
   String? profileImageUrl;
+  bool isEmailVerified = false;
 
   @override
   void initState() {
     super.initState();
     fetchContributions();
     fetchUserProfileImage();
+    checkEmailVerification();
+  }
+
+  Future<void> checkEmailVerification() async {
+    final user = Firebase.instance.auth.currentUser;
+    await user?.reload(); // Refresh latest status
+    setState(() {
+      isEmailVerified = user?.emailVerified ?? false;
+    });
   }
 
   Future<void> fetchUserProfileImage() async {
@@ -232,11 +243,60 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
           currentIndex: 0,
-          onTap: (index) {
-            Navigator.push(
-              context,
-              CustomPageRoute(destination: Navigation.values[index]),
-            );
+          onTap: (index) async{
+            if (index == 2) {
+              final user = firebase.auth.currentUser;
+              await user?.reload();
+
+              final refreshedUser = firebase.auth.currentUser;
+              final verified = refreshedUser?.emailVerified ?? false;
+
+              if (verified) {
+                Navigator.push(
+                  context,
+                  CustomPageRoute(destination: Navigation.values[index]),
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Email Verification Required'),
+                      content: const Text(
+                        'Please verify your email before creating a new contribution.',
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            Navigator.pop(context);
+                            
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Verification email sent',
+                                ),
+                              ),
+                            );
+
+                            await user?.sendEmailVerification();
+                          },
+                          child: const Text('Send Email'),
+                        ),
+                      ],
+                    );
+                  }
+                );
+              }
+            } else {
+              Navigator.push(
+                context,
+                CustomPageRoute(destination: Navigation.values[index]),
+              );
+            }
           },
         ),
       ),

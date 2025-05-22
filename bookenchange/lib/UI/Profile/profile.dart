@@ -245,7 +245,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   final currentEmail = firebase.auth.currentUser?.email;
                                   final newEmail = emailController.text.trim().toLowerCase();;
                                   try {
-                                    
+
                                     // If email was changed, attempt to update it in Firebase Auth
                                     if (newEmail != currentEmail) {
                                      try {

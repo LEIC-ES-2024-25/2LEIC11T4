@@ -5,7 +5,6 @@ import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
 
 
-
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
@@ -15,11 +14,21 @@ class SettingsPage extends StatefulWidget {
 
   class _SettingsPageState extends State<SettingsPage> {
   String? profileImgUrl;
+  bool isEmailVerified = false;
 
   @override
   void initState() {
     super.initState();
     loadUserProfileImage();
+    checkEmailVerification();
+  }
+
+  Future<void> checkEmailVerification() async {
+    final user = Firebase.instance.auth.currentUser;
+    await user?.reload(); // Refresh latest status
+    setState(() {
+      isEmailVerified = user?.emailVerified ?? false;
+    });
   }
 
   Future<void> loadUserProfileImage() async {
@@ -111,12 +120,20 @@ class SettingsPage extends StatefulWidget {
                   "Change Password",
                   context,
                 ),
-                _buildSettingsOption(Icons.logout, "Log Out", context),
+                _buildSettingsOption(Icons.logout,
+                 "Log Out",
+                  context),
                 _buildSettingsOption(
                   Icons.delete_forever_outlined,
                   "Delete Account",
                   context,
                 ),
+                _buildSettingsOption(
+                  isEmailVerified ? Icons.verified : Icons.verified_outlined,
+                  isEmailVerified ? "Email Verified" : "Verify Email",
+                  context,
+                ),
+                
               ],
             ),
           ],
@@ -204,6 +221,45 @@ class SettingsPage extends StatefulWidget {
                     await Firebase.instance.deleteAccount(context);
                   }
                 });
+
+                break;
+              case "Verify Email":
+              case "Email Verified":
+                if (isEmailVerified) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Your email is already verified.")),
+                  );
+                } else {
+                  final user = Firebase.instance.auth.currentUser;
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text("Verify Your Email"),
+                        content: Text("Send a verification email to ${user?.email}?"),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("Cancel"),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              Navigator.pop(context);
+                              await user?.sendEmailVerification();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Verification email sent to ${user?.email}")),
+                              );
+                            },
+                            child: const Text("Send"),
+                          ),
+                        ],
+                      );
+                    },
+
+                  );
+                }
+                 
+                break;
               default:
                 break;
             }
