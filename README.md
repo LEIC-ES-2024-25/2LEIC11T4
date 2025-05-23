@@ -148,6 +148,7 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 - We've worked on the implementation of the missing features, and were able to make them functional. Overall, there's no significant feature that we've left behind.
   
 ### Sprint retrospective
+- We worked together on this final stage to complement each other tasks and integrate them in the final product.
 
 ## Happiness meter
 [2LEIC11T4.xlsx](https://github.com/user-attachments/files/20041230/2LEIC11T4.xlsx)
