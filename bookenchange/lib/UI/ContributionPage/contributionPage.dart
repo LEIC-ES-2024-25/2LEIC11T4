@@ -271,7 +271,56 @@ Future<void> _deleteContribution(String? contributionId) async {
                   ),
                 ),
                 onPressed: () async {
-                  // existing ASK button logic...
+                  final currentUserId = Firebase.instance.auth.userid; // Current user ID
+
+                  if (currentUserId == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Error: User not logged in')),
+                    );
+                    return;
+                  }
+
+                  final otherUserId = userId; // The user ID of the contribution owner
+
+                  // Debug print to show the IDs
+                  debugPrint('Current User ID: $currentUserId');
+                  debugPrint('Other User ID: $otherUserId');
+                  debugPrint('Contribution User ID: $userId');
+
+                  // Generate a unique chat ID (e.g., sorted user IDs)
+                  final chatId = [currentUserId, otherUserId]..sort();
+                  final chatIdString = chatId.join('_');
+
+                  // Check if the chat already exists
+                  final chatDoc = await FirebaseFirestore.instance
+                      .collection('chats')
+                      .doc(chatIdString)
+                      .get();
+
+                  if (!chatDoc.exists) {
+                    // Create a new chat
+                    final chat = Chat(
+                      chatId: chatIdString,
+                      participants: [currentUserId, otherUserId],
+                      createdAt: DateTime.now(),
+                    );
+
+                    await FirebaseFirestore.instance
+                        .collection('chats')
+                        .doc(chatIdString)
+                        .set(chat.toJson());
+                  }
+
+                  // Navigate to the ChatPage with the chatId
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChatPage(
+                        chatId: chatIdString,
+                        participants: [currentUserId, otherUserId], // Pass the participants list here
+                      ),
+                    ),
+                  );
                 },
                 child: const Text('ASK'),
               ),
