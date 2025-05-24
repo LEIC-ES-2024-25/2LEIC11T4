@@ -32,7 +32,24 @@ class forgotPassword extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: FilledButton(
-                      onPressed: () => auth.recover(context, username),
+                      onPressed: () async {
+                        final email = username.text.trim();
+
+                        final success = await auth.recover(context, username);
+
+                        if (success) {
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Recovery mail sent to $email"),
+                              ),
+                            );
+                            Navigator.pop(context); // Assumes Login is the previous screen
+                          }
+                        } else {
+                          // Optionally handle failure (e.g., show error)
+                        }
+                      },
                       style: FilledButton.styleFrom(
                         minimumSize: Size(100, 50),
                         shape: RoundedRectangleBorder(
