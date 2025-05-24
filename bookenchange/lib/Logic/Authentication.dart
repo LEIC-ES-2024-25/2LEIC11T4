@@ -101,27 +101,18 @@ class Auth {
     }
   }
 
-  Future<void> recover(BuildContext context, username) async {
+  Future<bool> recover(BuildContext context, TextEditingController controller) async {
+    final email = controller.text.trim();
+
     try {
-      await _firebaseAuth.sendPasswordResetEmail(email: username.text.trim());
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      return true;
     } catch (e) {
-      if (e == 'user-not-found' && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            content: Text(
-              S.of(context).not_found,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.only(
-              bottom: MediaQuery.sizeOf(context).height * 0.91,
-              left: 10,
-              right: 10,
-            ),
-          ),
-        );
-      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: ${e.toString()}")),
+      );
+      return false;
     }
   }
+
 }

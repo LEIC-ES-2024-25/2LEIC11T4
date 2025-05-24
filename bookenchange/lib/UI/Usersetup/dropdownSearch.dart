@@ -56,19 +56,22 @@ class _dropdownSearchState extends State<dropdownSearch> {
               text: searchEntry,
             );
             return TextButton(
-              onPressed:
-                  () async => {
-                    await widget.add(controller.text.trim()),
-                    setState(() {
-                      widget.selected = controller.text.trim();
-                    }),
-                  },
+              onPressed: () async {
+                final newValue = controller.text.trim();
+                if (newValue.isEmpty) return;
+
+                await widget.add(newValue);
+                widget.onChanged(newValue);
+                Navigator.of(context).pop(newValue);
+              },
               child: Text(
                 S.of(context).add_new,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             );
           },
+
+
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {

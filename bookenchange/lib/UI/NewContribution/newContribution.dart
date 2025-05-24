@@ -40,6 +40,9 @@ class _newContributionState extends State<newContribution> {
   final ImagePicker _picker = ImagePicker();
   List<File> _selectedImages = [];
 
+  bool _isSearching = false;
+  bool _isSubmitting = false;
+
   Future<void> _pickImages() async {
     if (_selectedImages.length >= 5) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -202,13 +205,24 @@ class _newContributionState extends State<newContribution> {
                   labelText: S.of(context).isbn,
                   hintText: "e.g 0596156715",
                   border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
+                  suffixIcon: _isSearching
+                      ? const Padding(
+                    padding: EdgeInsets.all(12),
+                    child: SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  )
+                      : IconButton(
                     onPressed: () async {
+                      setState(() => _isSearching = true);
                       final result = await firebase.getBookByISBN(
                         isbnController.text.trim(),
                       );
                       setState(() {
                         bookInfo = result;
+                        _isSearching = false;
                       });
                     },
                     icon: Icon(
@@ -218,6 +232,7 @@ class _newContributionState extends State<newContribution> {
                   ),
                 ),
               ),
+
               bookInfo != null
                   ? ExpansionTile(
                 title: Text(
@@ -267,12 +282,54 @@ class _newContributionState extends State<newContribution> {
               }),
               const SizedBox(height: 5),
               ElevatedButton(
-                onPressed: () async {
+                onPressed: _isSubmitting
+                    ? null
+                    : () async {
+                  // Manual validation for non-Form fields
+                  if (_selectedImages.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please add at least one image'), backgroundColor: Colors.red),
+                    );
+                    return;
+                  }
+
+                  if (isbnController.text.trim().isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('ISBN cannot be empty'), backgroundColor: Colors.red),
+                    );
+                    return;
+                  }
+
+                  if (descController.text.trim().isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Description cannot be empty'), backgroundColor: Colors.red),
+                    );
+                    return;
+                  }
+
+                  if (selectedCondition == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please select a condition'), backgroundColor: Colors.red),
+                    );
+                    return;
+                  }
+
                   if (_formKey.currentState!.validate()) {
-                    _saveContribution();
+                    setState(() => _isSubmitting = true);
+                    await _saveContribution();
+                    setState(() => _isSubmitting = false);
                   }
                 },
-                child: const Text("Submit Contribution"),
+                child: _isSubmitting
+                    ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                )
+                    : const Text("Submit Contribution"),
               ),
             ],
           ),

@@ -40,53 +40,63 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     final currentUserId = _auth.currentUser?.uid;
     final otherUserId = widget.participants.firstWhere((id) => id != currentUserId, orElse: () => '');
+    final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff809bce),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: FutureBuilder<DocumentSnapshot>(
-          future: FirebaseFirestore.instance
-              .collection('users')
-              .doc(otherUserId)
-              .get(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(color: Colors.white);
-            } else if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
-              return const Text('User not found', style: TextStyle(color: Colors.white));
-            }
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color(0xff809bce),
+          title: FutureBuilder<DocumentSnapshot>(
+            future: FirebaseFirestore.instance.collection('users').doc(otherUserId).get(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator(color: Colors.white));
+              } else if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
+                return const Text('User not found', style: TextStyle(color: Colors.white));
+              }
 
-            final userData = snapshot.data!.data() as Map<String, dynamic>;
-            final firstName = userData['First_name'] ?? 'Unknown';
-            final lastName = userData['Last_name'] ?? 'User';
-            final profileImageUrl = userData['profileImageUrl'] ?? 'https://via.placeholder.com/150';
+              final userData = snapshot.data!.data() as Map<String, dynamic>;
+              final username = userData['username'] ?? 'Unknown User';
+              final firstName = userData['First_name'] ?? 'Unknown';
+              final lastName = userData['Last_name'] ?? 'User';
+              final profileImageUrl = userData['profileImageUrl'] ?? 'https://via.placeholder.com/150';
 
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfileView(userId: otherUserId),
-                  ),
-                );
-              },
-              child: Row(
+              return Row(
                 children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(profileImageUrl),
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () => Navigator.pop(context),
                   ),
-                  const SizedBox(width: 8),
-                  Text(
-                    '$firstName $lastName',
-                    style: const TextStyle(color: Colors.white),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileView(userId: otherUserId),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        CircleAvatar(backgroundImage: NetworkImage(profileImageUrl)),
+                        const SizedBox(width: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("$username", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
+                            Text("$firstName $lastName", style: const TextStyle(color: Colors.black, fontSize: 12)),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
       body: Column(
@@ -113,26 +123,33 @@ class _ChatPageState extends State<ChatPage> {
                     final message = messages[index];
                     final isMe = message['senderId'] == _auth.currentUser?.uid;
 
-                    return Align(
-                      alignment: isMe
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 10),
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: isMe
-                              ? Colors.blueAccent
-                              : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          message['text'],
-                          style: TextStyle(
-                            color: isMe ? Colors.white : Colors.black,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                        children: [
+                          if (!isMe) ...[
+                            const CircleAvatar(
+                              radius: 15,
+                              backgroundColor: Color(0xff809bce),
+                              child: Icon(Icons.person, size: 16, color: Colors.white),
+                            ),
+                            const SizedBox(width: 5),
+                          ],
+                          Flexible(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                              decoration: BoxDecoration(
+                                color: isMe ? const Color(0xff809bce) : const Color(0xffd9ede4),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Text(
+                                message['text'],
+                                style: TextStyle(color: isMe ? Colors.white : Colors.black),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     );
                   },
@@ -141,21 +158,38 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 28),
             child: Row(
               children: [
                 Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: const InputDecoration(
-                      hintText: 'Type a message...',
-                      border: OutlineInputBorder(),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14 ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xff809bce),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+
+                    child: TextField(
+                      controller: _messageController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
+                        hintText: "Enviar mensagem....",
+                        hintStyle: TextStyle(color: Colors.white70),
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: _sendMessage,
+                const SizedBox(width: 8),
+                Container(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xff809bce),
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.send, color: Colors.white),
+                    onPressed: _sendMessage,
+                  ),
                 ),
               ],
             ),
