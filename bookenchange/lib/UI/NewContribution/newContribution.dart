@@ -288,28 +288,28 @@ class _newContributionState extends State<newContribution> {
                   // Manual validation for non-Form fields
                   if (_selectedImages.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Please add at least one image')),
+                      const SnackBar(content: Text('Please add at least one image'), backgroundColor: Colors.red),
                     );
                     return;
                   }
 
                   if (isbnController.text.trim().isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('ISBN cannot be empty')),
+                      const SnackBar(content: Text('ISBN cannot be empty'), backgroundColor: Colors.red),
                     );
                     return;
                   }
 
                   if (descController.text.trim().isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Description cannot be empty')),
+                      const SnackBar(content: Text('Description cannot be empty'), backgroundColor: Colors.red),
                     );
                     return;
                   }
 
                   if (selectedCondition == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Please select a condition')),
+                      const SnackBar(content: Text('Please select a condition'), backgroundColor: Colors.red),
                     );
                     return;
                   }
