@@ -73,7 +73,7 @@ ThemeData ligthTheme = ThemeData(
     onTertiary: textcolour,
   ),
   primaryColor: primary,
-  cardTheme: CardTheme(margin: EdgeInsets.all(4), color: ternary),
+  cardTheme: CardThemeData(margin: EdgeInsets.all(4), color: ternary),
   dividerColor: secondaryTextColour,
   hintColor: secondaryTextColour,
   indicatorColor: secondary,
