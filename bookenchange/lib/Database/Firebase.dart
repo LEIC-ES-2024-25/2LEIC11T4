@@ -108,7 +108,7 @@ class Firebase {
   }
 
   //add user
-  Future<void> addUsers(
+  /*Future<void> addUsers(
     String firstname,
     String lastname,
     String username,
@@ -134,7 +134,7 @@ class Firebase {
             profileImageUrl: image,
           ).toJson(),
         );
-  }
+  }*/
 
   Future<void> logout(BuildContext context) async {
     try {
@@ -229,6 +229,23 @@ class Firebase {
     }
   }
 
+      Future<bool> isEmailTaken(String email, {String? excludeUserId}) async {
+    final query = db
+        .collection('users')
+        .where('email', isEqualTo: email);
+
+    final results = await query.get();
+
+    for (final doc in results.docs) {
+      if (excludeUserId == null || doc.id != excludeUserId) {
+        return true; // Username is taken by someone else
+      }
+    }
+
+    return false; // Username is available
+  }
+
+
   Future<bool> isUsernameTaken(String username, {String? excludeUserId}) async {
     final query = db
         .collection('users')
@@ -246,12 +263,11 @@ class Firebase {
   }
 
 
-
-
   Future<void> saveOrUpdateUser({
     required String firstname,
     required String lastname,
     required String username,
+    required String email,
     required String institution,
     required String degree,
     required int yearofStudy,
@@ -264,6 +280,10 @@ class Firebase {
       throw Exception("Username already taken");
     }
 
+    final EmailTaken = await isEmailTaken(email, excludeUserId: userId);
+    if (EmailTaken) {
+      throw Exception("Email is already in use");
+    }
 
     String? image;
 
@@ -281,6 +301,7 @@ class Firebase {
       First_name: firstname,
       Last_name: lastname,
       username: username,
+      email: email,
       institutionid: institutionId,
       degreeid: degreeId,
       yearofStudy: yearofStudy,

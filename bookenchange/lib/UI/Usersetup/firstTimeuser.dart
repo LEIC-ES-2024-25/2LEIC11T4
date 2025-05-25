@@ -203,6 +203,7 @@ void initState() {
                                     firstname: firstname.text.trim(),
                                     lastname: lastname.text.trim(),
                                     username: username.text.trim(),
+                                    email: email.text.trim(),
                                     institution: universityCollege!,
                                     degree: degree!,
                                     yearofStudy: year!,

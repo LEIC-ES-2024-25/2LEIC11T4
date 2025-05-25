@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Users {
 
- String get First_name; String get Last_name; String get username; String get institutionid; String get degreeid; int get yearofStudy; String? get profileImageUrl;
+ String get First_name; String get Last_name; String get username; String get email; String get institutionid; String get degreeid; int get yearofStudy; String? get profileImageUrl;
 /// Create a copy of Users
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $UsersCopyWith<Users> get copyWith => _$UsersCopyWithImpl<Users>(this as Users, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Users&&(identical(other.First_name, First_name) || other.First_name == First_name)&&(identical(other.Last_name, Last_name) || other.Last_name == Last_name)&&(identical(other.username, username) || other.username == username)&&(identical(other.institutionid, institutionid) || other.institutionid == institutionid)&&(identical(other.degreeid, degreeid) || other.degreeid == degreeid)&&(identical(other.yearofStudy, yearofStudy) || other.yearofStudy == yearofStudy)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Users&&(identical(other.First_name, First_name) || other.First_name == First_name)&&(identical(other.Last_name, Last_name) || other.Last_name == Last_name)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.institutionid, institutionid) || other.institutionid == institutionid)&&(identical(other.degreeid, degreeid) || other.degreeid == degreeid)&&(identical(other.yearofStudy, yearofStudy) || other.yearofStudy == yearofStudy)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,First_name,Last_name,username,institutionid,degreeid,yearofStudy,profileImageUrl);
+int get hashCode => Object.hash(runtimeType,First_name,Last_name,username,email,institutionid,degreeid,yearofStudy,profileImageUrl);
 
 @override
 String toString() {
-  return 'Users(First_name: $First_name, Last_name: $Last_name, username: $username, institutionid: $institutionid, degreeid: $degreeid, yearofStudy: $yearofStudy, profileImageUrl: $profileImageUrl)';
+  return 'Users(First_name: $First_name, Last_name: $Last_name, username: $username, email: $email, institutionid: $institutionid, degreeid: $degreeid, yearofStudy: $yearofStudy, profileImageUrl: $profileImageUrl)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $UsersCopyWith<$Res>  {
   factory $UsersCopyWith(Users value, $Res Function(Users) _then) = _$UsersCopyWithImpl;
 @useResult
 $Res call({
- String First_name, String Last_name, String username, String institutionid, String degreeid, int yearofStudy, String? profileImageUrl
+ String First_name, String Last_name, String username, String email, String institutionid, String degreeid, int yearofStudy, String? profileImageUrl
 });
 
 
@@ -66,11 +66,12 @@ class _$UsersCopyWithImpl<$Res>
 
 /// Create a copy of Users
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? First_name = null,Object? Last_name = null,Object? username = null,Object? institutionid = null,Object? degreeid = null,Object? yearofStudy = null,Object? profileImageUrl = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? First_name = null,Object? Last_name = null,Object? username = null,Object? email = null,Object? institutionid = null,Object? degreeid = null,Object? yearofStudy = null,Object? profileImageUrl = freezed,}) {
   return _then(_self.copyWith(
 First_name: null == First_name ? _self.First_name : First_name // ignore: cast_nullable_to_non_nullable
 as String,Last_name: null == Last_name ? _self.Last_name : Last_name // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,institutionid: null == institutionid ? _self.institutionid : institutionid // ignore: cast_nullable_to_non_nullable
 as String,degreeid: null == degreeid ? _self.degreeid : degreeid // ignore: cast_nullable_to_non_nullable
 as String,yearofStudy: null == yearofStudy ? _self.yearofStudy : yearofStudy // ignore: cast_nullable_to_non_nullable
@@ -86,12 +87,13 @@ as String?,
 @JsonSerializable()
 
 class _Users implements Users {
-  const _Users({required this.First_name, required this.Last_name, required this.username, required this.institutionid, required this.degreeid, required this.yearofStudy, this.profileImageUrl});
+  const _Users({required this.First_name, required this.Last_name, required this.username, required this.email, required this.institutionid, required this.degreeid, required this.yearofStudy, this.profileImageUrl});
   factory _Users.fromJson(Map<String, dynamic> json) => _$UsersFromJson(json);
 
 @override final  String First_name;
 @override final  String Last_name;
 @override final  String username;
+@override final  String email;
 @override final  String institutionid;
 @override final  String degreeid;
 @override final  int yearofStudy;
@@ -110,16 +112,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Users&&(identical(other.First_name, First_name) || other.First_name == First_name)&&(identical(other.Last_name, Last_name) || other.Last_name == Last_name)&&(identical(other.username, username) || other.username == username)&&(identical(other.institutionid, institutionid) || other.institutionid == institutionid)&&(identical(other.degreeid, degreeid) || other.degreeid == degreeid)&&(identical(other.yearofStudy, yearofStudy) || other.yearofStudy == yearofStudy)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Users&&(identical(other.First_name, First_name) || other.First_name == First_name)&&(identical(other.Last_name, Last_name) || other.Last_name == Last_name)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.institutionid, institutionid) || other.institutionid == institutionid)&&(identical(other.degreeid, degreeid) || other.degreeid == degreeid)&&(identical(other.yearofStudy, yearofStudy) || other.yearofStudy == yearofStudy)&&(identical(other.profileImageUrl, profileImageUrl) || other.profileImageUrl == profileImageUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,First_name,Last_name,username,institutionid,degreeid,yearofStudy,profileImageUrl);
+int get hashCode => Object.hash(runtimeType,First_name,Last_name,username,email,institutionid,degreeid,yearofStudy,profileImageUrl);
 
 @override
 String toString() {
-  return 'Users(First_name: $First_name, Last_name: $Last_name, username: $username, institutionid: $institutionid, degreeid: $degreeid, yearofStudy: $yearofStudy, profileImageUrl: $profileImageUrl)';
+  return 'Users(First_name: $First_name, Last_name: $Last_name, username: $username, email: $email, institutionid: $institutionid, degreeid: $degreeid, yearofStudy: $yearofStudy, profileImageUrl: $profileImageUrl)';
 }
 
 
@@ -130,7 +132,7 @@ abstract mixin class _$UsersCopyWith<$Res> implements $UsersCopyWith<$Res> {
   factory _$UsersCopyWith(_Users value, $Res Function(_Users) _then) = __$UsersCopyWithImpl;
 @override @useResult
 $Res call({
- String First_name, String Last_name, String username, String institutionid, String degreeid, int yearofStudy, String? profileImageUrl
+ String First_name, String Last_name, String username, String email, String institutionid, String degreeid, int yearofStudy, String? profileImageUrl
 });
 
 
@@ -147,11 +149,12 @@ class __$UsersCopyWithImpl<$Res>
 
 /// Create a copy of Users
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? First_name = null,Object? Last_name = null,Object? username = null,Object? institutionid = null,Object? degreeid = null,Object? yearofStudy = null,Object? profileImageUrl = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? First_name = null,Object? Last_name = null,Object? username = null,Object? email = null,Object? institutionid = null,Object? degreeid = null,Object? yearofStudy = null,Object? profileImageUrl = freezed,}) {
   return _then(_Users(
 First_name: null == First_name ? _self.First_name : First_name // ignore: cast_nullable_to_non_nullable
 as String,Last_name: null == Last_name ? _self.Last_name : Last_name // ignore: cast_nullable_to_non_nullable
 as String,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,institutionid: null == institutionid ? _self.institutionid : institutionid // ignore: cast_nullable_to_non_nullable
 as String,degreeid: null == degreeid ? _self.degreeid : degreeid // ignore: cast_nullable_to_non_nullable
 as String,yearofStudy: null == yearofStudy ? _self.yearofStudy : yearofStudy // ignore: cast_nullable_to_non_nullable
