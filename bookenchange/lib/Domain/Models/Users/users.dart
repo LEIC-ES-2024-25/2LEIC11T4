@@ -9,6 +9,7 @@ abstract class Users with _$Users {
     required String First_name,
     required String Last_name,
     required String username,
+    required String email,
     required String institutionid,
     required String degreeid,
     required int yearofStudy,
