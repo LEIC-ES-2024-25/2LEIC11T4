@@ -56,12 +56,26 @@ class _dropdownSearchState extends State<dropdownSearch> {
               text: searchEntry,
             );
             return TextButton(
-              onPressed:
-                  () async => {
-                    await widget.add(controller.text.trim()),
+              onPressed: () async {
+                    final newValue = controller.text.trim();
+                    await widget.add(newValue);
+
+                    widget.onChanged(newValue);
+
+                    Navigator.of(context).pop();
+
+                    await Future.delayed(const Duration(milliseconds: 300));
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('"$newValue" has been added.'),
+                        backgroundColor: Colors.green,
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
                     setState(() {
-                      widget.selected = controller.text.trim();
-                    }),
+                      widget.selected = newValue;
+                    });
                   },
               child: Text(
                 S.of(context).add_new,
