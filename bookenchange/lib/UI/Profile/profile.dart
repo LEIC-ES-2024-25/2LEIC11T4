@@ -269,15 +269,32 @@ class _ProfilePageState extends State<ProfilePage> {
                                          String errorMessage;
                                         switch(e.code) {
                                           case 'requires-recent-login':
-                                            Future.delayed(const Duration(seconds: 4), () {
-                                              firebase.logout(context);
-                                            }); 
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                content: Text('Please sign in again to update your email. Redirecting you to login screen...'),
-                                                backgroundColor: Colors.red,
-                                              ),
-                                            );
+                                            final reauthSuccess = await firebase.reauthenticateUser(context);
+                                            if (reauthSuccess) {
+                                              try {
+                                                 await firebase.auth.currentUser?.verifyBeforeUpdateEmail(newEmail);
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text('Verification email sent to $newEmail. Please verify it.'),
+                                                    backgroundColor: Colors.green,
+                                                  ),
+                                                );
+                                              } on FirebaseAuthException catch (e) {
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text('Failed to update email: ${e.message}'),
+                                                    backgroundColor: Colors.red,
+                                                  ),
+                                                );
+                                              }
+                                            } else {  
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                  content: Text('Error updating email: ${e.message}'),
+                                                  backgroundColor: Colors.red,
+                                                ),
+                                              );     
+                                            }
                                           return;
                                           case 'invalid-email':
                                             errorMessage = 'The email address is badly formatted.';

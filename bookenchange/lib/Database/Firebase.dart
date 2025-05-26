@@ -160,6 +160,81 @@ class Firebase {
     }
   }
 
+  Future<String?> showPasswordDialog(BuildContext context) async {
+    final TextEditingController passwordController = TextEditingController();
+    return showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: const Text('Re-enter Password'),
+        content: TextField(
+          controller: passwordController,
+          obscureText: true,
+          decoration: const InputDecoration(
+            labelText: 'Password',
+            hintText: 'Enter your password',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(null), // Cancel
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop(passwordController.text.trim());
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<bool> reauthenticateUser(BuildContext context) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user?.email == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No email found for current user.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+
+    final password = await showPasswordDialog(context);
+    if (password == null || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Re-authentication cancelled.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+
+    final credential = EmailAuthProvider.credential(
+      email: user!.email!,
+      password: password,
+    );
+
+    try {
+      await user.reauthenticateWithCredential(credential);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Re-authentication failed: ${e.message}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
+
+
+
   Future<void> deleteAccount(BuildContext context) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
@@ -196,23 +271,31 @@ class Firebase {
       }
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
-        String errorMessage = 'Error deleting account.';
         if (e.code == 'requires-recent-login') {
-          errorMessage =
-              'This operation is sensitive and requires recent authentication. Redirecting to login screen...';
-
-          Future.delayed(const Duration(seconds: 2), () {
-            Firebase.instance.logout(context);
-          });
-          // You might want to redirect the user to the login screen here
+          bool reauthSuccess = await reauthenticateUser(context);
+          if (reauthSuccess) {
+            await deleteAccount(context); // Retry after re-authentication
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: Colors.redAccent,
+                content: Text('Re-authentication failed. Account not deleted.'),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
         }
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.redAccent,
-            content: Text(errorMessage),
-            behavior: SnackBarBehavior.floating,
-          ),
-        );
+          
+      } else {
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.redAccent,
+              content: Text('Error deleting account: ${e.message}'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        
       }
     } catch (e) {
       if (context.mounted) {
@@ -229,7 +312,7 @@ class Firebase {
     }
   }
 
-      Future<bool> isEmailTaken(String email, {String? excludeUserId}) async {
+    Future<bool> isEmailTaken(String email, {String? excludeUserId}) async {
     final query = db
         .collection('users')
         .where('email', isEqualTo: email);
