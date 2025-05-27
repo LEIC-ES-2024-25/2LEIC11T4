@@ -55,7 +55,7 @@ dependencies:
   permission_handler: ^12.0.0+1
   file_picker: ^10.1.9
   dropdown_search: ^6.0.2
-  uuid: ^3.0.6
+  uuid: ^4.1.0
 
 
 
@@ -71,6 +71,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  mockito: ^5.4.6
+  firebase_auth_mocks: ^0.14.1
   build_runner: ^2.4.15
   intl_utils: ^2.0.0
   freezed: ^3.0.4

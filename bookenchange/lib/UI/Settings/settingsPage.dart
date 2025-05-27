@@ -78,7 +78,7 @@ class SettingsPage extends StatefulWidget {
             ),
 
             // Foreground content
-            Column(
+            ListView(
               children: [
                 const SizedBox(height: 20),
 
@@ -135,7 +135,8 @@ class SettingsPage extends StatefulWidget {
                 ),
                 
               ],
-            ),
+            )
+            
           ],
         ),
       ),
