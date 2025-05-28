@@ -200,7 +200,7 @@ class SettingsPage extends StatefulWidget {
                     return AlertDialog(
                       title: const Text('Delete Account?'),
                       content: const Text(
-                        'Are you sure you want to permanently delete your account? This action cannot be undone.',
+                        'Are you sure you want to permanently delete your account? Even if you need to reauthenticate, by that time your data will already be deleted. This action cannot be undone.',
                       ),
                       actions: <Widget>[
                         TextButton(
@@ -245,10 +245,12 @@ class SettingsPage extends StatefulWidget {
                           TextButton(
                             onPressed: () async {
                               Navigator.pop(context);
-                              await user?.sendEmailVerification();
+
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Verification email sent to ${user?.email}")),
+                                const SnackBar(content: Text("Verification email sent")),
                               );
+
+                              await user?.sendEmailVerification();
                             },
                             child: const Text("Send"),
                           ),

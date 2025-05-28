@@ -233,9 +233,7 @@ class Firebase {
     }
   }
 
-
-
-  Future<void> deleteAccount(BuildContext context) async {
+    Future<void> deleteAccount(BuildContext context) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
 
@@ -311,6 +309,7 @@ class Firebase {
       }
     }
   }
+
 
     Future<bool> isEmailTaken(String email, {String? excludeUserId}) async {
     final query = db
@@ -400,9 +399,50 @@ class Firebase {
   Future<void> deleteUserData(String uid) async {
     try {
       await FirebaseFirestore.instance.collection('users').doc(uid).delete();
-      // You could also delete user uploads from Firebase Storage here if applicable
+      await deleteUserChats(uid);
+      await deleteUserContributions(uid);
+
     } catch (e) {
       throw Exception('Failed to delete user data: $e');
+    }
+  }
+
+  Future<void> deleteUserContributions(String uid) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+        .collection('contributions')
+        .where('iduser', isEqualTo: uid)
+        .get();
+
+      for (var doc in querySnapshot.docs) {
+        await FirebaseFirestore.instance
+          .collection('contributions')
+          .doc(doc.id)
+          .delete();
+      }
+    } catch (e) {
+      throw Exception('Failed to delete user contributions: $e');
+    }
+  }
+
+  Future<void> deleteUserChats(String uid) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance  
+        .collection('chats')
+        .where('participants', arrayContains: uid)
+        .get();
+
+      for (var doc in querySnapshot.docs) {
+        final messageSnapshot = await doc.reference.collection('messages').get();
+
+        for (var msgdoc in messageSnapshot.docs) {
+          await msgdoc.reference.delete();
+        }
+
+        await doc.reference.delete();
+      }
+    } catch (e) {
+      throw Exception('Failed to delete user chats: $e');
     }
   }
 
