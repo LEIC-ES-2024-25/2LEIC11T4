@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'Profile/profileView.dart';
+import '../Profile/profileView.dart';
 
 class ChatPage extends StatefulWidget {
   final String chatId; // Unique ID for the chat

@@ -7,7 +7,7 @@ import 'package:bookenchange/Logic/Navigation/navigation.dart';
 import 'package:bookenchange/Logic/Navigation/transitions.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../ChatHub.dart';
+import '../Chat/ChatHub.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
