@@ -32,6 +32,10 @@
       
 5.[Happiness meter](#happiness-meter)
 
+6.[Final Delivery](#final-delivery)
+  *[Tests](#tests)
+  *[Fixed Bugs](#fixed-bugs)
+
 6.[Authors](#authors)
    
 ---
@@ -155,7 +159,7 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 - Change password - widget tests
 - Instructions
   Flutter test
-### Bug Fixes
+### Fixed Bugs
 - Better user experience
 - User feedback on all database related functions
 - Null bug fixed (on new contribution)
