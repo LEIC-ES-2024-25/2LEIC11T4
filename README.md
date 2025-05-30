@@ -36,7 +36,7 @@
   * [Tests](#tests)
   * [Fixed Bugs](#fixed-bugs)
 
-6.[Authors](#authors)
+7.[Authors](#authors)
    
 ---
 
