@@ -33,10 +33,10 @@
 5.[Happiness meter](#happiness-meter)
 
 6.[Final Delivery](#final-delivery)
-  *[Tests](#tests)
-  *[Fixed Bugs](#fixed-bugs)
+  * [Tests](#tests)
+  * [Fixed Bugs](#fixed-bugs)
 
-6.[Authors](#authors)
+7.[Authors](#authors)
    
 ---
 
