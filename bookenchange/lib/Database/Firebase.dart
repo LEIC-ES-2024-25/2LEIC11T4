@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Firebase {
-  static final Firebase _instance = Firebase();
+  static Firebase instance = Firebase();
   final api = openLibrary();
   final FirebaseFirestore db;
   final Reference storageRef;
@@ -24,7 +24,6 @@ class Firebase {
     : db = FirebaseFirestore.instance,
       storageRef = FirebaseStorage.instance.ref();
 
-  static Firebase get instance => _instance;
   //search book by isbn if not yet present in the firebase  it should make a call to api
   Future<Book> getBookByISBN(String isbn) async {
     final fetchedBook = await api.fetchBookByISBN(isbn);

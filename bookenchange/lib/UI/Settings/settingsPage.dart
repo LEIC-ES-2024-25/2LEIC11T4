@@ -88,7 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
 
             // Foreground content
-            Column(
+            ListView(
               children: [
                 const SizedBox(height: 20),
 
@@ -149,7 +149,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   context,
                 ),
               ],
-            ),
+            )
+            
           ],
         ),
       ),
