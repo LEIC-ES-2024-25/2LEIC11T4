@@ -1,4 +1,4 @@
-import 'package:bookexchange/UI/Chat.dart';
+import 'package:bookexchange/UI/Chat/Chat.dart';
 import 'package:bookexchange/UI/NewContribution/newContribution.dart';
 import 'package:bookexchange/UI/Profile/profile.dart';
 import 'package:bookexchange/UI/Settings/changePassword.dart';
@@ -6,12 +6,11 @@ import 'package:bookexchange/UI/Usersetup/firstTimeuser.dart';
 import 'package:bookexchange/UI/ForgotPassword/forgotPassword.dart';
 import 'package:bookexchange/UI/Homepage/homePage.dart';
 import 'package:bookexchange/UI/Settings/settingsPage.dart';
-import 'package:bookexchange/UI/NewContribution.dart';
 import 'package:bookexchange/UI/Settings/previousContributions.dart';
 import 'package:flutter/material.dart';
 import 'package:bookexchange/UI/Profile/profileView.dart';
 
-import '../../UI/ChatHub.dart';
+import '../../UI/Chat/ChatHub.dart';
 
 enum Navigation {
   home(MyHomePage()),

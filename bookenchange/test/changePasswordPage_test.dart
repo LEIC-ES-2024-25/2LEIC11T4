@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:bookenchange/generated/l10n.dart';
+import 'package:bookexchange/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:bookenchange/UI/Settings/changePassword.dart';
+import 'package:bookexchange/UI/Settings/changePassword.dart';
 
 void main() {
   late MockFirebaseAuth mockAuth;
