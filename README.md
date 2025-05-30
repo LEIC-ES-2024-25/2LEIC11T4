@@ -150,8 +150,23 @@ With this we hope to achieve the following two of the [UN Sustainable Developmen
 ### Sprint retrospective
 - We worked together on this final stage to complement each other tasks and integrate them in the final product.
 
+## Final Delivery
+### Tests
+- Change password - widget tests
+- Instructions
+  Flutter test
+### Bug Fixes
+- Better user experience
+- User feedback on all database related functions
+- Null bug fixed (on new contribution)
+- On deleting account all the related data gets deleted
+- UI adjusted (especially, new chat UI, color pattern)
+- Language adjustments (intl)
+- Name fixed
+
 ## Happiness meter
 [2LEIC11T4.xlsx](https://github.com/user-attachments/files/20041230/2LEIC11T4.xlsx)
+
 ---
  ## Authors
  Project developed by Belém Bilhoto, Guilherme Linhares, João Marques and José Reis
