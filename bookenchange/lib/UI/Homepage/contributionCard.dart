@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-    import 'package:bookenchange/UI/ContributionPage/contributionPage.dart';
+    import 'package:bookexchange/UI/ContributionPage/contributionPage.dart';
 
     class ContributionCard extends StatelessWidget {
       const ContributionCard({

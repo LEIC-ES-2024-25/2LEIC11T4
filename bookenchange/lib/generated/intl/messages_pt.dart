@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "current_year": MessageLookupByLibrary.simpleMessage("Ano curricular"),
     "degree": MessageLookupByLibrary.simpleMessage("Curso"),
+    "delete_account": MessageLookupByLibrary.simpleMessage("Apagar conta"),
     "description": MessageLookupByLibrary.simpleMessage("Descrição"),
     "description_hint": MessageLookupByLibrary.simpleMessage(
       "ex. Livro de Algoritmos, 2ª Edição",
@@ -70,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "isbn": MessageLookupByLibrary.simpleMessage("ISBN"),
     "last_name": MessageLookupByLibrary.simpleMessage("Último nome"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "logout": MessageLookupByLibrary.simpleMessage("Log out"),
     "new_contribution": MessageLookupByLibrary.simpleMessage(
       "Nova Contribuição",
     ),
@@ -138,6 +140,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "username": MessageLookupByLibrary.simpleMessage("Nome de utilizador"),
     "value": MessageLookupByLibrary.simpleMessage("Valor"),
+    "verified": MessageLookupByLibrary.simpleMessage("Email verificado"),
+    "verify_email": MessageLookupByLibrary.simpleMessage("Verifique Email"),
     "weak_password": MessageLookupByLibrary.simpleMessage(
       "Palavra-passe fraca",
     ),

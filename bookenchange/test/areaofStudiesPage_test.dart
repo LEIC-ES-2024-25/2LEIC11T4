@@ -1,8 +1,8 @@
-import 'package:bookenchange/UI/NewContribution/areaofStudiesPage.dart';
-import 'package:bookenchange/UI/NewContribution.dart';
+import 'package:bookexchange/UI/NewContribution/areaofStudiesPage.dart';
+import 'package:bookexchange/UI/NewContribution.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bookenchange/generated/l10n.dart'; // Import your localization class
+import 'package:bookexchange/generated/l10n.dart'; // Import your localization class
 import 'package:flutter_localizations/flutter_localizations.dart'; // Import localization delegates
 
 void main() {

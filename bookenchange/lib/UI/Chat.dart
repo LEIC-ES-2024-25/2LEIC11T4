@@ -42,7 +42,7 @@ class _ChatPageState extends State<ChatPage> {
     final otherUserId = widget.participants.firstWhere((id) => id != currentUserId, orElse: () => '');
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
 
-    return Scaffold(
+    return SafeArea(child:Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -196,6 +196,7 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ],
       ),
+    ),
     );
   }
 }

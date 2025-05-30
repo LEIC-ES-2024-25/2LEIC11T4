@@ -114,6 +114,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get save => 'Guardar perfil';
 
   @override
+  String get delete_account => 'Apagar conta';
+
+  @override
   String get password_changed_successfully =>
       'Palavra-passe alterada com sucesso';
 
@@ -197,5 +200,14 @@ class AppLocalizationsPt extends AppLocalizations {
   String get invalid_credential => 'Credenciais inválidas. Tente novamente.';
 
   @override
+  String get verified => 'Email verificado';
+
+  @override
+  String get verify_email => 'Verifique Email';
+
+  @override
   String get new_password_too_weak => 'A nova palavra-passe é muito fraca.';
+
+  @override
+  String get logout => 'Log out';
 }

@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/Logic/Navigation/navigation.dart';
-import 'package:bookenchange/Logic/Navigation/transitions.dart';
-import 'package:bookenchange/UI/NewContribution/normalfields.dart';
-import 'package:bookenchange/generated/l10n.dart';
+import 'package:bookexchange/Database/Firebase.dart';
+import 'package:bookexchange/Logic/Navigation/navigation.dart';
+import 'package:bookexchange/Logic/Navigation/transitions.dart';
+import 'package:bookexchange/UI/NewContribution/normalfields.dart';
+import 'package:bookexchange/generated/l10n.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart' as picker;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:bookenchange/Domain/Models/Book/book.dart';
+import 'package:bookexchange/Domain/Models/Book/book.dart';
 import 'package:uuid/uuid.dart';
 
 class newContribution extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/Domain/Models/Contributions/contribution.dart';
-import 'package:bookenchange/UI/Homepage/contributionCard.dart';
+import 'package:bookexchange/Database/Firebase.dart';
+import 'package:bookexchange/Domain/Models/Contributions/contribution.dart';
+import 'package:bookexchange/UI/Homepage/contributionCard.dart';
 
 import '../ContributionPage/contributionPage.dart';
 

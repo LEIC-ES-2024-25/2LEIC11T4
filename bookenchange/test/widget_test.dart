@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:bookenchange/generated/l10n.dart';
-import 'package:bookenchange/main.dart';
+import 'package:bookexchange/generated/l10n.dart';
+import 'package:bookexchange/main.dart';
 
 void main() {
   testWidgets('App starts with an AppBar', (WidgetTester tester) async {

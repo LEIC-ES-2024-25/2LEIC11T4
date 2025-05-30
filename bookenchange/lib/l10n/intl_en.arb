@@ -49,7 +49,7 @@
   "not_found": "User not found",
   "add_new": "Add new option",
   "save": "Save profile",
-
+  "delete_account":"Delete Account",
   "password_changed_successfully": "Password changed successfully",
   "@password_changed_successfully": {},
   "change_password_failed": "Change password failed",
@@ -94,7 +94,9 @@
 
   "invalid_credential": "Invalid credentials. Please try again.",
   "@invalid_credential": {},
-
+  "verified":"Email Verified",
+  "verify_email":"Verify Email",
   "new_password_too_weak": "The new password is too weak.",
-  "@new_password_too_weak": {}
+  "@new_password_too_weak": {},
+  "logout":"Log out"
 }

@@ -308,6 +308,12 @@ abstract class AppLocalizations {
   /// **'Save profile'**
   String get save;
 
+  /// No description provided for @delete_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get delete_account;
+
   /// No description provided for @password_changed_successfully.
   ///
   /// In en, this message translates to:
@@ -464,11 +470,29 @@ abstract class AppLocalizations {
   /// **'Invalid credentials. Please try again.'**
   String get invalid_credential;
 
+  /// No description provided for @verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Verified'**
+  String get verified;
+
+  /// No description provided for @verify_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify Email'**
+  String get verify_email;
+
   /// No description provided for @new_password_too_weak.
   ///
   /// In en, this message translates to:
   /// **'The new password is too weak.'**
   String get new_password_too_weak;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get logout;
 }
 
 class _AppLocalizationsDelegate

@@ -9,10 +9,10 @@
 -DCMAKE_ANDROID_NDK=/home/jose-b-reis/Android/Sdk/ndk/26.3.11579264
 -DCMAKE_TOOLCHAIN_FILE=/home/jose-b-reis/Android/Sdk/ndk/26.3.11579264/build/cmake/android.toolchain.cmake
 -DCMAKE_MAKE_PROGRAM=/home/jose-b-reis/Android/Sdk/cmake/3.22.1/bin/ninja
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/jose-b-reis/repos/2LEIC11T4/bookenchange/build/app/intermediates/cxx/Debug/2x5uh536/obj/x86
--DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/home/jose-b-reis/repos/2LEIC11T4/bookenchange/build/app/intermediates/cxx/Debug/2x5uh536/obj/x86
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/jose-b-reis/repos/2LEIC11T4/bookexchange/build/app/intermediates/cxx/Debug/2x5uh536/obj/x86
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/home/jose-b-reis/repos/2LEIC11T4/bookexchange/build/app/intermediates/cxx/Debug/2x5uh536/obj/x86
 -DCMAKE_BUILD_TYPE=Debug
--B/home/jose-b-reis/repos/2LEIC11T4/bookenchange/android/app/.cxx/Debug/2x5uh536/x86
+-B/home/jose-b-reis/repos/2LEIC11T4/bookexchange/android/app/.cxx/Debug/2x5uh536/x86
 -GNinja
 -Wno-dev
 --no-warn-unused-cli

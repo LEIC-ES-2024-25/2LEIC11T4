@@ -1,5 +1,5 @@
-import 'package:bookenchange/Logic/Navigation/navigation.dart';
-import 'package:bookenchange/generated/l10n.dart';
+import 'package:bookexchange/Logic/Navigation/navigation.dart';
+import 'package:bookexchange/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

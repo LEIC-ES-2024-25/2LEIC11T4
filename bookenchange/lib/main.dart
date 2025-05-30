@@ -1,5 +1,5 @@
-import 'package:bookenchange/UI/Login/logIn.dart';
-import 'package:bookenchange/UI/Settings/settingsPage.dart';
+import 'package:bookexchange/UI/Login/logIn.dart';
+import 'package:bookexchange/UI/Settings/settingsPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'UI/Homepage/homePage.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
-import 'package:bookenchange/Logic/Authentication.dart';
+import 'package:bookexchange/Logic/Authentication.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

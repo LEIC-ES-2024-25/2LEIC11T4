@@ -1,2 +1,2 @@
-C:/test/2LEIC11T4/bookenchange/android/app/.cxx/Debug/723x626d/x86/CMakeFiles/edit_cache.dir
-C:/test/2LEIC11T4/bookenchange/android/app/.cxx/Debug/723x626d/x86/CMakeFiles/rebuild_cache.dir
+C:/test/2LEIC11T4/bookexchange/android/app/.cxx/Debug/723x626d/x86/CMakeFiles/edit_cache.dir
+C:/test/2LEIC11T4/bookexchange/android/app/.cxx/Debug/723x626d/x86/CMakeFiles/rebuild_cache.dir

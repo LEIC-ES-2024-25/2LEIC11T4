@@ -1,4 +1,4 @@
-package com.example.bookenchange
+package com.example.bookexchange
 
 import io.flutter.embedding.android.FlutterActivity
 

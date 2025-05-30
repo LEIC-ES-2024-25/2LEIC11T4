@@ -1,6 +1,6 @@
 {
-    "name": "bookenchange",
-    "short_name": "bookenchange",
+    "name": "bookexchange",
+    "short_name": "bookexchange",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

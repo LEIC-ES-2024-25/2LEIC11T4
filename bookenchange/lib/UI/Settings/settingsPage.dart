@@ -1,18 +1,28 @@
-import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/generated/l10n.dart';
+import 'package:bookexchange/Database/Firebase.dart';
+import 'package:bookexchange/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:bookenchange/Logic/Navigation/navigation.dart';
-import 'package:bookenchange/Logic/Navigation/transitions.dart';
+import 'package:bookexchange/Logic/Navigation/navigation.dart';
+import 'package:bookexchange/Logic/Navigation/transitions.dart';
 
+Map<String, String> getSettings(BuildContext context) {
+  return {
+    'Previous Contributions': S.of(context).previous_contributions,
+    'Change Password': S.of(context).change_password,
+    'Log out': S.of(context).logout,
+    'Delete Account': S.of(context).delete_account,
+    'Verify Email': S.of(context).verify_email,
+    'Verified': S.of(context).verified,
+  };
+}
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
-  }
+}
 
-  class _SettingsPageState extends State<SettingsPage> {
+class _SettingsPageState extends State<SettingsPage> {
   String? profileImgUrl;
   bool isEmailVerified = false;
 
@@ -71,14 +81,14 @@ class SettingsPage extends StatefulWidget {
                 Container(height: 160, color: Colors.white),
                 Expanded(
                   child: Container(
-                    color: const Color(0xFFB0D9E8), // slightly darker soft blue
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ],
             ),
 
             // Foreground content
-            ListView(
+            Column(
               children: [
                 const SizedBox(height: 20),
 
@@ -94,12 +104,19 @@ class SettingsPage extends StatefulWidget {
                         CircleAvatar(
                           radius: 50,
                           backgroundColor:
-                              Theme.of(context).colorScheme.secondary,
-                          backgroundImage: profileImgUrl != null && profileImgUrl!.isNotEmpty
+                          Theme.of(context).colorScheme.secondary,
+                          backgroundImage:
+                          profileImgUrl != null && profileImgUrl!.isNotEmpty
                               ? NetworkImage(profileImgUrl!)
                               : null,
-                          child: profileImgUrl == null || profileImgUrl!.isEmpty
-                              ? Icon(Icons.person, size: 48, color: Theme.of(context).colorScheme.primary)
+                          child:
+                          profileImgUrl == null || profileImgUrl!.isEmpty
+                              ? Icon(
+                            Icons.person,
+                            size: 48,
+                            color:
+                            Theme.of(context).colorScheme.primary,
+                          )
                               : null,
                         ),
                       ],
@@ -112,28 +129,25 @@ class SettingsPage extends StatefulWidget {
                 // Settings Options
                 _buildSettingsOption(
                   Icons.chat_bubble_outline,
-                  "Previous Contributions",
+                  'Previous Contributions',
                   context,
                 ),
                 _buildSettingsOption(
                   Icons.lock_outline,
-                  "Change Password",
+                  'Change Password',
                   context,
                 ),
-                _buildSettingsOption(Icons.logout,
-                 "Log Out",
-                  context),
+                _buildSettingsOption(Icons.logout, 'Log out', context),
                 _buildSettingsOption(
                   Icons.delete_forever_outlined,
-                  "Delete Account",
+                  'Delete Account',
                   context,
                 ),
                 _buildSettingsOption(
                   isEmailVerified ? Icons.verified : Icons.verified_outlined,
-                  isEmailVerified ? "Email Verified" : "Verify Email",
+                  isEmailVerified ? 'Verified' : 'Verify Email',
                   context,
                 ),
-                
               ],
             ),
           ],
@@ -143,18 +157,19 @@ class SettingsPage extends StatefulWidget {
   }
 
   Widget _buildSettingsOption(
-    IconData icon,
-    String title,
-    BuildContext context,
-  ) {
+      IconData icon,
+      String name,
+      BuildContext context,
+      ) {
     final theme = Theme.of(context);
+    final settings = getSettings(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Container(
         decoration: BoxDecoration(
-          color: theme.colorScheme.surface.withOpacity(
-            0.9,
+          color: theme.colorScheme.surface.withAlpha(
+            229,
           ), // Slight transparency
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.grey.shade200),
@@ -169,15 +184,15 @@ class SettingsPage extends StatefulWidget {
 
         child: ListTile(
           leading: Icon(icon, color: theme.colorScheme.primary),
-          title: Text(title, style: theme.textTheme.bodyMedium),
+          title: Text(settings[name]!, style: theme.textTheme.bodyMedium),
           trailing: Icon(
             Icons.arrow_forward_ios,
             size: 16,
             color: theme.colorScheme.primary,
           ),
           onTap: () async {
-            switch (title) {
-              case "Log Out":
+            switch (name) {
+              case "Log out":
                 await Firebase.instance.logout(context);
                 break;
               case "Previous Contributions":
@@ -193,14 +208,13 @@ class SettingsPage extends StatefulWidget {
                 );
                 break;
               case "Delete Account":
-                // Show a confirmation dialog before deleting
                 showDialog<bool>(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: const Text('Delete Account?'),
                       content: const Text(
-                        'Are you sure you want to permanently delete your account? Even if you need to reauthenticate, by that time your data will already be deleted. This action cannot be undone.',
+                        'Are you sure you want to permanently delete your account? This action cannot be undone.',
                       ),
                       actions: <Widget>[
                         TextButton(
@@ -217,14 +231,14 @@ class SettingsPage extends StatefulWidget {
                     );
                   },
                 ).then((shouldDelete) async {
-                  if (shouldDelete == true) {
+                  if (shouldDelete == true && context.mounted) {
                     await Firebase.instance.deleteAccount(context);
                   }
                 });
 
                 break;
+              case "Verified":
               case "Verify Email":
-              case "Email Verified":
                 if (isEmailVerified) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("Your email is already verified.")),
@@ -236,7 +250,9 @@ class SettingsPage extends StatefulWidget {
                     builder: (context) {
                       return AlertDialog(
                         title: const Text("Verify Your Email"),
-                        content: Text("Send a verification email to ${user?.email}?"),
+                        content: Text(
+                          "Send a verification email to ${user?.email}?",
+                        ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context),
@@ -245,24 +261,24 @@ class SettingsPage extends StatefulWidget {
                           TextButton(
                             onPressed: () async {
                               Navigator.pop(context);
-
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Verification email sent")),
-                              );
-
                               await user?.sendEmailVerification();
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Verification email sent to ${user?.email}",
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                             child: const Text("Send"),
                           ),
                         ],
                       );
                     },
-
                   );
                 }
-                 
-                break;
-              default:
                 break;
             }
           },

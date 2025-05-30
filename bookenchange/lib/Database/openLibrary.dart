@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:bookenchange/Domain/Models/Book/book.dart';
+import 'package:bookexchange/Domain/Models/Book/book.dart';
 
 class openLibrary {
   Future<Book> fetchBookByISBN(String isbn) async {

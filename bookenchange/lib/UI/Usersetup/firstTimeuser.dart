@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:bookenchange/Logic/Navigation/transitions.dart';
-import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/Logic/Navigation/navigation.dart';
-import 'package:bookenchange/UI/Usersetup/dropdownSearch.dart';
-import 'package:bookenchange/UI/Usersetup/normalDropdown.dart';
-import 'package:bookenchange/UI/Usersetup/simpleFormfields.dart';
+import 'package:bookexchange/Logic/Navigation/transitions.dart';
+import 'package:bookexchange/Database/Firebase.dart';
+import 'package:bookexchange/Logic/Navigation/navigation.dart';
+import 'package:bookexchange/UI/Usersetup/dropdownSearch.dart';
+import 'package:bookexchange/UI/Usersetup/normalDropdown.dart';
+import 'package:bookexchange/UI/Usersetup/simpleFormfields.dart';
 import 'package:flutter/material.dart';
-import 'package:bookenchange/generated/l10n.dart';
+import 'package:bookexchange/generated/l10n.dart';
 import 'package:file_picker/file_picker.dart' as picker;
 import 'package:permission_handler/permission_handler.dart';
 

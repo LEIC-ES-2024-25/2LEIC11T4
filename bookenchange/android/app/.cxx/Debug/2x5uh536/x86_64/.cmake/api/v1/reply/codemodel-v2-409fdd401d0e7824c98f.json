@@ -32,7 +32,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/jose-b-reis/repos/2LEIC11T4/bookenchange/android/app/.cxx/Debug/2x5uh536/x86_64",
+		"build" : "/home/jose-b-reis/repos/2LEIC11T4/bookexchange/android/app/.cxx/Debug/2x5uh536/x86_64",
 		"source" : "/home/jose-b-reis/snap/flutter/common/flutter/packages/flutter_tools/gradle/src/main/groovy"
 	},
 	"version" : 

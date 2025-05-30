@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:bookenchange/Database/Firebase.dart';
-import 'package:bookenchange/Domain/Models/Contributions/contribution.dart';
-import 'package:bookenchange/UI/Homepage/contributionCard.dart';
-import 'package:bookenchange/generated/l10n.dart';
-import 'package:bookenchange/Logic/Navigation/navigation.dart';
-import 'package:bookenchange/Logic/Navigation/transitions.dart';
+import 'package:bookexchange/Database/Firebase.dart';
+import 'package:bookexchange/Domain/Models/Contributions/contribution.dart';
+import 'package:bookexchange/UI/Homepage/contributionCard.dart';
+import 'package:bookexchange/generated/l10n.dart';
+import 'package:bookexchange/Logic/Navigation/navigation.dart';
+import 'package:bookexchange/Logic/Navigation/transitions.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../ChatHub.dart';

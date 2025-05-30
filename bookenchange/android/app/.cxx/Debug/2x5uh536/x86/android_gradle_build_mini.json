@@ -6,14 +6,14 @@
     [
       "/home/jose-b-reis/Android/Sdk/cmake/3.22.1/bin/ninja",
       "-C",
-      "/home/jose-b-reis/repos/2LEIC11T4/bookenchange/android/app/.cxx/Debug/2x5uh536/x86",
+      "/home/jose-b-reis/repos/2LEIC11T4/bookexchange/android/app/.cxx/Debug/2x5uh536/x86",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
     "/home/jose-b-reis/Android/Sdk/cmake/3.22.1/bin/ninja",
     "-C",
-    "/home/jose-b-reis/repos/2LEIC11T4/bookenchange/android/app/.cxx/Debug/2x5uh536/x86",
+    "/home/jose-b-reis/repos/2LEIC11T4/bookexchange/android/app/.cxx/Debug/2x5uh536/x86",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {}

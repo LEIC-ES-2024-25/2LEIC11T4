@@ -1,6 +1,6 @@
-import 'package:bookenchange/Logic/Authentication.dart';
-import 'package:bookenchange/UI/Login/Textfield.dart';
-import 'package:bookenchange/generated/l10n.dart';
+import 'package:bookexchange/Logic/Authentication.dart';
+import 'package:bookexchange/UI/Login/Textfield.dart';
+import 'package:bookexchange/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class forgotPassword extends StatelessWidget {

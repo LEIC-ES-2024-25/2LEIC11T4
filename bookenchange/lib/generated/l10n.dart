@@ -310,6 +310,16 @@ class S {
     return Intl.message('Save profile', name: 'save', desc: '', args: []);
   }
 
+  /// `Delete Account`
+  String get delete_account {
+    return Intl.message(
+      'Delete Account',
+      name: 'delete_account',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Password changed successfully`
   String get password_changed_successfully {
     return Intl.message(
@@ -540,6 +550,21 @@ class S {
     );
   }
 
+  /// `Email Verified`
+  String get verified {
+    return Intl.message('Email Verified', name: 'verified', desc: '', args: []);
+  }
+
+  /// `Verify Email`
+  String get verify_email {
+    return Intl.message(
+      'Verify Email',
+      name: 'verify_email',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `The new password is too weak.`
   String get new_password_too_weak {
     return Intl.message(
@@ -548,6 +573,11 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Log out`
+  String get logout {
+    return Intl.message('Log out', name: 'logout', desc: '', args: []);
   }
 }
 

@@ -1,15 +1,15 @@
-import 'package:bookenchange/UI/Chat.dart';
-import 'package:bookenchange/UI/NewContribution/newContribution.dart';
-import 'package:bookenchange/UI/Profile/profile.dart';
-import 'package:bookenchange/UI/Settings/changePassword.dart';
-import 'package:bookenchange/UI/Usersetup/firstTimeuser.dart';
-import 'package:bookenchange/UI/ForgotPassword/forgotPassword.dart';
-import 'package:bookenchange/UI/Homepage/homePage.dart';
-import 'package:bookenchange/UI/Settings/settingsPage.dart';
-import 'package:bookenchange/UI/NewContribution.dart';
-import 'package:bookenchange/UI/Settings/previousContributions.dart';
+import 'package:bookexchange/UI/Chat.dart';
+import 'package:bookexchange/UI/NewContribution/newContribution.dart';
+import 'package:bookexchange/UI/Profile/profile.dart';
+import 'package:bookexchange/UI/Settings/changePassword.dart';
+import 'package:bookexchange/UI/Usersetup/firstTimeuser.dart';
+import 'package:bookexchange/UI/ForgotPassword/forgotPassword.dart';
+import 'package:bookexchange/UI/Homepage/homePage.dart';
+import 'package:bookexchange/UI/Settings/settingsPage.dart';
+import 'package:bookexchange/UI/NewContribution.dart';
+import 'package:bookexchange/UI/Settings/previousContributions.dart';
 import 'package:flutter/material.dart';
-import 'package:bookenchange/UI/Profile/profileView.dart';
+import 'package:bookexchange/UI/Profile/profileView.dart';
 
 import '../../UI/ChatHub.dart';
 

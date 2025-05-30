@@ -1,7 +1,7 @@
-import 'package:bookenchange/UI/NewContribution.dart';
+import 'package:bookexchange/UI/NewContribution.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bookenchange/generated/l10n.dart';
+import 'package:bookexchange/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {

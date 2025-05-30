@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1025025923598',
     projectId: 'books-d12d3',
     storageBucket: 'books-d12d3.firebasestorage.app',
-    iosBundleId: 'com.example.bookenchange',
+    iosBundleId: 'com.example.bookexchange',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -73,7 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1025025923598',
     projectId: 'books-d12d3',
     storageBucket: 'books-d12d3.firebasestorage.app',
-    iosBundleId: 'com.example.bookenchange',
+    iosBundleId: 'com.example.bookexchange',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

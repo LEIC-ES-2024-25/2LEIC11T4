@@ -51,6 +51,7 @@
   "not_found": "Utilizador não encontrado",
   "add_new": "Adicionar opção",
   "save": "Guardar perfil",
+  "delete_account":"Apagar conta",
   "password_changed_successfully": "Palavra-passe alterada com sucesso",
   "@password_changed_successfully": {},
   "change_password_failed": "Falha ao alterar a palavra-passe",
@@ -96,8 +97,10 @@
 
   "invalid_credential": "Credenciais inválidas. Tente novamente.",
   "@invalid_credential": {},
-
+  "verified":"Email verificado",
+  "verify_email":"Verifique Email",
   "new_password_too_weak": "A nova palavra-passe é muito fraca.",
-  "@new_password_too_weak": {}
+  "@new_password_too_weak": {},
+  "logout":"Log out"
 
 }

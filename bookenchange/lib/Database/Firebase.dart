@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:bookenchange/Database/openLibrary.dart';
-import 'package:bookenchange/Domain/Models/Author/author.dart';
-import 'package:bookenchange/Domain/Models/Book/book.dart';
-import 'package:bookenchange/Domain/Models/degree/degree.dart';
-import 'package:bookenchange/Domain/Models/Users/users.dart';
-import 'package:bookenchange/Domain/Models/institution/institution.dart';
-import 'package:bookenchange/Logic/Authentication.dart';
-import 'package:bookenchange/UI/Login/logIn.dart';
+import 'package:bookexchange/Database/openLibrary.dart';
+import 'package:bookexchange/Domain/Models/Author/author.dart';
+import 'package:bookexchange/Domain/Models/Book/book.dart';
+import 'package:bookexchange/Domain/Models/degree/degree.dart';
+import 'package:bookexchange/Domain/Models/Users/users.dart';
+import 'package:bookexchange/Domain/Models/institution/institution.dart';
+import 'package:bookexchange/Logic/Authentication.dart';
+import 'package:bookexchange/UI/Login/logIn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
